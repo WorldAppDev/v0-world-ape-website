@@ -301,15 +301,6 @@ export default function ChartPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 mt-3">
-                  <span className="text-sm text-gray-400">Transaction Hash:</span>
-                  <a
-                    href="https://worldscan.org/tx/0x7078bedeb4cdd05bd1e0d9c530051c845046f4571396ccba49c3aaed476d7e5d"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cyan-400 hover:text-cyan-300 text-sm font-mono bg-slate-700/50 px-2 py-1 rounded border border-cyan-500/20 hover:border-cyan-400/40 transition-all"
-                  >
-                    0x7078...476d7e5d
-                  </a>
                   <Badge className="bg-green-500/20 text-green-400 border-green-400/30 text-xs">✅ Verified</Badge>
                 </div>
               </div>
@@ -329,15 +320,6 @@ export default function ChartPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 mt-3">
-                  <span className="text-sm text-gray-400">Transaction Hash:</span>
-                  <a
-                    href="https://worldscan.org/tx/0xe6f07ff957"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cyan-400 hover:text-cyan-300 text-sm font-mono bg-slate-700/50 px-2 py-1 rounded border border-cyan-500/20 hover:border-cyan-400/40 transition-all"
-                  >
-                    0xe6f07ff957...
-                  </a>
                   <Badge className="bg-green-500/20 text-green-400 border-green-400/30 text-xs">✅ Verified</Badge>
                 </div>
               </div>
@@ -357,15 +339,6 @@ export default function ChartPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 mt-3">
-                  <span className="text-sm text-gray-400">Transaction Hash:</span>
-                  <a
-                    href="https://worldscan.org/tx/0xe98cfd0742"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cyan-400 hover:text-cyan-300 text-sm font-mono bg-slate-700/50 px-2 py-1 rounded border border-cyan-500/20 hover:border-cyan-400/40 transition-all"
-                  >
-                    0xe98cfd0742...
-                  </a>
                   <Badge className="bg-green-500/20 text-green-400 border-green-400/30 text-xs">✅ Verified</Badge>
                 </div>
               </div>
@@ -385,15 +358,6 @@ export default function ChartPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 mt-3">
-                  <span className="text-sm text-gray-400">Transaction Hash:</span>
-                  <a
-                    href="https://worldscan.org/tx/0x0f1c1dd171"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cyan-400 hover:text-cyan-300 text-sm font-mono bg-slate-700/50 px-2 py-1 rounded border border-cyan-500/20 hover:border-cyan-400/40 transition-all"
-                  >
-                    0x0f1c1dd171...
-                  </a>
                   <Badge className="bg-green-500/20 text-green-400 border-green-400/30 text-xs">✅ Verified</Badge>
                 </div>
               </div>
@@ -413,15 +377,6 @@ export default function ChartPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 mt-3">
-                  <span className="text-sm text-gray-400">Transaction Hash:</span>
-                  <a
-                    href="https://worldscan.org/tx/0xb344d6eb7d"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cyan-400 hover:text-cyan-300 text-sm font-mono bg-slate-700/50 px-2 py-1 rounded border border-cyan-500/20 hover:border-cyan-400/40 transition-all"
-                  >
-                    0xb344d6eb7d...
-                  </a>
                   <Badge className="bg-green-500/20 text-green-400 border-green-400/30 text-xs">✅ Verified</Badge>
                 </div>
               </div>
