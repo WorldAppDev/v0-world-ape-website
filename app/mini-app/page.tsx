@@ -11,8 +11,16 @@ export default function MiniAppPage() {
   const [canClaim, setCanClaim] = useState(false)
 
   useEffect(() => {
+    // Get current time in Singapore timezone
+    const getSingaporeTime = () => {
+      const now = new Date()
+      const utc = now.getTime() + now.getTimezoneOffset() * 60000
+      const singaporeTime = new Date(utc + 8 * 3600000) // UTC+8
+      return singaporeTime.getTime()
+    }
+
     const storedEndTime = localStorage.getItem("worldape-claim-end-time")
-    const now = Date.now()
+    const now = getSingaporeTime()
 
     let endTime: number
 
@@ -24,6 +32,7 @@ export default function MiniAppPage() {
         return
       }
     } else {
+      // Set initial 5-hour countdown from current Singapore time
       endTime = now + 5 * 60 * 60 * 1000
       localStorage.setItem("worldape-claim-end-time", endTime.toString())
     }
@@ -32,7 +41,7 @@ export default function MiniAppPage() {
     setTimeLeft(initialTimeLeft)
 
     const timer = setInterval(() => {
-      const currentTime = Date.now()
+      const currentTime = getSingaporeTime()
       const remainingTime = Math.max(0, Math.floor((endTime - currentTime) / 1000))
 
       setTimeLeft(remainingTime)
@@ -47,7 +56,14 @@ export default function MiniAppPage() {
   }, [])
 
   const handleClaim = () => {
-    const newEndTime = Date.now() + 5 * 60 * 60 * 1000
+    const getSingaporeTime = () => {
+      const now = new Date()
+      const utc = now.getTime() + now.getTimezoneOffset() * 60000
+      const singaporeTime = new Date(utc + 8 * 3600000) // UTC+8
+      return singaporeTime.getTime()
+    }
+
+    const newEndTime = getSingaporeTime() + 5 * 60 * 60 * 1000
     localStorage.setItem("worldape-claim-end-time", newEndTime.toString())
     setCanClaim(false)
     setTimeLeft(5 * 60 * 60)
