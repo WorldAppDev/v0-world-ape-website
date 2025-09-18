@@ -18,7 +18,7 @@ export default function RoadmapPage() {
     {
       phase: "Phase 2",
       title: "Burn Mechanics",
-      status: "completed",
+      status: "in-progress",
       items: [
         "Automated Burn System",
         "Market Cap Milestones",
@@ -31,7 +31,7 @@ export default function RoadmapPage() {
     {
       phase: "Phase 3",
       title: "Mini App Integration",
-      status: "completed",
+      status: "upcoming",
       items: ["World App Mini App", "Daily Airdrop Claims", "World ID Verification", "5-Hour Claim Cycles"],
       icon: "📱",
       color: "#ffff00",
@@ -82,7 +82,7 @@ export default function RoadmapPage() {
       case "in-progress":
         return "🚧 IN PROGRESS"
       case "upcoming":
-        return "⏳ UPCOMING"
+        return "⏳ PENDING REVIEW"
       default:
         return "PLANNED"
     }
