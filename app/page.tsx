@@ -474,29 +474,51 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="py-8 sm:py-12 px-4 border-t border-slate-700">
         <div className="container mx-auto text-center">
-          <div className="mb-6 flex justify-center">
-            <Image
-              src="/images/mascot-doubt.jpg"
-              alt="Doubt Mascot"
-              width={180}
-              height={180}
-              className="rounded-lg"
-              style={{
-                filter: "drop-shadow(0 0 15px #ffd700)",
-                mixBlendMode: "screen",
-              }}
-            />
+          <div className="mb-6 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="https://www.geckoterminal.com/world-chain/pools/0x77a26739f06d9abcf8465aa11ff2f772eb045540"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+            >
+              <div className="relative p-4 rounded-xl bg-slate-800/50 border-2 border-purple-500/30 hover:border-purple-500 transition-all duration-300 hover:scale-105 w-64 h-20 flex items-center justify-center">
+                <div className="absolute inset-2 bg-white rounded-lg" />
+                <Image
+                  src="/images/geckoterminal-logo.png"
+                  alt="GeckoTerminal - APE/WLD Price"
+                  width={240}
+                  height={50}
+                  className="relative z-10 object-contain"
+                  style={{
+                    filter: "drop-shadow(0 0 15px rgba(147, 51, 234, 0.5))",
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </a>
+            <a
+              href="https://dexscreener.com/worldchain/APE-WLD"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+            >
+              <div className="relative p-4 rounded-xl bg-slate-800/50 border-2 border-cyan-500/30 hover:border-cyan-500 transition-all duration-300 hover:scale-105 w-64 h-20 flex flex-col items-center justify-center">
+                <Image
+                  src="/images/dexscreener-logo.png"
+                  alt="DEX Screener - WORLD APE / WLD"
+                  width={40}
+                  height={40}
+                  className="rounded-lg"
+                  style={{
+                    filter: "drop-shadow(0 0 15px rgba(6, 182, 212, 0.5))",
+                  }}
+                />
+                <p className="text-cyan-400 font-bold text-xs mt-1">DEX Screener</p>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </a>
           </div>
 
-          <p
-            className="text-lg sm:text-xl mb-4 px-4 font-semibold"
-            style={{
-              color: "#e2e8f0",
-              textShadow: "0 2px 4px rgba(0, 0, 0, 0.8)",
-            }}
-          >
-            Ready to go bananas? Join our community of space apes and help us conquer the worldchain!
-          </p>
           <p
             className="mb-4 text-base sm:text-lg px-4 font-medium"
             style={{

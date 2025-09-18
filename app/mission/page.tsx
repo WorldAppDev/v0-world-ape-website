@@ -304,17 +304,46 @@ export default function MissionPage() {
                 </div>
 
                 <div className="mb-6 flex justify-center">
-                  <Image
-                    src="/images/mascot-doubt.jpg"
-                    alt="Doubt Mascot"
-                    width={80}
-                    height={80}
-                    className="animate-float rounded-lg"
-                    style={{
-                      filter: "drop-shadow(0 0 15px #ffd700)",
-                      mixBlendMode: "screen",
-                    }}
-                  />
+                  <div className="flex gap-4 justify-center items-center">
+                    <a
+                      href="https://www.geckoterminal.com/world-chain/pools/APE-WLD"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group"
+                    >
+                      <div className="relative p-3 rounded-lg bg-slate-800/50 border border-purple-500/30 hover:border-purple-500 transition-all duration-300 hover:scale-105">
+                        <Image
+                          src="/images/geckoterminal-logo.png"
+                          alt="GeckoTerminal"
+                          width={120}
+                          height={36}
+                          className="rounded"
+                          style={{
+                            filter: "drop-shadow(0 0 10px rgba(147, 51, 234, 0.5))",
+                          }}
+                        />
+                      </div>
+                    </a>
+                    <a
+                      href="https://dexscreener.com/worldchain/APE-WLD"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group"
+                    >
+                      <div className="relative p-3 rounded-lg bg-slate-800/50 border border-cyan-500/30 hover:border-cyan-500 transition-all duration-300 hover:scale-105">
+                        <Image
+                          src="/images/dexscreener-logo.png"
+                          alt="DEX Screener"
+                          width={40}
+                          height={40}
+                          className="rounded mx-auto"
+                          style={{
+                            filter: "drop-shadow(0 0 10px rgba(6, 182, 212, 0.5))",
+                          }}
+                        />
+                      </div>
+                    </a>
+                  </div>
                 </div>
 
                 <div className="bg-slate-900/50 rounded-lg p-3 sm:p-4 max-w-3xl mx-auto">
