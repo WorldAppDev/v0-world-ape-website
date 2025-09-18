@@ -250,6 +250,21 @@ export default function ChartPage() {
                   5,000,000 APES
                 </div>
                 <p className="text-gray-300 mb-4">Permanently removed from supply</p>
+                <div className="mb-4">
+                  <a
+                    href="https://worldscan.org/token/0x13e20981D9bd3dC45e99802f06488C5AD7c28360?a=0x000000000000000000000000000000000000dead"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800/50 hover:bg-slate-700/50 border border-cyan-400/30 hover:border-cyan-400/50 rounded-lg transition-all duration-300 text-cyan-400 hover:text-cyan-300 text-sm"
+                    style={{
+                      boxShadow: "0 0 10px rgba(0, 255, 255, 0.2)",
+                    }}
+                  >
+                    <span className="text-lg">🔍</span>
+                    Track Burns on WorldScan
+                    <span className="text-xs opacity-70">↗</span>
+                  </a>
+                </div>
                 <Badge className="bg-red-500/20 text-red-400 border-red-400/30">Deflationary Mechanism</Badge>
               </div>
             </CardContent>
