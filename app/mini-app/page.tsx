@@ -7,22 +7,51 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 
 export default function MiniAppPage() {
-  const [timeLeft, setTimeLeft] = useState(5 * 60 * 60) // 5 hours in seconds
+  const [timeLeft, setTimeLeft] = useState(0)
   const [canClaim, setCanClaim] = useState(false)
 
   useEffect(() => {
+    const storedEndTime = localStorage.getItem("worldape-claim-end-time")
+    const now = Date.now()
+
+    let endTime: number
+
+    if (storedEndTime) {
+      endTime = Number.parseInt(storedEndTime)
+      if (now >= endTime) {
+        setCanClaim(true)
+        setTimeLeft(0)
+        return
+      }
+    } else {
+      endTime = now + 5 * 60 * 60 * 1000
+      localStorage.setItem("worldape-claim-end-time", endTime.toString())
+    }
+
+    const initialTimeLeft = Math.max(0, Math.floor((endTime - now) / 1000))
+    setTimeLeft(initialTimeLeft)
+
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          setCanClaim(true)
-          return 0
-        }
-        return prev - 1
-      })
+      const currentTime = Date.now()
+      const remainingTime = Math.max(0, Math.floor((endTime - currentTime) / 1000))
+
+      setTimeLeft(remainingTime)
+
+      if (remainingTime <= 0) {
+        setCanClaim(true)
+        clearInterval(timer)
+      }
     }, 1000)
 
     return () => clearInterval(timer)
   }, [])
+
+  const handleClaim = () => {
+    const newEndTime = Date.now() + 5 * 60 * 60 * 1000
+    localStorage.setItem("worldape-claim-end-time", newEndTime.toString())
+    setCanClaim(false)
+    setTimeLeft(5 * 60 * 60)
+  }
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600)
@@ -33,7 +62,6 @@ export default function MiniAppPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Animated Stars Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         {[...Array(50)].map((_, i) => (
           <div
@@ -52,7 +80,6 @@ export default function MiniAppPage() {
         ))}
       </div>
 
-      {/* Navigation */}
       <div className="relative z-10 p-4">
         <Link href="/">
           <Button
@@ -64,7 +91,6 @@ export default function MiniAppPage() {
         </Link>
       </div>
 
-      {/* Header */}
       <section className="relative py-12 px-4">
         <div className="container mx-auto text-center">
           <div className="relative mb-8">
@@ -85,7 +111,6 @@ export default function MiniAppPage() {
             </p>
           </div>
 
-          {/* Hero Image */}
           <div className="mb-8 flex justify-center">
             <div
               className="relative p-1 rounded-2xl"
@@ -110,10 +135,8 @@ export default function MiniAppPage() {
         </div>
       </section>
 
-      {/* Main Content */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-4xl">
-          {/* Claim Section */}
           <Card
             className="relative bg-slate-800/50 border-0 p-1 rounded-xl mb-8"
             style={{
@@ -145,6 +168,7 @@ export default function MiniAppPage() {
                   <p className="text-xl text-green-400 mb-6">Ready to claim your APES!</p>
                   <Button
                     size="lg"
+                    onClick={handleClaim}
                     className="relative px-8 py-4 text-lg font-bold bg-transparent border-2 text-white overflow-hidden group"
                     style={{
                       borderColor: "#00ff00",
@@ -179,7 +203,6 @@ export default function MiniAppPage() {
             </CardContent>
           </Card>
 
-          {/* Features Grid */}
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <Card
               className="relative bg-slate-800/50 border-0 p-1 rounded-xl"
@@ -235,7 +258,6 @@ export default function MiniAppPage() {
             </Card>
           </div>
 
-          {/* Community Recognition */}
           <Card
             className="relative bg-slate-800/50 border-0 p-1 rounded-xl mb-8"
             style={{
@@ -283,7 +305,6 @@ export default function MiniAppPage() {
             </CardContent>
           </Card>
 
-          {/* App Integration Info */}
           <Card
             className="relative bg-slate-800/50 border-0 p-1 rounded-xl"
             style={{
