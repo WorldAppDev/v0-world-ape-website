@@ -4,78 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
-import { useState, useEffect } from "react"
 
 export default function MiniAppPage() {
-  const [timeLeft, setTimeLeft] = useState(0)
-  const [canClaim, setCanClaim] = useState(false)
-
-  useEffect(() => {
-    // Get current time in Singapore timezone
-    const getSingaporeTime = () => {
-      const now = new Date()
-      const utc = now.getTime() + now.getTimezoneOffset() * 60000
-      const singaporeTime = new Date(utc + 8 * 3600000) // UTC+8
-      return singaporeTime.getTime()
-    }
-
-    const storedEndTime = localStorage.getItem("worldape-claim-end-time")
-    const now = getSingaporeTime()
-
-    let endTime: number
-
-    if (storedEndTime) {
-      endTime = Number.parseInt(storedEndTime)
-      if (now >= endTime) {
-        setCanClaim(true)
-        setTimeLeft(0)
-        return
-      }
-    } else {
-      // Set initial 5-hour countdown from current Singapore time
-      endTime = now + 5 * 60 * 60 * 1000
-      localStorage.setItem("worldape-claim-end-time", endTime.toString())
-    }
-
-    const initialTimeLeft = Math.max(0, Math.floor((endTime - now) / 1000))
-    setTimeLeft(initialTimeLeft)
-
-    const timer = setInterval(() => {
-      const currentTime = getSingaporeTime()
-      const remainingTime = Math.max(0, Math.floor((endTime - currentTime) / 1000))
-
-      setTimeLeft(remainingTime)
-
-      if (remainingTime <= 0) {
-        setCanClaim(true)
-        clearInterval(timer)
-      }
-    }, 1000)
-
-    return () => clearInterval(timer)
-  }, [])
-
-  const handleClaim = () => {
-    const getSingaporeTime = () => {
-      const now = new Date()
-      const utc = now.getTime() + now.getTimezoneOffset() * 60000
-      const singaporeTime = new Date(utc + 8 * 3600000) // UTC+8
-      return singaporeTime.getTime()
-    }
-
-    const newEndTime = getSingaporeTime() + 5 * 60 * 60 * 1000
-    localStorage.setItem("worldape-claim-end-time", newEndTime.toString())
-    setCanClaim(false)
-    setTimeLeft(5 * 60 * 60)
-  }
-
-  const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600)
-    const minutes = Math.floor((seconds % 3600) / 60)
-    const secs = seconds % 60
-    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
-  }
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -168,9 +98,9 @@ export default function MiniAppPage() {
                 filter: "blur(4px)",
               }}
             />
-            <CardContent className="p-8 bg-slate-900/80 rounded-xl text-center">
+            <CardContent className="p-8 bg-slate-900/80 rounded-xl">
               <h2
-                className="text-3xl font-bold mb-4"
+                className="text-3xl font-bold mb-2 text-center"
                 style={{
                   color: "#ffff00",
                   textShadow: "0 0 20px #ffff00",
@@ -179,43 +109,55 @@ export default function MiniAppPage() {
                 🎁 Daily Airdrop Claim
               </h2>
 
-              {canClaim ? (
-                <div>
-                  <p className="text-xl text-green-400 mb-6">Ready to claim your APES!</p>
-                  <Button
-                    size="lg"
-                    onClick={handleClaim}
-                    className="relative px-8 py-4 text-lg font-bold bg-transparent border-2 text-white overflow-hidden group"
-                    style={{
-                      borderColor: "#00ff00",
-                      boxShadow: "0 0 20px rgba(0, 255, 0, 0.5)",
-                    }}
-                  >
-                    <span className="relative z-10">🎯 CLAIM 1000 APES</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </Button>
+              <div className="mb-8">
+                <div className="flex items-center justify-center space-x-2 mb-6">
+                  <div className="text-2xl">🔗</div>
+                  <h3 className="text-xl font-semibold text-purple-300">Tier Claim Classes</h3>
                 </div>
-              ) : (
-                <div>
-                  <p className="text-xl text-gray-300 mb-4">Next claim available in:</p>
-                  <div
-                    className="text-4xl font-mono font-bold mb-6"
-                    style={{
-                      color: "#ff00ff",
-                      textShadow: "0 0 20px #ff00ff",
-                    }}
-                  >
-                    {formatTime(timeLeft)}
+                <p className="text-center text-gray-400 mb-6">Claims are unlocked every 5 hours.</p>
+
+                <div className="space-y-3">
+                  <div className="bg-slate-800/60 rounded-lg p-4 border border-purple-500/30 hover:border-purple-500/60 transition-colors">
+                    <div className="flex justify-between items-center mb-1">
+                      <h4 className="text-lg font-bold text-white">Basic Ape Claims</h4>
+                      <span className="text-xl font-bold text-yellow-400">5 APE</span>
+                    </div>
+                    <p className="text-sm text-gray-400">Minimum Ape: For everyone</p>
                   </div>
-                  <Button
-                    size="lg"
-                    disabled
-                    className="px-8 py-4 text-lg font-bold bg-gray-600 text-gray-400 cursor-not-allowed"
-                  >
-                    ⏰ Claim Cooldown Active
-                  </Button>
+
+                  <div className="bg-slate-800/60 rounded-lg p-4 border border-purple-500/30 hover:border-purple-500/60 transition-colors">
+                    <div className="flex justify-between items-center mb-1">
+                      <h4 className="text-lg font-bold text-white">Advanced Ape Claims</h4>
+                      <span className="text-xl font-bold text-yellow-400">100 APE</span>
+                    </div>
+                    <p className="text-sm text-gray-400">Minimum Ape: 500k</p>
+                  </div>
+
+                  <div className="bg-slate-800/60 rounded-lg p-4 border border-purple-500/30 hover:border-purple-500/60 transition-colors">
+                    <div className="flex justify-between items-center mb-1">
+                      <h4 className="text-lg font-bold text-white">Elite Ape Claims</h4>
+                      <span className="text-xl font-bold text-yellow-400">200 APE</span>
+                    </div>
+                    <p className="text-sm text-gray-400">Minimum Ape: 1 Million</p>
+                  </div>
+
+                  <div className="bg-slate-800/60 rounded-lg p-4 border border-purple-500/30 hover:border-purple-500/60 transition-colors">
+                    <div className="flex justify-between items-center mb-1">
+                      <h4 className="text-lg font-bold text-white">Premium Ape Claims</h4>
+                      <span className="text-xl font-bold text-yellow-400">300 APE</span>
+                    </div>
+                    <p className="text-sm text-gray-400">Minimum Ape: 2 Million</p>
+                  </div>
+
+                  <div className="bg-slate-800/60 rounded-lg p-4 border border-purple-500/30 hover:border-purple-500/60 transition-colors">
+                    <div className="flex justify-between items-center mb-1">
+                      <h4 className="text-lg font-bold text-white">Prestige Ape Claims</h4>
+                      <span className="text-xl font-bold text-yellow-400">500 APE</span>
+                    </div>
+                    <p className="text-sm text-gray-400">Minimum Ape: 5 Million</p>
+                  </div>
                 </div>
-              )}
+              </div>
             </CardContent>
           </Card>
 
