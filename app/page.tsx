@@ -209,8 +209,8 @@ export default function HomePage() {
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
             {[
               {
-                title: "Mini App Airdrop",
-                desc: "Claim daily APES airdrops every 5 hours! Exclusively for World ID verified users.",
+                title: "Space Ape Game",
+                desc: "Play our space shooter game and compete for weekly APE rewards! Top 10 players win big.",
                 color: "#ff00ff",
                 mascot: "/images/mini-app-ape.png",
               },
@@ -221,21 +221,29 @@ export default function HomePage() {
                 mascot: "/images/mascot-love-large.jpg",
               },
               {
-                title: "Diamond Club",
+                title: "Tiered Claims",
                 desc: "Join the strongest ape community in the worldchain ecosystem!",
                 color: "#ffff00",
                 mascot: "/images/mascot-dance.jpg",
               },
+              {
+                title: "APE TITLES",
+                desc: "Earn prestigious titles and monthly APE payouts based on your holdings!",
+                color: "#ff6600",
+                mascot: "/images/mascot-love-large.jpg",
+              },
             ].map((item, index) => (
               <Link
                 href={
-                  item.title === "Diamond Club"
-                    ? "/diamond-club"
+                  item.title === "Tiered Claims"
+                    ? "/tiered-claims"
                     : item.title === "Moon Mission"
                       ? "/chart"
-                      : item.title === "Mini App Airdrop"
+                      : item.title === "Space Ape Game"
                         ? "/mini-app"
-                        : "#"
+                        : item.title === "APE TITLES"
+                          ? "/ape-titles"
+                          : "#"
                 }
                 key={index}
               >
