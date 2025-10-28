@@ -52,8 +52,9 @@ export function HeroSection() {
 
           {/* Description */}
           <p className="text-lg md:text-xl mb-12 max-w-2xl mx-auto text-foreground/80 leading-relaxed">
-            The ultimate meme coin with absolutely no purpose or utility. Just pure ape energy on a mission to dominate
-            the worldchain crypto space!
+            World Ape was created on PUF app platform on World Miniapp. Our goal is to become the official mascot and to
+            collaborate with other projects. With a growing community and developer rewards, we have BUYBACK Tokens
+            plans which ensure exponential growth. APE in or APE out! Come with us on this MARS MISSION!
           </p>
 
           {/* CTA Buttons */}

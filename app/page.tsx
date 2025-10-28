@@ -109,8 +109,9 @@ export default function HomePage() {
           </div>
 
           <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto text-gray-300 leading-relaxed px-4">
-            The ultimate meme coin with absolutely no purpose or utility. Just pure ape energy on a mission to dominate
-            the worldchain crypto space!
+            World Ape was created on PUF app platform on World Miniapp. Our goal is to become the official mascot and to
+            collaborate with other projects. With a growing community and developer rewards, we have BUYBACK Tokens
+            plans which ensure exponential growth. APE in or APE out! Come with us on this MARS MISSION!
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 sm:mb-12 px-4">
@@ -206,13 +207,13 @@ export default function HomePage() {
           >
             PURE MEME ENERGY
           </h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {[
               {
                 title: "Space Ape Game",
                 desc: "Play our space shooter game and compete for weekly APE rewards! Top 10 players win big.",
                 color: "#ff00ff",
-                mascot: "/images/mini-app-ape.png",
+                mascot: "/images/space-game-ape.png",
               },
               {
                 title: "Moon Mission",
@@ -224,13 +225,19 @@ export default function HomePage() {
                 title: "Tiered Claims",
                 desc: "Join the strongest ape community in the worldchain ecosystem!",
                 color: "#ffff00",
-                mascot: "/images/mascot-dance.jpg",
+                mascot: "/images/staking-tiers.png",
               },
               {
                 title: "APE TITLES",
                 desc: "Earn prestigious titles and monthly APE payouts based on your holdings!",
                 color: "#ff6600",
-                mascot: "/images/mascot-love-large.jpg",
+                mascot: "/images/ape-titles-passport.png",
+              },
+              {
+                title: "STAKING",
+                desc: "Stake your APE tokens and earn up to 25% APY! Choose from flexible staking plans.",
+                color: "#00ff88",
+                mascot: "/images/tiered-claims-ape.png",
               },
             ].map((item, index) => (
               <Link
@@ -243,7 +250,9 @@ export default function HomePage() {
                         ? "/mini-app"
                         : item.title === "APE TITLES"
                           ? "/ape-titles"
-                          : "#"
+                          : item.title === "STAKING"
+                            ? "/staking"
+                            : "#"
                 }
                 key={index}
               >
@@ -432,14 +441,13 @@ export default function HomePage() {
 
           <div className="mb-8 flex justify-center">
             <Image
-              src="/images/mascot-love-large.jpg"
-              alt="Love Mascot"
-              width={300}
-              height={300}
+              src="/images/ape-army.png"
+              alt="Join the Ape Army"
+              width={600}
+              height={600}
               className="rounded-xl"
               style={{
-                filter: "drop-shadow(0 0 20px #ff69b4)",
-                mixBlendMode: "screen",
+                filter: "drop-shadow(0 0 30px rgba(0, 255, 255, 0.6))",
               }}
             />
           </div>

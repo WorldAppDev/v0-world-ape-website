@@ -18,7 +18,7 @@ export default function RoadmapPage() {
     {
       phase: "Phase 2",
       title: "Burn Mechanics",
-      status: "in-progress",
+      status: "completed", // Updated from "in-progress" to "completed"
       items: [
         "Automated Burn System",
         "Market Cap Milestones",
@@ -31,7 +31,7 @@ export default function RoadmapPage() {
     {
       phase: "Phase 3",
       title: "Mini App Integration",
-      status: "upcoming",
+      status: "completed",
       items: ["World App Mini App", "Daily Airdrop Claims", "World ID Verification", "5-Hour Claim Cycles"],
       icon: "📱",
       color: "#ffff00",
@@ -47,8 +47,8 @@ export default function RoadmapPage() {
     {
       phase: "Phase 5",
       title: "Exchange Listings",
-      status: "upcoming",
-      items: ["Major CEX Listings", "DEX Partnerships", "Liquidity Expansion", "Trading Competitions"],
+      status: "in-progress",
+      items: ["Fundraising (In Progress)", "Biconomy Listing Q4 2025", "Major CEX Listings", "DEX Partnerships"],
       icon: "🏛️",
       color: "#00ff00",
     },
