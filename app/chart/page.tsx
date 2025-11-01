@@ -12,11 +12,11 @@ export default function ChartPage() {
     { marketCap: "50k", burn: "1M", stage: "🌙 Moon Approach", completed: true },
     { marketCap: "75k", burn: "1M", stage: "🪐 Mars Transit", completed: true },
     { marketCap: "100k", burn: "1M", stage: "⭐ Asteroid Belt", completed: true },
-    { marketCap: "125k", burn: "1M", stage: "🌌 Jupiter Orbit", completed: false },
+    { marketCap: "125k", burn: "500k", stage: "🌌 Jupiter Orbit", completed: false },
     { marketCap: "150k", burn: "1M", stage: "🛸 Saturn Rings", completed: false },
-    { marketCap: "200k", burn: "1M", stage: "🌠 Uranus Pass", completed: false },
-    { marketCap: "250k", burn: "1M", stage: "💫 Neptune Zone", completed: false },
-    { marketCap: "300k", burn: "1M", stage: "🌟 Deep Space", completed: false },
+    { marketCap: "200k", burn: "2M", stage: "🌠 Uranus Pass", completed: false },
+    { marketCap: "250k", burn: "3M", stage: "💫 Neptune Zone", completed: false },
+    { marketCap: "300k", burn: "5M", stage: "🌟 Deep Space", completed: false },
   ]
 
   return (
@@ -396,8 +396,103 @@ export default function ChartPage() {
                 </div>
               </div>
 
+              <div className="p-4 bg-slate-800/50 rounded-lg border border-cyan-500/20">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">🌌</span>
+                    <div>
+                      <div className="font-bold text-white">Jupiter Orbit Burn</div>
+                      <div className="text-sm text-gray-400">Market Cap Milestone: $125k</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-red-400">500,000 APES</div>
+                    <div className="text-xs text-gray-500">BURNED</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 mt-3">
+                  <Badge className="bg-green-500/20 text-green-400 border-green-400/30 text-xs">✅ Verified</Badge>
+                </div>
+              </div>
+
+              <div className="p-4 bg-slate-800/50 rounded-lg border border-cyan-500/20">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">🛸</span>
+                    <div>
+                      <div className="font-bold text-white">Saturn Rings Burn</div>
+                      <div className="text-sm text-gray-400">Market Cap Milestone: $150k</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-red-400">1,000,000 APES</div>
+                    <div className="text-xs text-gray-500">BURNED</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 mt-3">
+                  <Badge className="bg-green-500/20 text-green-400 border-green-400/30 text-xs">✅ Verified</Badge>
+                </div>
+              </div>
+
+              <div className="p-4 bg-slate-800/50 rounded-lg border border-cyan-500/20">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">🌠</span>
+                    <div>
+                      <div className="font-bold text-white">Uranus Pass Burn</div>
+                      <div className="text-sm text-gray-400">Market Cap Milestone: $200k</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-red-400">2,000,000 APES</div>
+                    <div className="text-xs text-gray-500">BURNED</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 mt-3">
+                  <Badge className="bg-green-500/20 text-green-400 border-green-400/30 text-xs">✅ Verified</Badge>
+                </div>
+              </div>
+
+              <div className="p-4 bg-slate-800/50 rounded-lg border border-cyan-500/20">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">💫</span>
+                    <div>
+                      <div className="font-bold text-white">Neptune Zone Burn</div>
+                      <div className="text-sm text-gray-400">Market Cap Milestone: $250k</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-red-400">3,000,000 APES</div>
+                    <div className="text-xs text-gray-500">BURNED</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 mt-3">
+                  <Badge className="bg-green-500/20 text-green-400 border-green-400/30 text-xs">✅ Verified</Badge>
+                </div>
+              </div>
+
+              <div className="p-4 bg-slate-800/50 rounded-lg border border-cyan-500/20">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">🌟</span>
+                    <div>
+                      <div className="font-bold text-white">Deep Space Burn</div>
+                      <div className="text-sm text-gray-400">Market Cap Milestone: $300k</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-red-400">5,000,000 APES</div>
+                    <div className="text-xs text-gray-500">BURNED</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 mt-3">
+                  <Badge className="bg-green-500/20 text-green-400 border-green-400/30 text-xs">✅ Verified</Badge>
+                </div>
+              </div>
+
               <div className="text-center p-6 bg-slate-800/30 rounded-lg border border-dashed border-gray-600">
-                <div className="text-3xl mb-2">⏳</div>
+                <div className="text-4xl mb-2">⏳</div>
                 <h3 className="text-lg font-bold text-gray-300 mb-2">Next Burns Coming Soon</h3>
                 <p className="text-gray-400 text-sm">
                   Future burn transactions will be recorded here as market cap milestones are reached

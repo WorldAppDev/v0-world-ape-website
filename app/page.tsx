@@ -239,6 +239,13 @@ export default function HomePage() {
                 color: "#00ff88",
                 mascot: "/images/tiered-claims-ape.png",
               },
+              {
+                title: "APE PARTNERS",
+                desc: "Strategic partnerships with World App projects to fuel our CEX listing journey!",
+                color: "#ff3366",
+                mascot:
+                  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-02%20at%2000.00.51-KxsUFEiZ69Ug37a47gFR5op8YW641B.jpeg",
+              },
             ].map((item, index) => (
               <Link
                 href={
@@ -252,7 +259,9 @@ export default function HomePage() {
                           ? "/ape-titles"
                           : item.title === "STAKING"
                             ? "/staking"
-                            : "#"
+                            : item.title === "APE PARTNERS"
+                              ? "/partners"
+                              : "#"
                 }
                 key={index}
               >
