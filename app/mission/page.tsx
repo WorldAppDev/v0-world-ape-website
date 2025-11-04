@@ -92,10 +92,10 @@ export default function MissionPage() {
                     <div className="flex items-start gap-4">
                       <span className="text-2xl">🎯</span>
                       <div>
-                        <h3 className="text-xl font-bold text-cyan-400 mb-2">Primary Objective</h3>
+                        <h3 className="text-xl font-bold text-cyan-400 mb-2">Primary Mission</h3>
                         <p className="text-gray-300">
-                          Take over the worldchain and rise from the ground to achieve moon flight status, overtaking
-                          all other meme coins.
+                          Create a number 1 MEME coin on worldchain that unite the crypto fans across all various
+                          chains. We aim to take over as the official mascot for tokens launched on Worldchain.
                         </p>
                       </div>
                     </div>
@@ -105,7 +105,9 @@ export default function MissionPage() {
                       <div>
                         <h3 className="text-xl font-bold text-green-400 mb-2">Daily Operations</h3>
                         <p className="text-gray-300">
-                          Team continuously buys to support price action and community growth.
+                          Giving back to the community for their support and contributions! World ape is about community
+                          uniting together to create contents and be rewarded, we offer passive income to the titled
+                          apes! simply download the app to join in the rank!
                         </p>
                       </div>
                     </div>
@@ -113,9 +115,10 @@ export default function MissionPage() {
                     <div className="flex items-start gap-4">
                       <span className="text-2xl">🔥</span>
                       <div>
-                        <h3 className="text-xl font-bold text-orange-400 mb-2">Weekly Burns</h3>
+                        <h3 className="text-xl font-bold text-orange-400 mb-2">Milestone Burns</h3>
                         <p className="text-gray-300">
-                          Regular token burns to create deflationary pressure and reward holders.
+                          After 2 million market cap, we will have 50,000 apes tokens burns every million that we reach.
+                          Our goal is $1, we are comitted to burn our tokens to gain investors!
                         </p>
                       </div>
                     </div>

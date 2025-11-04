@@ -12,11 +12,11 @@ export default function ChartPage() {
     { marketCap: "50k", burn: "1M", stage: "🌙 Moon Approach", completed: true },
     { marketCap: "75k", burn: "1M", stage: "🪐 Mars Transit", completed: true },
     { marketCap: "100k", burn: "1M", stage: "⭐ Asteroid Belt", completed: true },
-    { marketCap: "125k", burn: "500k", stage: "🌌 Jupiter Orbit", completed: false },
-    { marketCap: "150k", burn: "1M", stage: "🛸 Saturn Rings", completed: false },
-    { marketCap: "200k", burn: "2M", stage: "🌠 Uranus Pass", completed: false },
-    { marketCap: "250k", burn: "3M", stage: "💫 Neptune Zone", completed: false },
-    { marketCap: "300k", burn: "5M", stage: "🌟 Deep Space", completed: false },
+    { marketCap: "300k", burn: "50k", stage: "🌌 Jupiter Orbit", completed: false },
+    { marketCap: "500k", burn: "50k", stage: "🛸 Saturn Rings", completed: false },
+    { marketCap: "750k", burn: "50k", stage: "🌠 Uranus Pass", completed: false },
+    { marketCap: "1M", burn: "100k", stage: "💫 Neptune Zone", completed: false },
+    { marketCap: "2M", burn: "100k", stage: "🌟 Deep Space", completed: false },
   ]
 
   return (
@@ -402,11 +402,11 @@ export default function ChartPage() {
                     <span className="text-2xl">🌌</span>
                     <div>
                       <div className="font-bold text-white">Jupiter Orbit Burn</div>
-                      <div className="text-sm text-gray-400">Market Cap Milestone: $125k</div>
+                      <div className="text-sm text-gray-400">Market Cap Milestone: $300k</div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-red-400">500,000 APES</div>
+                    <div className="text-lg font-bold text-red-400">50,000 APES</div>
                     <div className="text-xs text-gray-500">BURNED</div>
                   </div>
                 </div>
@@ -421,11 +421,11 @@ export default function ChartPage() {
                     <span className="text-2xl">🛸</span>
                     <div>
                       <div className="font-bold text-white">Saturn Rings Burn</div>
-                      <div className="text-sm text-gray-400">Market Cap Milestone: $150k</div>
+                      <div className="text-sm text-gray-400">Market Cap Milestone: $500k</div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-red-400">1,000,000 APES</div>
+                    <div className="text-lg font-bold text-red-400">50,000 APES</div>
                     <div className="text-xs text-gray-500">BURNED</div>
                   </div>
                 </div>
@@ -440,11 +440,11 @@ export default function ChartPage() {
                     <span className="text-2xl">🌠</span>
                     <div>
                       <div className="font-bold text-white">Uranus Pass Burn</div>
-                      <div className="text-sm text-gray-400">Market Cap Milestone: $200k</div>
+                      <div className="text-sm text-gray-400">Market Cap Milestone: $750k</div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-red-400">2,000,000 APES</div>
+                    <div className="text-lg font-bold text-red-400">50,000 APES</div>
                     <div className="text-xs text-gray-500">BURNED</div>
                   </div>
                 </div>
@@ -459,11 +459,11 @@ export default function ChartPage() {
                     <span className="text-2xl">💫</span>
                     <div>
                       <div className="font-bold text-white">Neptune Zone Burn</div>
-                      <div className="text-sm text-gray-400">Market Cap Milestone: $250k</div>
+                      <div className="text-sm text-gray-400">Market Cap Milestone: $1 MILL</div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-red-400">3,000,000 APES</div>
+                    <div className="text-lg font-bold text-red-400">100,000 APES</div>
                     <div className="text-xs text-gray-500">BURNED</div>
                   </div>
                 </div>
@@ -478,11 +478,11 @@ export default function ChartPage() {
                     <span className="text-2xl">🌟</span>
                     <div>
                       <div className="font-bold text-white">Deep Space Burn</div>
-                      <div className="text-sm text-gray-400">Market Cap Milestone: $300k</div>
+                      <div className="text-sm text-gray-400">Market Cap Milestone: $2 MILL</div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-red-400">5,000,000 APES</div>
+                    <div className="text-lg font-bold text-red-400">100,000 APES</div>
                     <div className="text-xs text-gray-500">BURNED</div>
                   </div>
                 </div>

@@ -8,11 +8,6 @@ import Image from "next/image"
 export default function PartnersPage() {
   const partners = [
     {
-      name: "Dog Shit",
-      image: "/images/partners/dog-shit.jpg",
-      description: "Dog sniffed shitcoin, then became one",
-    },
-    {
       name: "Destinity",
       image: "/images/partners/destinity.jpg",
       description: "TechTriad innovation",
