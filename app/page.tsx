@@ -159,7 +159,7 @@ export default function HomePage() {
               </Button>
             </Link>
             <a
-              href="https://world.org/ecosystem/app_a8ccfdf05296b797116b04d960bd88a1"
+              href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c"
               target="_blank"
               rel="noopener noreferrer"
             >
