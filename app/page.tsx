@@ -158,6 +158,25 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Button>
             </Link>
+            <a
+              href="https://world.org/ecosystem/app_a8ccfdf05296b797116b04d960bd88a1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                variant="outline"
+                size="lg"
+                className="relative px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold bg-transparent border-2 overflow-hidden group w-full sm:w-auto"
+                style={{
+                  borderColor: "#00ff88",
+                  color: "#00ff88",
+                  boxShadow: "0 0 20px rgba(0, 255, 136, 0.5)",
+                }}
+              >
+                <span className="relative z-10">🎮 MINI APP</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </Button>
+            </a>
           </div>
 
           <Card
@@ -219,7 +238,8 @@ export default function HomePage() {
                 title: "Moon Mission",
                 desc: "Our astronaut ape is ready to take over the entire crypto space!",
                 color: "#00ffff",
-                mascot: "/images/mascot-love-large.jpg",
+                mascot:
+                  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-05%20at%2000.24.37-QjO4fGnjsIXR0m2HCi3F4RUuMPoRAl.jpeg",
               },
               {
                 title: "Tiered Claims",
