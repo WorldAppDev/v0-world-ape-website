@@ -4,15 +4,16 @@ import { Progress } from "@/components/ui/progress"
 export function TokenomicsSection() {
   const tokenomics = [
     {
-      label: "Dev Accumulation",
-      percentage: 50,
+      label: "CEX Listing",
+      percentage: 20,
       color: "bg-primary",
-      description: "Dev will buy till 50% accumulated over time",
+      description: "Reserved for centralized exchange listings",
     },
-    { label: "Airdrop", percentage: 20, color: "bg-secondary", description: "Community rewards" },
-    { label: "Team", percentage: 10, color: "bg-accent", description: "Team allocation" },
     { label: "Marketing", percentage: 10, color: "bg-yellow-500", description: "Marketing & partnerships" },
-    { label: "Burn Forever", percentage: 10, color: "bg-red-500", description: "Permanently removed from supply" },
+    { label: "Team Wallet", percentage: 10, color: "bg-accent", description: "Team allocation" },
+    { label: "Burn Wallet", percentage: 10, color: "bg-red-500", description: "10% balance, 5% burnt" },
+    { label: "Developer Wallet", percentage: 10, color: "bg-blue-500", description: "Development & maintenance" },
+    { label: "Reward & Airdrop", percentage: 4, color: "bg-secondary", description: "Community rewards & airdrops" },
   ]
 
   return (
@@ -77,9 +78,9 @@ export function TokenomicsSection() {
 
           <div className="mt-12 text-center">
             <div className="bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-2xl p-6 border border-border/50">
-              <p className="text-lg font-bold text-foreground mb-2">🔥 10% BURNED FOREVER 🔥</p>
+              <p className="text-lg font-bold text-foreground mb-2">🔥 5% BURNED FOREVER 🔥</p>
               <p className="text-muted-foreground">
-                10 million tokens permanently removed from supply - deflationary ape power!
+                5 million tokens permanently removed from supply - deflationary ape power!
               </p>
             </div>
           </div>

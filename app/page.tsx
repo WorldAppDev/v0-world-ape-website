@@ -392,8 +392,9 @@ export default function HomePage() {
                 <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                   <div className="space-y-4">
                     {[
-                      { label: "Airdrop", percent: "20%", color: "#ffff00" },
-                      { label: "Team", percent: "10%", color: "#00ff00" },
+                      { label: "CEX Listing", percent: "20%", color: "#ffff00" },
+                      { label: "Marketing", percent: "10%", color: "#ff00ff" },
+                      { label: "Burn Wallet (5% Burnt)", percent: "10%", color: "#ff0000" },
                     ].map((item, index) => (
                       <div
                         key={index}
@@ -419,8 +420,8 @@ export default function HomePage() {
                   </div>
                   <div className="space-y-4">
                     {[
-                      { label: "Marketing", percent: "10%", color: "#ff00ff" },
-                      { label: "Burned Forever", percent: "10%", color: "#ff0000" },
+                      { label: "Developer Wallet", percent: "10%", color: "#00ffff" },
+                      { label: "Reward & Airdrop", percent: "4%", color: "#ff6600" },
                     ].map((item, index) => (
                       <div
                         key={index}

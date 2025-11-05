@@ -40,20 +40,42 @@ export default function MissionPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 sm:mb-20">
             <div className="mb-6 sm:mb-8">
-              <div className="mb-4 flex justify-center">
+              <div className="mb-6 flex justify-center gap-4 sm:gap-6">
                 <Image
-                  src="/images/mascot-dance.jpg"
-                  alt="Dancing Mascot"
-                  width={100}
-                  height={100}
-                  className="animate-float rounded-xl"
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-05%20at%2000.24.37-6D1gDXK1UzwhWLoMJ7TSqbPLBxMYuZ.jpeg"
+                  alt="Golden Armored Ape"
+                  width={300}
+                  height={300}
+                  className="rounded-xl"
                   style={{
-                    filter: "drop-shadow(0 0 20px #ff00ff)",
+                    filter: "drop-shadow(0 0 20px #ffd700)",
+                    mixBlendMode: "screen",
+                  }}
+                />
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-05%20at%2000.24.36%20%281%29-LPSrpYRhDBJHutrdyYSMvtwztVum7c.jpeg"
+                  alt="Cyan Armored Ape"
+                  width={300}
+                  height={300}
+                  className="rounded-xl"
+                  style={{
+                    filter: "drop-shadow(0 0 20px #00ffff)",
+                    mixBlendMode: "screen",
+                  }}
+                />
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-05%20at%2000.24.36-KoPU2EXYxd16pePdPb3lL9p6uJaQzI.jpeg"
+                  alt="Battle Marine Ape"
+                  width={300}
+                  height={300}
+                  className="rounded-xl"
+                  style={{
+                    filter: "drop-shadow(0 0 20px #4169e1)",
                     mixBlendMode: "screen",
                   }}
                 />
               </div>
-              <span className="inline-block text-4xl sm:text-6xl mb-4 animate-float">🚀</span>
+              <span className="inline-block text-4xl sm:text-6xl mb-4">🚀</span>
               <h1
                 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 bg-clip-text text-transparent px-2"
                 style={{
@@ -64,13 +86,11 @@ export default function MissionPage() {
                 THE MISSION
               </h1>
               <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6 flex-wrap">
-                <span className="text-2xl sm:text-4xl animate-float">🦍</span>
+                <span className="text-2xl sm:text-4xl">🦍</span>
                 <p className="text-xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
                   WORLD APE TAKEOVER
                 </p>
-                <span className="text-2xl sm:text-4xl animate-float" style={{ animationDelay: "0.5s" }}>
-                  🌍
-                </span>
+                <span className="text-2xl sm:text-4xl">🌍</span>
               </div>
             </div>
             <p className="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
@@ -243,8 +263,8 @@ export default function MissionPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
                   {[
                     { label: "Total Supply", value: "100M", icon: "💰", color: "from-yellow-400 to-orange-500" },
-                    { label: "Burned Forever", value: "10M", icon: "🔥", color: "from-red-400 to-pink-500" },
-                    { label: "Community Airdrop", value: "20M", icon: "🎁", color: "from-green-400 to-cyan-500" },
+                    { label: "Allocation", value: "15M", icon: "🔥", color: "from-red-400 to-pink-500" },
+                    { label: "Holders", value: "2000+", icon: "🎁", color: "from-green-400 to-cyan-500" },
                     { label: "Mission Progress", value: "∞", icon: "🚀", color: "from-purple-400 to-blue-500" },
                   ].map((stat, index) => (
                     <Card
@@ -307,22 +327,22 @@ export default function MissionPage() {
                 </div>
 
                 <div className="mb-6 flex justify-center">
-                  <div className="flex gap-4 justify-center items-center">
+                  <div className="flex gap-6 justify-center items-center">
                     <a
                       href="https://www.geckoterminal.com/world-chain/pools/APE-WLD"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group"
                     >
-                      <div className="relative p-3 rounded-lg bg-slate-800/50 border border-purple-500/30 hover:border-purple-500 transition-all duration-300 hover:scale-105">
+                      <div className="relative p-4 rounded-lg bg-slate-800/50 border-2 border-purple-500/30 hover:border-purple-500 transition-all duration-300 hover:scale-105 w-[180px] h-[80px] flex items-center justify-center">
                         <Image
                           src="/images/geckoterminal-logo.png"
                           alt="GeckoTerminal"
-                          width={120}
-                          height={36}
-                          className="rounded"
+                          width={160}
+                          height={48}
+                          className="rounded object-contain"
                           style={{
-                            filter: "drop-shadow(0 0 10px rgba(147, 51, 234, 0.5))",
+                            filter: "drop-shadow(0 0 15px rgba(147, 51, 234, 0.6))",
                           }}
                         />
                       </div>
@@ -333,15 +353,34 @@ export default function MissionPage() {
                       rel="noopener noreferrer"
                       className="group"
                     >
-                      <div className="relative p-3 rounded-lg bg-slate-800/50 border border-cyan-500/30 hover:border-cyan-500 transition-all duration-300 hover:scale-105">
+                      <div className="relative p-4 rounded-lg bg-slate-800/50 border-2 border-cyan-500/30 hover:border-cyan-500 transition-all duration-300 hover:scale-105 w-[180px] h-[80px] flex items-center justify-center">
                         <Image
                           src="/images/dexscreener-logo.png"
                           alt="DEX Screener"
-                          width={40}
-                          height={40}
-                          className="rounded mx-auto"
+                          width={60}
+                          height={60}
+                          className="rounded object-contain"
                           style={{
-                            filter: "drop-shadow(0 0 10px rgba(6, 182, 212, 0.5))",
+                            filter: "drop-shadow(0 0 15px rgba(6, 182, 212, 0.6))",
+                          }}
+                        />
+                      </div>
+                    </a>
+                    <a
+                      href="https://app.uniswap.org/swap/?chain=worldchain&outputCurrency=0x13e20981D9bd3dC45e99802f06488C5AD7c28360"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group"
+                    >
+                      <div className="relative p-4 rounded-lg bg-slate-800/50 border-2 border-pink-500/30 hover:border-pink-500 transition-all duration-300 hover:scale-105 w-[180px] h-[80px] flex items-center justify-center">
+                        <Image
+                          src="/uniswap-logo.png"
+                          alt="Uniswap"
+                          width={60}
+                          height={60}
+                          className="rounded object-contain"
+                          style={{
+                            filter: "drop-shadow(0 0 15px rgba(236, 72, 153, 0.6))",
                           }}
                         />
                       </div>
