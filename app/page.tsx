@@ -1,208 +1,112 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
+import {
+  Gamepad2,
+  Music,
+  Rocket,
+  CircleDot,
+  Gift,
+  Trophy,
+  Shield,
+  Users,
+  ExternalLink,
+  Copy,
+} from "lucide-react"
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Enhanced Animated Stars Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full animate-twinkle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 3 + 1}px`,
-              height: `${Math.random() * 3 + 1}px`,
-              backgroundColor: ["#ff00ff", "#00ffff", "#ffff00", "#ff6600", "#ffffff"][Math.floor(Math.random() * 5)],
-              boxShadow: `0 0 ${Math.random() * 10 + 5}px currentColor`,
-              animationDelay: `${Math.random() * 3}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${4 + Math.random() * 2}s`,
-            }}
-          >
-            <div
-              className="w-16 h-16 border-2 rotate-45"
-              style={{
-                borderColor: ["#ff00ff", "#00ffff", "#ffff00"][Math.floor(Math.random() * 3)],
-                boxShadow: `0 0 20px currentColor`,
-              }}
+    <main className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b border-border/50 backdrop-blur-sm sticky top-0 z-50 bg-background/80">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/images/world-ape-hero.png"
+              alt="World Ape"
+              width={40}
+              height={40}
+              className="rounded-full"
             />
+            <span className="font-bold text-xl text-foreground">World Ape</span>
           </div>
-        ))}
-      </div>
-
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 py-8">
-        <div
-          className="container mx-auto text-center z-10 p-4 sm:p-8 rounded-3xl relative max-w-4xl"
-          style={{
-            background: "rgba(15, 23, 42, 0.8)",
-            border: "2px solid rgba(0, 255, 255, 0.3)",
-            backdropFilter: "blur(10px)",
-          }}
-        >
-          <h1
-            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 px-2"
-            style={{
-              color: "white",
-              background: "linear-gradient(45deg, #e2e8f0, #cbd5e1, #94a3b8)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              textShadow: "0 0 20px rgba(255, 255, 255, 0.5), 0 4px 8px rgba(0, 0, 0, 0.8)",
-              filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9))",
-            }}
-          >
-            WORLD APE
-          </h1>
-
-          <p
-            className="text-xl sm:text-2xl md:text-3xl mb-6 sm:mb-8 font-bold animate-bounce px-2"
-            style={{
-              color: "#ffff00",
-              textShadow: "0 0 20px #ffff00, 0 0 40px #ffff00, 0 0 60px #ffff00",
-            }}
-          >
-            🌙 TO THE MOON! 🌙
-          </p>
-
-          <div className="mb-6 sm:mb-8 flex justify-center">
-            <div
-              className="relative p-1 rounded-2xl"
-              style={{
-                background: "linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff)",
-                backgroundSize: "300% 300%",
-                animation: "gradient-shift 2s ease-in-out infinite",
-              }}
-            >
-              <Image
-                src="/images/world-ape-hero.png"
-                alt="World Ape Astronaut"
-                width={280}
-                height={280}
-                className="rounded-2xl animate-float bg-slate-900 sm:w-[350px] sm:h-[350px]"
-                priority
-                style={{
-                  filter: "drop-shadow(0 0 30px rgba(255, 0, 255, 0.5))",
-                }}
-              />
-            </div>
-          </div>
-
-          <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto text-gray-300 leading-relaxed px-4">
-            World Ape was created on PUF app platform on World Miniapp. Our goal is to become the official mascot and to
-            collaborate with other projects. With a growing community and developer rewards, we have BUYBACK Tokens
-            plans which ensure exponential growth. APE in or APE out! Come with us on this MARS MISSION!
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 sm:mb-12 px-4">
-            <Link href="/mission">
-              <Button
-                size="lg"
-                className="relative px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold bg-transparent border-2 text-white overflow-hidden group w-full sm:w-auto"
-                style={{
-                  borderColor: "#00ffff",
-                  boxShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
-                }}
-              >
-                <span className="relative z-10">🚀 JOIN THE MISSION</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Button>
+          <nav className="hidden md:flex items-center gap-6">
+            <Link href="/roadmap" className="text-muted-foreground hover:text-foreground transition-colors">
+              Roadmap
             </Link>
-            <Link href="/chart">
-              <Button
-                variant="outline"
-                size="lg"
-                className="relative px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold bg-transparent border-2 overflow-hidden group w-full sm:w-auto"
-                style={{
-                  borderColor: "#ffff00",
-                  color: "#ffff00",
-                  boxShadow: "0 0 20px rgba(255, 255, 0, 0.5)",
-                }}
-              >
-                <span className="relative z-10">📊 VIEW CHART</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Button>
-            </Link>
-            <Link href="/roadmap">
-              <Button
-                variant="outline"
-                size="lg"
-                className="relative px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold bg-transparent border-2 overflow-hidden group w-full sm:w-auto"
-                style={{
-                  borderColor: "#ff00ff",
-                  color: "#ff00ff",
-                  boxShadow: "0 0 20px rgba(255, 0, 255, 0.5)",
-                }}
-              >
-                <span className="relative z-10">🗺️ ROADMAP</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Button>
+            <Link href="/chart" className="text-muted-foreground hover:text-foreground transition-colors">
+              Chart
             </Link>
             <a
               href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button
-                variant="outline"
-                size="lg"
-                className="relative px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold bg-transparent border-2 overflow-hidden group w-full sm:w-auto"
-                style={{
-                  borderColor: "#00ff88",
-                  color: "#00ff88",
-                  boxShadow: "0 0 20px rgba(0, 255, 136, 0.5)",
-                }}
-              >
-                <span className="relative z-10">🎮 MINI APP</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                Play Now
               </Button>
             </a>
+          </nav>
+          <a
+            href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="md:hidden"
+          >
+            <Button size="sm" className="bg-primary text-primary-foreground">
+              Play Now
+            </Button>
+          </a>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="py-16 md:py-24 px-4">
+        <div className="container mx-auto max-w-5xl text-center">
+          <div className="mb-8 flex justify-center">
+            <Image
+              src="/images/world-ape-hero.png"
+              alt="World Ape"
+              width={180}
+              height={180}
+              className="rounded-2xl"
+              priority
+            />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4 text-balance">
+            World Ape
+          </h1>
+          <p className="text-xl md:text-2xl text-primary font-medium mb-6">
+            The #1 Gaming Platform on World Chain
+          </p>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+            Play free games, earn real tokens, and compete for weekly WLD prizes. 
+            Daily claims, multiple games, and 20 WLD distributed every week.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <a
+              href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto">
+                <Gamepad2 className="mr-2 h-5 w-5" />
+                Play Now
+              </Button>
+            </a>
+            <Link href="/roadmap">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                View Roadmap
+              </Button>
+            </Link>
           </div>
 
-          <Card
-            className="relative bg-slate-800/50 backdrop-blur-sm border-0 p-1 rounded-xl mx-4"
-            style={{
-              background: "linear-gradient(45deg, rgba(255,0,255,0.2), rgba(0,255,255,0.2))",
-            }}
-          >
-            <div
-              className="absolute inset-0 rounded-xl"
-              style={{
-                background: "linear-gradient(45deg, #ff00ff, #00ffff)",
-                margin: "-1px",
-                zIndex: -1,
-                filter: "blur(4px)",
-              }}
-            />
-            <CardContent className="p-3 sm:p-4 bg-slate-900/80 rounded-xl">
-              <p className="text-xs sm:text-sm text-gray-400 mb-2">Contract Address:</p>
-              <code
-                className="font-mono text-xs sm:text-sm break-all"
-                style={{
-                  color: "#00ffff",
-                  textShadow: "0 0 10px #00ffff",
-                }}
-              >
+          {/* Contract Address */}
+          <Card className="max-w-lg mx-auto bg-card border-border">
+            <CardContent className="p-4">
+              <p className="text-sm text-muted-foreground mb-2">Contract Address</p>
+              <code className="text-sm font-mono text-foreground break-all">
                 0x13e20981D9bd3dC45e99802f06488C5AD7c28360
               </code>
             </CardContent>
@@ -210,240 +114,97 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-12 sm:py-20 px-4">
-        <div className="container mx-auto text-center">
-          <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 px-2"
-            style={{
-              color: "white",
-              background: "linear-gradient(45deg, #00ffff, #ffffff)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              textShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
-            }}
-          >
-            PURE MEME ENERGY
-          </h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                title: "Space Ape Game",
-                desc: "Play our space shooter game and compete for weekly APE rewards! Top 10 players win big.",
-                color: "#ff00ff",
-                mascot: "/images/space-game-ape.png",
-              },
-              {
-                title: "Moon Mission",
-                desc: "Our astronaut ape is ready to take over the entire crypto space!",
-                color: "#00ffff",
-                mascot:
-                  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-05%20at%2000.24.37-QjO4fGnjsIXR0m2HCi3F4RUuMPoRAl.jpeg",
-              },
-              {
-                title: "Tiered Claims",
-                desc: "Join the strongest ape community in the worldchain ecosystem!",
-                color: "#ffff00",
-                mascot: "/images/staking-tiers.png",
-              },
-              {
-                title: "APE TITLES",
-                desc: "Earn prestigious titles and monthly APE payouts based on your holdings!",
-                color: "#ff6600",
-                mascot: "/images/ape-titles-passport.png",
-              },
-              {
-                title: "STAKING",
-                desc: "Stake your APE tokens and earn up to 25% APY! Choose from flexible staking plans.",
-                color: "#00ff88",
-                mascot: "/images/tiered-claims-ape.png",
-              },
-              {
-                title: "APE PARTNERS",
-                desc: "Strategic partnerships with World App projects to fuel our CEX listing journey!",
-                color: "#ff3366",
-                mascot:
-                  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-02%20at%2000.00.51-KxsUFEiZ69Ug37a47gFR5op8YW641B.jpeg",
-              },
-            ].map((item, index) => (
-              <Link
-                href={
-                  item.title === "Tiered Claims"
-                    ? "/tiered-claims"
-                    : item.title === "Moon Mission"
-                      ? "/chart"
-                      : item.title === "Space Ape Game"
-                        ? "/mini-app"
-                        : item.title === "APE TITLES"
-                          ? "/ape-titles"
-                          : item.title === "STAKING"
-                            ? "/staking"
-                            : item.title === "APE PARTNERS"
-                              ? "/partners"
-                              : "#"
-                }
-                key={index}
-              >
-                <Card
-                  className="relative bg-slate-800/50 border-0 p-1 rounded-xl group hover:scale-105 transition-transform duration-300 cursor-pointer"
-                  style={{
-                    background: `linear-gradient(45deg, ${item.color}20, rgba(0,0,0,0.3))`,
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 rounded-xl opacity-50 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{
-                      background: `linear-gradient(45deg, ${item.color}, ${item.color}80)`,
-                      margin: "-1px",
-                      zIndex: -1,
-                      filter: "blur(6px)",
-                    }}
-                  />
-                  <CardContent className="p-6 bg-slate-900/80 rounded-xl">
-                    <div className="relative mb-4">
-                      <Image
-                        src={item.mascot || "/placeholder.svg"}
-                        alt="World Ape Mascot"
-                        width={150}
-                        height={150}
-                        className="mx-auto rounded-lg"
-                        style={{
-                          filter: `drop-shadow(0 0 15px ${item.color})`,
-                          mixBlendMode: "screen",
-                        }}
-                      />
-                    </div>
-                    <h3
-                      className="text-xl sm:text-2xl font-bold mb-2"
-                      style={{
-                        color: item.color,
-                        textShadow: `0 0 10px ${item.color}`,
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-300">{item.desc}</p>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+      {/* Games Section */}
+      <section className="py-16 px-4 bg-card/30">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Featured Games</h2>
+            <p className="text-muted-foreground text-lg">Play and earn real rewards</p>
           </div>
-        </div>
-      </section>
-
-      {/* Tokenomics Section */}
-      <section className="py-12 sm:py-20 px-4">
-        <div className="container mx-auto">
-          <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 text-center px-2"
-            style={{
-              color: "white",
-              background: "linear-gradient(45deg, #ffff00, #ffffff)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              textShadow: "0 0 20px rgba(255, 255, 0, 0.5)",
-            }}
-          >
-            TOKENOMICS
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <Card
-              className="relative bg-slate-800/50 border-0 p-1 rounded-xl mb-6 sm:mb-8 mx-4"
-              style={{
-                background: "rgba(15, 23, 42, 0.9)",
-                border: "1px solid rgba(0, 255, 255, 0.3)",
-              }}
-            >
-              <div
-                className="absolute inset-0 rounded-xl"
-                style={{
-                  background: "linear-gradient(45deg, #ff6600, #ffff00, #00ffff, #ff6600)",
-                  margin: "-1px",
-                  zIndex: -1,
-                  filter: "blur(8px)",
-                }}
-              />
-              <CardContent className="p-6 bg-slate-900/90 rounded-xl">
-                <div className="text-center mb-6 sm:mb-8">
-                  <h3
-                    className="text-xl sm:text-2xl font-bold mb-2"
-                    style={{
-                      color: "#ffff00",
-                      textShadow: "0 0 20px #ffff00",
-                    }}
-                  >
-                    Total Supply
-                  </h3>
-                  <p
-                    className="text-2xl sm:text-3xl md:text-4xl font-bold"
-                    style={{
-                      background: "linear-gradient(45deg, #ff00ff, #00ffff)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                      textShadow: "0 0 30px rgba(255, 0, 255, 0.8)",
-                    }}
-                  >
-                    100,000,000 APE
-                  </p>
-                </div>
-                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-                  <div className="space-y-4">
-                    {[
-                      { label: "CEX Listing", percent: "20%", color: "#ffff00" },
-                      { label: "Marketing", percent: "10%", color: "#ff00ff" },
-                      { label: "Burn Wallet (5% Burnt)", percent: "10%", color: "#ff0000" },
-                    ].map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between items-center p-4 rounded-lg border-2"
-                        style={{
-                          backgroundColor: "rgba(0,0,0,0.5)",
-                          borderColor: item.color,
-                          boxShadow: `0 0 15px ${item.color}40`,
-                        }}
-                      >
-                        <span className="text-white font-semibold">{item.label}</span>
-                        <span
-                          className="font-bold"
-                          style={{
-                            color: item.color,
-                            textShadow: `0 0 10px ${item.color}`,
-                          }}
-                        >
-                          {item.percent}
-                        </span>
-                      </div>
-                    ))}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Diamond Hunt */}
+            <Card className="bg-card border-border hover:border-primary/50 transition-colors">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-primary/10">
+                    <Gamepad2 className="h-6 w-6 text-primary" />
                   </div>
-                  <div className="space-y-4">
-                    {[
-                      { label: "Developer Wallet", percent: "10%", color: "#00ffff" },
-                      { label: "Reward & Airdrop", percent: "4%", color: "#ff6600" },
-                    ].map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between items-center p-4 rounded-lg border-2"
-                        style={{
-                          backgroundColor: "rgba(0,0,0,0.5)",
-                          borderColor: item.color,
-                          boxShadow: `0 0 15px ${item.color}40`,
-                        }}
-                      >
-                        <span className="text-white font-semibold">{item.label}</span>
-                        <span
-                          className="font-bold"
-                          style={{
-                            color: item.color,
-                            textShadow: `0 0 10px ${item.color}`,
-                          }}
-                        >
-                          {item.percent}
-                        </span>
-                      </div>
-                    ))}
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Diamond Hunt</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Use APE tokens to flip cards and find the hidden diamond. Win 1 WLD per diamond found!
+                    </p>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>100 APE = 1 game token</li>
+                      <li>1,000 APE = 10 tokens + 1 banana</li>
+                      <li>10,000 APE = 100 tokens + 6 bananas</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Party Rhythm Game */}
+            <Card className="bg-card border-border hover:border-primary/50 transition-colors">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-primary/10">
+                    <Music className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Party Rhythm Game</h3>
+                    <p className="text-muted-foreground mb-4">
+                      FREE to play! Tap to the beat and earn APE based on your accuracy. 10 WLD weekly prize pool!
+                    </p>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>S Rank (95%+): 15 APE</li>
+                      <li>A Rank (90-94%): 10 APE</li>
+                      <li>B Rank (80-89%): 5 APE</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Space Ape Game */}
+            <Card className="bg-card border-border hover:border-primary/50 transition-colors">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-primary/10">
+                    <Rocket className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Space Ape</h3>
+                    <p className="text-muted-foreground mb-4">
+                      FREE arcade game! Pilot your spaceship, avoid asteroids, and collect coins. 10 WLD weekly prize pool!
+                    </p>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>Free to play</li>
+                      <li>Score-based leaderboard</li>
+                      <li>Top performers win WLD</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Lucky Wheel */}
+            <Card className="bg-card border-border hover:border-primary/50 transition-colors">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-primary/10">
+                    <CircleDot className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Lucky Wheel</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Spin with bananas earned from Diamond Hunt. Win 1-10 WLD per spin - every spin is a guaranteed win!
+                    </p>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>1 banana = 1 spin</li>
+                      <li>Win 1-10 WLD instantly</li>
+                      <li>~2.3 WLD average per spin</li>
+                    </ul>
                   </div>
                 </div>
               </CardContent>
@@ -452,151 +213,253 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Community Section */}
-      <section className="py-12 sm:py-20 px-4">
-        <div className="container mx-auto text-center">
-          <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 px-2"
-            style={{
-              color: "white",
-              background: "linear-gradient(45deg, #ff00ff, #ffffff)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              textShadow: "0 0 20px rgba(255, 0, 255, 0.5)",
-            }}
-          >
-            JOIN THE APE ARMY
-          </h2>
-
-          <div className="mb-8 flex justify-center">
-            <Image
-              src="/images/ape-army.png"
-              alt="Join the Ape Army"
-              width={600}
-              height={600}
-              className="rounded-xl"
-              style={{
-                filter: "drop-shadow(0 0 30px rgba(0, 255, 255, 0.6))",
-              }}
-            />
+      {/* Weekly Rewards Section */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Weekly WLD Rewards</h2>
+            <p className="text-muted-foreground text-lg">20 WLD distributed every week</p>
           </div>
-
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6 mb-8 sm:mb-12 px-4">
-            <Link href="https://x.com/hellowldcoin" target="_blank" rel="noopener noreferrer">
-              <Button
-                size="lg"
-                className="relative bg-transparent border-2 text-white px-8 py-4 overflow-hidden group w-full sm:w-auto"
-                style={{
-                  borderColor: "#1da1f2",
-                  boxShadow: "0 0 20px rgba(29, 161, 242, 0.5)",
-                }}
-              >
-                <span className="relative z-10">🐦 Twitter</span>
-                <div className="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Button>
-            </Link>
-            <Link href="https://t.me/WLD_APE" target="_blank" rel="noopener noreferrer">
-              <Button
-                size="lg"
-                className="relative bg-transparent border-2 text-white px-8 py-4 overflow-hidden group w-full sm:w-auto"
-                style={{
-                  borderColor: "#0088cc",
-                  boxShadow: "0 0 20px rgba(0, 136, 204, 0.5)",
-                }}
-              >
-                <span className="relative z-10">📱 Telegram</span>
-                <div className="absolute inset-0 bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Button>
-            </Link>
+          <div className="grid sm:grid-cols-2 gap-6">
+            <Card className="bg-card border-border">
+              <CardContent className="p-6 text-center">
+                <Trophy className="h-10 w-10 text-accent mx-auto mb-4" />
+                <h3 className="text-2xl font-bold text-foreground mb-2">10 WLD</h3>
+                <p className="text-muted-foreground">Party Rhythm Game</p>
+                <p className="text-sm text-muted-foreground mt-2">Score-based competition</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card border-border">
+              <CardContent className="p-6 text-center">
+                <Trophy className="h-10 w-10 text-accent mx-auto mb-4" />
+                <h3 className="text-2xl font-bold text-foreground mb-2">10 WLD</h3>
+                <p className="text-muted-foreground">Space Ape Game</p>
+                <p className="text-sm text-muted-foreground mt-2">Score-based competition</p>
+              </CardContent>
+            </Card>
           </div>
-
-          <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto px-4">
-            Ready to go bananas? Join our community of space apes and help us conquer the worldchain!
+          <p className="text-center text-sm text-muted-foreground mt-6">
+            Monday-Saturday: Active gameplay | Sunday: Rewards distribution
           </p>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 sm:py-12 px-4 border-t border-slate-700">
-        <div className="container mx-auto text-center">
-          <div className="mb-6 flex flex-col sm:flex-row gap-4 justify-center items-center">
+      {/* How to Earn Section */}
+      <section className="py-16 px-4 bg-card/30">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">How to Earn</h2>
+            <p className="text-muted-foreground text-lg">Multiple ways to earn real tokens</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="bg-card border-border">
+              <CardContent className="p-6 text-center">
+                <Gift className="h-8 w-8 text-primary mx-auto mb-4" />
+                <h3 className="font-semibold text-foreground mb-2">Daily Claim</h3>
+                <p className="text-sm text-muted-foreground">5 APE every 24 hours with World ID verification</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card border-border">
+              <CardContent className="p-6 text-center">
+                <Music className="h-8 w-8 text-primary mx-auto mb-4" />
+                <h3 className="font-semibold text-foreground mb-2">Party Game</h3>
+                <p className="text-sm text-muted-foreground">Earn up to 15 APE per game + weekly WLD</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card border-border">
+              <CardContent className="p-6 text-center">
+                <Rocket className="h-8 w-8 text-primary mx-auto mb-4" />
+                <h3 className="font-semibold text-foreground mb-2">Space Ape</h3>
+                <p className="text-sm text-muted-foreground">Free arcade game with weekly WLD prizes</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card border-border">
+              <CardContent className="p-6 text-center">
+                <CircleDot className="h-8 w-8 text-primary mx-auto mb-4" />
+                <h3 className="font-semibold text-foreground mb-2">Lucky Wheel</h3>
+                <p className="text-sm text-muted-foreground">Spin bananas for 1-10 WLD</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Features Section */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Community Features</h2>
+            <p className="text-muted-foreground text-lg">Connect with the Ape Army</p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6">
+            <Card className="bg-card border-border">
+              <CardContent className="p-6 text-center">
+                <Users className="h-8 w-8 text-primary mx-auto mb-4" />
+                <h3 className="font-semibold text-foreground mb-2">User Profiles</h3>
+                <p className="text-sm text-muted-foreground">Custom avatars and display names</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card border-border">
+              <CardContent className="p-6 text-center">
+                <Trophy className="h-8 w-8 text-primary mx-auto mb-4" />
+                <h3 className="font-semibold text-foreground mb-2">3 Leaderboards</h3>
+                <p className="text-sm text-muted-foreground">Party scores, Space Ape scores, APE holdings</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card border-border">
+              <CardContent className="p-6 text-center">
+                <Shield className="h-8 w-8 text-primary mx-auto mb-4" />
+                <h3 className="font-semibold text-foreground mb-2">World ID Verified</h3>
+                <p className="text-sm text-muted-foreground">Bot-free, fair play guaranteed</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Tokenomics Section */}
+      <section className="py-16 px-4 bg-card/30">
+        <div className="container mx-auto max-w-3xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Tokenomics</h2>
+            <p className="text-muted-foreground text-lg">Total Supply: 100,000,000 APE</p>
+          </div>
+          <div className="space-y-4">
+            {[
+              { label: "Marketing", percent: "10%", color: "bg-chart-1" },
+              { label: "Game Rewards Pool", percent: "10%", color: "bg-chart-2" },
+              { label: "Developer Wallet", percent: "10%", color: "bg-chart-3" },
+              { label: "Reward & Airdrop", percent: "4%", color: "bg-chart-4" },
+              { label: "Community & Liquidity", percent: "66%", color: "bg-chart-5" },
+            ].map((item, index) => (
+              <div key={index} className="flex items-center justify-between p-4 bg-card rounded-lg border border-border">
+                <div className="flex items-center gap-3">
+                  <div className={`w-3 h-3 rounded-full ${item.color}`} />
+                  <span className="text-foreground">{item.label}</span>
+                </div>
+                <span className="font-semibold text-foreground">{item.percent}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mini App CTA Section */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Play on World App</h2>
+          <p className="text-muted-foreground text-lg mb-8">
+            World Ape is a verified mini-app on World App with seamless wallet connection and instant rewards.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://www.geckoterminal.com/world-chain/pools/0x77a26739f06d9abcf8465aa11ff2f772eb045540"
+              href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c"
               target="_blank"
               rel="noopener noreferrer"
-              className="group"
             >
-              <div className="relative p-4 rounded-xl bg-slate-800/50 border-2 border-purple-500/30 hover:border-purple-500 transition-all duration-300 hover:scale-105 w-64 h-20 flex items-center justify-center">
-                <div className="absolute inset-2 bg-white rounded-lg" />
-                <Image
-                  src="/images/geckoterminal-logo.png"
-                  alt="GeckoTerminal - APE/WLD Price"
-                  width={240}
-                  height={50}
-                  className="relative z-10 object-contain"
-                  style={{
-                    filter: "drop-shadow(0 0 15px rgba(147, 51, 234, 0.5))",
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto">
+                <Gamepad2 className="mr-2 h-5 w-5" />
+                Open Mini App
+              </Button>
             </a>
-            <a
-              href="https://dexscreener.com/worldchain/APE-WLD"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group"
-            >
-              <div className="relative p-4 rounded-xl bg-slate-800/50 border-2 border-cyan-500/30 hover:border-cyan-500 transition-all duration-300 hover:scale-105 w-64 h-20 flex flex-col items-center justify-center">
-                <Image
-                  src="/images/dexscreener-logo.png"
-                  alt="DEX Screener - WORLD APE / WLD"
-                  width={40}
-                  height={40}
-                  className="rounded-lg"
-                  style={{
-                    filter: "drop-shadow(0 0 15px rgba(6, 182, 212, 0.5))",
-                  }}
-                />
-                <p className="text-cyan-400 font-bold text-xs mt-1">DEX Screener</p>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
+            <a href="https://world.org/download" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                <ExternalLink className="mr-2 h-5 w-5" />
+                Download World App
+              </Button>
             </a>
           </div>
+        </div>
+      </section>
 
-          <p
-            className="mb-4 text-base sm:text-lg px-4 font-medium"
-            style={{
-              color: "#cbd5e1",
-              textShadow: "0 1px 3px rgba(0, 0, 0, 0.7)",
-            }}
-          >
-            @ September 2025 World Ape. This is a meme coin with no intrinsic value or expectation of financial return.
-          </p>
+      {/* Footer */}
+      <footer className="py-12 px-4 border-t border-border bg-card/30">
+        <div className="container mx-auto max-w-5xl">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            {/* Brand */}
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <Image
+                  src="/images/world-ape-hero.png"
+                  alt="World Ape"
+                  width={32}
+                  height={32}
+                  className="rounded-full"
+                />
+                <span className="font-bold text-lg text-foreground">World Ape</span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                The #1 gaming platform on World Chain. Play games, earn tokens, win weekly prizes.
+              </p>
+            </div>
+
+            {/* Links */}
+            <div>
+              <h4 className="font-semibold text-foreground mb-4">Links</h4>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="https://www.geckoterminal.com/world-chain/pools/0x77a26739f06d9abcf8465aa11ff2f772eb045540"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    GeckoTerminal
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://dexscreener.com/worldchain/APE-WLD"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    DEX Screener
+                  </a>
+                </li>
+                <li>
+                  <Link href="/roadmap" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    Roadmap
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Community */}
+            <div>
+              <h4 className="font-semibold text-foreground mb-4">Community</h4>
+              <div className="flex gap-3">
+                <a
+                  href="https://x.com/hellowldcoin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
+                >
+                  <svg className="h-5 w-5 text-foreground" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://t.me/WLD_APE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
+                >
+                  <svg className="h-5 w-5 text-foreground" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-8 border-t border-border text-center">
+            <p className="text-sm text-muted-foreground">
+              2025 World Ape. This is a meme coin with no intrinsic value or expectation of financial return.
+            </p>
+          </div>
         </div>
       </footer>
-
-      <style jsx>{`
-        @keyframes gradient-shift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 1; }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-        .animate-twinkle {
-          animation: twinkle 2s ease-in-out infinite;
-        }
-      `}</style>
     </main>
   )
 }

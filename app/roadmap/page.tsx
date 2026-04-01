@@ -1,9 +1,8 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
+import { ArrowLeft, Check, Clock, Wrench } from "lucide-react"
 
 export default function RoadmapPage() {
   const milestones = [
@@ -11,394 +10,253 @@ export default function RoadmapPage() {
       phase: "Phase 1",
       title: "Launch & Foundation",
       status: "completed",
-      items: ["Token Launch on WorldChain", "Community Building", "Initial Marketing Campaign", "Website & Branding"],
-      icon: "🚀",
-      color: "#00ffff",
+      items: [
+        "Token Launch on WorldChain",
+        "Community Building",
+        "Website & Branding",
+        "Initial Marketing Campaign",
+      ],
     },
     {
       phase: "Phase 2",
-      title: "Burn Mechanics",
-      status: "completed", // Updated from "in-progress" to "completed"
+      title: "Mini App & Daily Claims",
+      status: "completed",
       items: [
-        "Automated Burn System",
-        "Market Cap Milestones",
-        "Rocket Launch Progression",
-        "Transaction Verification",
+        "World App Mini App Integration",
+        "Daily 5 APE Claim System",
+        "World ID Verification",
+        "Bot Prevention & Monitoring",
       ],
-      icon: "🔥",
-      color: "#ff6600",
     },
     {
       phase: "Phase 3",
-      title: "Mini App Integration",
+      title: "Games Launch",
       status: "completed",
-      items: ["World App Mini App", "Daily Airdrop Claims", "World ID Verification", "5-Hour Claim Cycles"],
-      icon: "📱",
-      color: "#ffff00",
+      items: [
+        "Diamond Hunt Card Flip Game",
+        "Party Rhythm Game (FREE)",
+        "Space Ape Arcade Game (FREE)",
+        "Lucky Wheel with Banana Economy",
+      ],
     },
     {
       phase: "Phase 4",
-      title: "Community Features",
-      status: "in-progress",
-      items: ["Diamond Club Rewards", "Tiered Holder Benefits", "Community Governance", "Exclusive NFT Drops"],
-      icon: "💎",
-      color: "#ff00ff",
+      title: "Weekly Competitions",
+      status: "completed",
+      items: [
+        "20 WLD Weekly Prize Pools",
+        "Party Game Leaderboard (Score-based)",
+        "Space Ape Leaderboard (Score-based)",
+        "APE Fans Leaderboard (Token Holdings)",
+      ],
     },
     {
       phase: "Phase 5",
-      title: "Exchange Listings",
-      status: "in-progress",
-      items: ["Fundraising (In Progress)", "Biconomy Listing Q4 2025", "Major CEX Listings", "DEX Partnerships"],
-      icon: "🏛️",
-      color: "#00ff00",
+      title: "Social Features",
+      status: "completed",
+      items: [
+        "User Profiles & Custom Avatars",
+        "Shoutout Messages",
+        "Community Engagement Tools",
+        "Custom Display Names",
+      ],
     },
     {
       phase: "Phase 6",
-      title: "Ecosystem Expansion",
+      title: "In Development",
+      status: "in-progress",
+      items: [
+        "Reaction System for Shoutouts",
+        "More Rhythm Game Songs",
+        "Difficulty Levels (Easy/Medium/Hard)",
+        "Daily Challenges with Bonus APE",
+      ],
+    },
+    {
+      phase: "Phase 7",
+      title: "Coming Soon",
       status: "upcoming",
-      items: ["Cross-Chain Bridge", "DeFi Integrations", "Staking Rewards", "Yield Farming"],
-      icon: "🌐",
-      color: "#9400d3",
+      items: [
+        "Seasonal Tournaments",
+        "Guild/Team System",
+        "More Games",
+        "Enhanced Social Features",
+      ],
     },
   ]
 
-  const getStatusColor = (status: string) => {
+  const getStatusConfig = (status: string) => {
     switch (status) {
       case "completed":
-        return "#00ff00"
+        return {
+          icon: Check,
+          label: "Completed",
+          className: "bg-primary/10 text-primary border-primary/30",
+        }
       case "in-progress":
-        return "#ffff00"
+        return {
+          icon: Wrench,
+          label: "In Progress",
+          className: "bg-accent/10 text-accent border-accent/30",
+        }
       case "upcoming":
-        return "#888888"
+        return {
+          icon: Clock,
+          label: "Coming Soon",
+          className: "bg-muted text-muted-foreground border-border",
+        }
       default:
-        return "#888888"
-    }
-  }
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case "completed":
-        return "✅ COMPLETED"
-      case "in-progress":
-        return "🚧 IN PROGRESS"
-      case "upcoming":
-        return "⏳ PENDING REVIEW"
-      default:
-        return "PLANNED"
+        return {
+          icon: Clock,
+          label: "Planned",
+          className: "bg-muted text-muted-foreground border-border",
+        }
     }
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Enhanced Animated Stars Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full animate-twinkle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 3 + 1}px`,
-              height: `${Math.random() * 3 + 1}px`,
-              backgroundColor: ["#ff00ff", "#00ffff", "#ffff00", "#ff6600", "#ffffff"][Math.floor(Math.random() * 5)],
-              boxShadow: `0 0 ${Math.random() * 10 + 5}px currentColor`,
-              animationDelay: `${Math.random() * 3}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Floating geometric shapes */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${4 + Math.random() * 2}s`,
-            }}
-          >
-            <div
-              className="w-16 h-16 border-2 rotate-45"
-              style={{
-                borderColor: ["#ff00ff", "#00ffff", "#ffff00"][Math.floor(Math.random() * 3)],
-                boxShadow: `0 0 20px currentColor`,
-              }}
+    <main className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b border-border/50 backdrop-blur-sm sticky top-0 z-50 bg-background/80">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/images/world-ape-hero.png"
+              alt="World Ape"
+              width={40}
+              height={40}
+              className="rounded-full"
             />
+            <span className="font-bold text-xl text-foreground">World Ape</span>
           </div>
-        ))}
-      </div>
-
-      {/* Header Section */}
-      <section className="relative py-12 sm:py-20 px-4">
-        <div className="container mx-auto text-center">
-          <Link href="/" className="inline-block mb-8">
-            <Button
-              variant="outline"
-              className="bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900"
+          <nav className="hidden md:flex items-center gap-6">
+            <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <Link href="/chart" className="text-muted-foreground hover:text-foreground transition-colors">
+              Chart
+            </Link>
+            <a
+              href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              ← Back to Home
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                Play Now
+              </Button>
+            </a>
+          </nav>
+          <Link href="/" className="md:hidden">
+            <Button size="sm" variant="outline">
+              <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
+        </div>
+      </header>
 
-          <div className="mb-8 flex justify-center">
-            <div
-              className="relative p-1 rounded-2xl"
-              style={{
-                background: "linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff)",
-                backgroundSize: "300% 300%",
-                animation: "gradient-shift 2s ease-in-out infinite",
-              }}
-            >
-              <Image
-                src="/images/world-ape-hero.png"
-                alt="World Ape Astronaut"
-                width={200}
-                height={200}
-                className="rounded-2xl animate-float bg-slate-900"
-                priority
-                style={{
-                  filter: "drop-shadow(0 0 30px rgba(255, 0, 255, 0.5))",
-                }}
-              />
-            </div>
-          </div>
-
-          <h1
-            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 px-2"
-            style={{
-              color: "white",
-              background: "linear-gradient(45deg, #00ffff, #ff00ff, #ffff00)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              textShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
-            }}
-          >
-            WORLD APE ROADMAP
-          </h1>
-
-          <p
-            className="text-xl sm:text-2xl mb-8 font-bold px-2"
-            style={{
-              color: "#ffff00",
-              textShadow: "0 0 20px #ffff00",
-            }}
-          >
-            🚀 Our Journey to the Moon and Beyond! 🌙
-          </p>
-
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-12 px-4 leading-relaxed">
-            Follow our cosmic journey as we build the ultimate meme coin ecosystem. From humble beginnings to galactic
-            domination, here's how we're taking World Ape to the stars!
+      {/* Hero Section */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-4xl text-center">
+          <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Link>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Roadmap</h1>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Our journey building the ultimate gaming platform on World Chain. Here&apos;s what we&apos;ve accomplished and what&apos;s coming next.
           </p>
         </div>
       </section>
 
       {/* Roadmap Timeline */}
-      <section className="py-12 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid gap-8 md:gap-12">
-            {milestones.map((milestone, index) => (
-              <div key={index} className="relative">
-                {/* Timeline connector */}
-                {index < milestones.length - 1 && (
-                  <div
-                    className="absolute left-1/2 transform -translate-x-1/2 w-1 h-24 mt-8 z-0"
-                    style={{
-                      background: `linear-gradient(to bottom, ${milestone.color}, ${milestones[index + 1].color})`,
-                      boxShadow: `0 0 10px ${milestone.color}`,
-                    }}
-                  />
-                )}
+      <section className="py-8 px-4 pb-24">
+        <div className="container mx-auto max-w-3xl">
+          <div className="space-y-6">
+            {milestones.map((milestone, index) => {
+              const statusConfig = getStatusConfig(milestone.status)
+              const StatusIcon = statusConfig.icon
 
-                <Card
-                  className="relative bg-slate-800/50 border-0 p-1 rounded-xl group hover:scale-105 transition-transform duration-300"
-                  style={{
-                    background: `linear-gradient(45deg, ${milestone.color}20, rgba(0,0,0,0.3))`,
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 rounded-xl opacity-50 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{
-                      background: `linear-gradient(45deg, ${milestone.color}, ${milestone.color}80)`,
-                      margin: "-1px",
-                      zIndex: -1,
-                      filter: "blur(6px)",
-                    }}
-                  />
-                  <CardContent className="p-6 sm:p-8 bg-slate-900/90 rounded-xl">
-                    <div className="flex flex-col md:flex-row items-center gap-6">
-                      {/* Phase Icon */}
-                      <div
-                        className="text-6xl sm:text-7xl p-4 rounded-full border-4 flex-shrink-0"
-                        style={{
-                          borderColor: milestone.color,
-                          boxShadow: `0 0 20px ${milestone.color}40`,
-                          background: `${milestone.color}10`,
-                        }}
-                      >
-                        {milestone.icon}
+              return (
+                <Card key={index} className="bg-card border-border">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                      {/* Phase indicator */}
+                      <div className="flex items-center gap-3 sm:flex-col sm:items-center sm:w-20 flex-shrink-0">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                          milestone.status === "completed" ? "bg-primary/20" :
+                          milestone.status === "in-progress" ? "bg-accent/20" :
+                          "bg-muted"
+                        }`}>
+                          <StatusIcon className={`h-5 w-5 ${
+                            milestone.status === "completed" ? "text-primary" :
+                            milestone.status === "in-progress" ? "text-accent" :
+                            "text-muted-foreground"
+                          }`} />
+                        </div>
+                        <span className="text-xs font-medium text-muted-foreground sm:text-center">
+                          {milestone.phase}
+                        </span>
                       </div>
 
                       {/* Content */}
-                      <div className="flex-1 text-center md:text-left">
-                        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                          <div>
-                            <h3
-                              className="text-sm font-bold mb-1"
-                              style={{
-                                color: milestone.color,
-                                textShadow: `0 0 10px ${milestone.color}`,
-                              }}
-                            >
-                              {milestone.phase}
-                            </h3>
-                            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{milestone.title}</h2>
-                          </div>
-                          <div
-                            className="px-4 py-2 rounded-full text-sm font-bold border-2"
-                            style={{
-                              borderColor: getStatusColor(milestone.status),
-                              color: getStatusColor(milestone.status),
-                              backgroundColor: `${getStatusColor(milestone.status)}20`,
-                              boxShadow: `0 0 10px ${getStatusColor(milestone.status)}40`,
-                            }}
-                          >
-                            {getStatusText(milestone.status)}
-                          </div>
+                      <div className="flex-1">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                          <h2 className="text-xl font-semibold text-foreground">{milestone.title}</h2>
+                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${statusConfig.className} w-fit`}>
+                            {statusConfig.label}
+                          </span>
                         </div>
 
-                        <div className="grid sm:grid-cols-2 gap-3">
+                        <ul className="grid sm:grid-cols-2 gap-2">
                           {milestone.items.map((item, itemIndex) => (
-                            <div
+                            <li
                               key={itemIndex}
-                              className="flex items-center gap-3 p-3 rounded-lg border"
-                              style={{
-                                backgroundColor: "rgba(0,0,0,0.3)",
-                                borderColor: `${milestone.color}40`,
-                              }}
+                              className="flex items-center gap-2 text-sm text-muted-foreground"
                             >
-                              <div
-                                className="w-2 h-2 rounded-full flex-shrink-0"
-                                style={{
-                                  backgroundColor:
-                                    milestone.status === "completed"
-                                      ? "#00ff00"
-                                      : milestone.status === "in-progress"
-                                        ? "#ffff00"
-                                        : "#888888",
-                                  boxShadow: `0 0 8px currentColor`,
-                                }}
-                              />
-                              <span className="text-gray-300 text-sm">{item}</span>
-                            </div>
+                              <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                                milestone.status === "completed" ? "bg-primary" :
+                                milestone.status === "in-progress" ? "bg-accent" :
+                                "bg-muted-foreground/50"
+                              }`} />
+                              {item}
+                            </li>
                           ))}
-                        </div>
+                        </ul>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-12 sm:py-20 px-4">
-        <div className="container mx-auto text-center">
-          <Card
-            className="relative bg-slate-800/50 border-0 p-1 rounded-xl max-w-2xl mx-auto"
-            style={{
-              background: "linear-gradient(45deg, rgba(255,0,255,0.2), rgba(0,255,255,0.2))",
-            }}
-          >
-            <div
-              className="absolute inset-0 rounded-xl"
-              style={{
-                background: "linear-gradient(45deg, #ff00ff, #00ffff)",
-                margin: "-1px",
-                zIndex: -1,
-                filter: "blur(4px)",
-              }}
-            />
-            <CardContent className="p-8 bg-slate-900/90 rounded-xl">
-              <h3
-                className="text-2xl sm:text-3xl font-bold mb-4"
-                style={{
-                  color: "white",
-                  background: "linear-gradient(45deg, #00ffff, #ff00ff)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Ready to Join the Journey?
-              </h3>
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                Be part of the most ambitious meme coin project in the WorldChain ecosystem. Together, we're building
-                something extraordinary!
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/mini-app">
-                  <Button
-                    size="lg"
-                    className="relative px-8 py-4 text-lg font-bold bg-transparent border-2 text-white overflow-hidden group w-full sm:w-auto"
-                    style={{
-                      borderColor: "#00ffff",
-                      boxShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
-                    }}
-                  >
-                    <span className="relative z-10">🎁 Claim Airdrops</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </Button>
-                </Link>
-                <Link href="/diamond-club">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="relative px-8 py-4 text-lg font-bold bg-transparent border-2 overflow-hidden group w-full sm:w-auto"
-                    style={{
-                      borderColor: "#ff00ff",
-                      color: "#ff00ff",
-                      boxShadow: "0 0 20px rgba(255, 0, 255, 0.5)",
-                    }}
-                  >
-                    <span className="relative z-10">💎 Join Diamond Club</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
+      {/* CTA Section */}
+      <section className="py-16 px-4 bg-card/30 border-t border-border">
+        <div className="container mx-auto max-w-2xl text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">Ready to Join?</h2>
+          <p className="text-muted-foreground mb-8">
+            Start playing today and be part of our growing community.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto">
+                Play Now
+              </Button>
+            </a>
+            <Link href="/">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                Back to Home
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
-
-      <style jsx>{`
-        @keyframes gradient-shift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 1; }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-        .animate-twinkle {
-          animation: twinkle 2s ease-in-out infinite;
-        }
-      `}</style>
     </main>
   )
 }
