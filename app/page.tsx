@@ -137,7 +137,7 @@ export default function HomePage() {
               </div>
               <CardContent className="p-4">
                 <h3 className="font-semibold text-foreground mb-1">Party Rhythm</h3>
-                <p className="text-sm text-muted-foreground">FREE! Tap to the beat and earn APE tokens</p>
+                <p className="text-sm text-muted-foreground">Free to play! Tap to the beat and earn APE</p>
               </CardContent>
             </Card>
 
@@ -221,7 +221,7 @@ export default function HomePage() {
               <CardContent className="p-5 text-center">
                 <Sparkles className="h-6 w-6 text-primary mx-auto mb-3" />
                 <p className="font-medium text-foreground text-sm mb-1">Party Game</p>
-                <p className="text-xs text-muted-foreground">Up to 15 APE/game</p>
+                <p className="text-xs text-muted-foreground">Free to play</p>
               </CardContent>
             </Card>
             <Card className="bg-card border-border">
