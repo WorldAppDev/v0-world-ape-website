@@ -302,8 +302,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Contract */}
+      {/* Live Chart */}
       <section className="py-16 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Live Price Chart</h2>
+            <p className="text-muted-foreground">APE/WLD on World Chain</p>
+          </div>
+          <div className="rounded-xl overflow-hidden border border-border bg-card">
+            <iframe
+              src="https://dexscreener.com/worldchain/0x77a26739f06d9abcf8465aa11ff2f772eb045540?embed=1&theme=dark&info=0"
+              className="w-full h-[500px] md:h-[600px]"
+              title="DEX Screener Chart"
+            />
+          </div>
+          <div className="mt-4 text-center">
+            <a
+              href="https://dexscreener.com/worldchain/0x77a26739f06d9abcf8465aa11ff2f772eb045540"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              View on DEX Screener
+              <ExternalLink className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Contract */}
+      <section className="py-16 px-4 bg-card/20">
         <div className="container mx-auto max-w-xl text-center">
           <p className="text-sm text-muted-foreground mb-2">Contract Address</p>
           <code className="text-xs md:text-sm font-mono text-foreground break-all bg-card px-4 py-3 rounded-lg border border-border block">
