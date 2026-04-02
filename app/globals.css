@@ -56,6 +56,31 @@
 
 html {
   scroll-behavior: smooth;
+  /* Deep milky way base */
+  background-color: #04020f;
+  background-image:
+    /* Milky way band - warm golden core */
+    radial-gradient(ellipse 120% 25% at 50% 45%, rgba(255, 200, 80, 0.06) 0%, transparent 70%),
+    /* Milky way band - blue-white glow */
+    radial-gradient(ellipse 100% 20% at 50% 45%, rgba(160, 180, 255, 0.08) 0%, transparent 60%),
+    /* Top-right nebula - electric violet */
+    radial-gradient(ellipse 55% 40% at 90% 5%, rgba(120, 40, 255, 0.25) 0%, rgba(80, 0, 180, 0.14) 40%, transparent 70%),
+    /* Top-left nebula - deep blue */
+    radial-gradient(ellipse 50% 35% at 5% 10%, rgba(20, 80, 220, 0.20) 0%, rgba(10, 40, 150, 0.12) 45%, transparent 70%),
+    /* Center nebula - teal-cyan */
+    radial-gradient(ellipse 70% 30% at 50% 50%, rgba(0, 200, 200, 0.06) 0%, transparent 60%),
+    /* Mid-right nebula - magenta-pink */
+    radial-gradient(ellipse 40% 35% at 85% 55%, rgba(200, 30, 150, 0.14) 0%, rgba(150, 0, 120, 0.08) 50%, transparent 70%),
+    /* Bottom-left nebula - indigo */
+    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(60, 20, 180, 0.18) 0%, rgba(40, 10, 120, 0.10) 50%, transparent 70%),
+    /* Bottom-right nebula - deep purple */
+    radial-gradient(ellipse 55% 40% at 90% 90%, rgba(100, 20, 200, 0.18) 0%, rgba(60, 10, 140, 0.10) 50%, transparent 70%),
+    /* Bottom center glow */
+    radial-gradient(ellipse 80% 30% at 50% 100%, rgba(80, 20, 120, 0.22) 0%, transparent 60%),
+    /* Overall deep space gradient */
+    linear-gradient(160deg, #080318 0%, #060220 15%, #070325 30%, #050215 50%, #060220 70%, #080318 85%, #040110 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
 @layer base {
@@ -65,39 +90,7 @@ html {
 
   body {
     @apply text-foreground antialiased;
-    /* Deep milky way base */
-    background-color: #04020f;
-    background-image:
-      /* Milky way band - warm golden core */
-      radial-gradient(ellipse 120% 25% at 50% 45%, rgba(255, 200, 80, 0.06) 0%, transparent 70%),
-      /* Milky way band - blue-white glow */
-      radial-gradient(ellipse 100% 20% at 50% 45%, rgba(160, 180, 255, 0.08) 0%, transparent 60%),
-      /* Top-right nebula - electric violet */
-      radial-gradient(ellipse 55% 40% at 90% 5%, rgba(120, 40, 255, 0.22) 0%, rgba(80, 0, 180, 0.12) 40%, transparent 70%),
-      /* Top-left nebula - deep blue */
-      radial-gradient(ellipse 50% 35% at 5% 10%, rgba(20, 80, 220, 0.18) 0%, rgba(10, 40, 150, 0.10) 45%, transparent 70%),
-      /* Center nebula - teal-cyan */
-      radial-gradient(ellipse 70% 30% at 50% 50%, rgba(0, 200, 200, 0.05) 0%, transparent 60%),
-      /* Mid-right nebula - magenta-pink */
-      radial-gradient(ellipse 40% 35% at 85% 55%, rgba(200, 30, 150, 0.12) 0%, rgba(150, 0, 120, 0.07) 50%, transparent 70%),
-      /* Bottom-left nebula - indigo */
-      radial-gradient(ellipse 50% 40% at 10% 80%, rgba(60, 20, 180, 0.16) 0%, rgba(40, 10, 120, 0.09) 50%, transparent 70%),
-      /* Bottom-right nebula - deep purple */
-      radial-gradient(ellipse 55% 40% at 90% 90%, rgba(100, 20, 200, 0.15) 0%, rgba(60, 10, 140, 0.08) 50%, transparent 70%),
-      /* Bottom center glow - warm cosmic dust */
-      radial-gradient(ellipse 80% 30% at 50% 100%, rgba(80, 20, 120, 0.20) 0%, transparent 60%),
-      /* Overall deep space gradient */
-      linear-gradient(
-        160deg,
-        #080318 0%,
-        #060220 15%,
-        #070325 30%,
-        #050215 50%,
-        #060220 70%,
-        #080318 85%,
-        #040110 100%
-      );
-    background-attachment: fixed;
+    background-color: transparent !important;
     min-height: 100vh;
   }
 }
