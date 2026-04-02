@@ -244,30 +244,66 @@ export default function HomePage() {
 
       {/* Staking Rewards */}
       <section className="py-16 px-4">
-        <div className="container mx-auto max-w-2xl">
-          <div className="rounded-2xl border border-border bg-gradient-to-br from-card to-card/50 p-8 md:p-10 text-center">
-            <Shield className="h-12 w-12 text-accent mx-auto mb-4" />
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Staking Rewards</h2>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              Earn passive income by staking APE tokens in ANI Wallet
-            </p>
-            <div className="mb-8 space-y-2">
-              <div className="flex items-center justify-center gap-2">
-                <span className="text-3xl md:text-4xl font-bold text-accent">49.5%</span>
-                <span className="text-foreground text-lg">APY</span>
+            <p className="text-muted-foreground">Earn passive income by staking APE tokens in ANI Wallet</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            {/* Left - Images */}
+            <div className="flex flex-col gap-4">
+              <div className="rounded-xl overflow-hidden border border-border">
+                <img
+                  src="/ani-wallet-2.jpg"
+                  alt="ANI Wallet staking interface"
+                  className="w-full h-auto"
+                />
               </div>
-              <p className="text-sm text-muted-foreground">60 days lockup period</p>
             </div>
-            <a
-              href="https://worldcoin.org/mini-app?app_id=app_4593f73390a9843503ec096086b43612&app_mode=mini-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto">
-                <ExternalLink className="mr-2 h-5 w-5" />
-                Open ANI Wallet
-              </Button>
-            </a>
+            
+            {/* Right - Info */}
+            <div className="space-y-6">
+              <div className="rounded-2xl border border-border bg-card p-6 text-center">
+                <Shield className="h-12 w-12 text-accent mx-auto mb-3" />
+                <div className="space-y-2 mb-6">
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-4xl font-bold text-accent">49.5%</span>
+                    <span className="text-foreground text-lg">APY</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">60 days lockup period</p>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <h3 className="font-semibold text-foreground">How it works:</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-accent mt-1">•</span>
+                    <span>Stake your APE tokens in ANI Wallet</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-accent mt-1">•</span>
+                    <span>Lock for 60 days to earn 49.5% APY</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-accent mt-1">•</span>
+                    <span>Receive rewards directly to your wallet</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <a
+                href="https://worldcoin.org/mini-app?app_id=app_4593f73390a9843503ec096086b43612&app_mode=mini-app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                  <ExternalLink className="mr-2 h-5 w-5" />
+                  Open ANI Wallet
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
       </section>
