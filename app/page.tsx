@@ -383,6 +383,46 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Available On Worldchain Mini-Apps */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Play on Worldchain</h2>
+            <p className="text-muted-foreground">World Ape is officially available as a mini-app on Worldchain</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="rounded-2xl overflow-hidden border border-border hover:border-accent transition-colors">
+              <img
+                src="/worldapp-card-1.jpg"
+                alt="World Ape Mini-App Card"
+                className="w-full h-auto"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-border hover:border-accent transition-colors">
+              <img
+                src="/worldapp-card-2.jpg"
+                alt="Space Apes on Worldchain"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+          
+          <div className="mt-8 text-center">
+            <a
+              href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                <Sparkles className="mr-2 h-5 w-5" />
+                Open on Worldchain
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Top Fans Preview */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
