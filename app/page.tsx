@@ -310,39 +310,39 @@ export default function HomePage() {
         </div>
 
         {/* ── WORLDCHAIN MINI-APP + TOP FANS ── */}
-        <div className="grid md:grid-cols-2 gap-3 md:gap-4">
-          <div className="rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
-            <h2 className="text-base md:text-lg font-black text-white mb-2 md:mb-4 tracking-tight">PLAY ON WORLDCHAIN</h2>
-            <p className="text-[9px] md:text-xs text-white/50 mb-3 md:mb-4">Available on Worldchain ecosystem</p>
-            <div className="grid grid-cols-2 gap-2 md:gap-3 mb-3 md:mb-5">
-              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 hover:border-primary/40 transition-colors">
-                <img src="/worldapp-card-1.jpg" alt="World Ape Mini-App" className="w-full h-20 md:h-full object-cover" />
+        <div className="w-full grid md:grid-cols-2 gap-3 md:gap-4 overflow-hidden">
+          <div className="rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6 min-w-0">
+            <h2 className="text-base md:text-lg font-black text-white mb-2 md:mb-4 tracking-tight truncate">PLAY ON WORLDCHAIN</h2>
+            <p className="text-[9px] md:text-xs text-white/50 mb-3 md:mb-4 line-clamp-2">Available on Worldchain ecosystem</p>
+            <div className="grid grid-cols-2 gap-2 md:gap-3 mb-3 md:mb-5 w-full">
+              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 hover:border-primary/40 transition-colors w-full">
+                <img src="/worldapp-card-1.jpg" alt="World Ape Mini-App" className="w-full h-auto md:h-24 object-cover object-center" />
               </div>
-              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 hover:border-primary/40 transition-colors">
-                <img src="/worldapp-card-2.jpg" alt="Space Apes on Worldchain" className="w-full h-20 md:h-full object-cover" />
+              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 hover:border-primary/40 transition-colors w-full">
+                <img src="/worldapp-card-2.jpg" alt="Space Apes on Worldchain" className="w-full h-auto md:h-24 object-cover object-center" />
               </div>
             </div>
-            <a href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c" target="_blank" rel="noopener noreferrer">
-              <Button className="w-full bg-primary text-black hover:bg-primary/90 font-black text-xs md:text-sm py-2 md:py-3">
-                <Sparkles className="mr-1.5 md:mr-2 h-3.5 w-3.5 md:h-4 md:w-4" />OPEN
+            <a href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c" target="_blank" rel="noopener noreferrer" className="w-full block">
+              <Button className="w-full bg-primary text-black hover:bg-primary/90 font-black text-xs md:text-sm py-2 md:py-3 truncate">
+                <Sparkles className="mr-1.5 md:mr-2 h-3.5 w-3.5 md:h-4 md:w-4 flex-shrink-0" />OPEN
               </Button>
             </a>
           </div>
 
-          <div className="rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
-            <h2 className="text-base md:text-lg font-black text-white mb-2 md:mb-4 tracking-tight">TOP APE FANS</h2>
+          <div className="rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6 min-w-0">
+            <h2 className="text-base md:text-lg font-black text-white mb-2 md:mb-4 tracking-tight truncate">TOP APE FANS</h2>
             <div className="space-y-2 md:space-y-3">
-              <p className="text-[9px] md:text-xs text-white/50 leading-relaxed">Join the leaderboard. Compete with the community for top spots.</p>
+              <p className="text-[9px] md:text-xs text-white/50 leading-relaxed line-clamp-3">Join the leaderboard. Compete with the community for top spots.</p>
               {[
                 { icon: Users, text: "Custom avatars" },
                 { icon: Trophy, text: "Live rankings" },
                 { icon: Shield, text: "World ID verified" },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-2 md:gap-3">
+                <div key={i} className="flex items-center gap-2 md:gap-3 min-w-0">
                   <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
                     <item.icon className="h-3 w-3 md:h-4 md:w-4 text-primary" />
                   </div>
-                  <p className="text-[9px] md:text-xs text-white/70">{item.text}</p>
+                  <p className="text-[9px] md:text-xs text-white/70 truncate">{item.text}</p>
                 </div>
               ))}
             </div>
