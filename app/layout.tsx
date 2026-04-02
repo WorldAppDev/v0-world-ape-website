@@ -39,20 +39,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable}`}>
-        {/* Animated space background */}
+        {/* Star field layers */}
         <div className="stars-container">
-          <div className="stars"></div>
-          <div className="stars"></div>
-          <div className="stars"></div>
-          <div className="shooting-star"></div>
-          <div className="shooting-star"></div>
-          <div className="shooting-star"></div>
+          <div className="stars-layer-1"></div>
+          <div className="stars-layer-2"></div>
+          <div className="stars-layer-3"></div>
+          <div className="stars-layer-4"></div>
+          <div className="shooting-star s1"></div>
+          <div className="shooting-star s2"></div>
+          <div className="shooting-star s3"></div>
+          <div className="shooting-star s4"></div>
+          <div className="shooting-star s5"></div>
         </div>
-        
-        {/* Nebula glow effects */}
-        <div className="nebula nebula-1"></div>
-        <div className="nebula nebula-2"></div>
-        <div className="nebula nebula-3"></div>
+
+        {/* Nebula glow layers */}
+        <div className="nebula nebula-violet"></div>
+        <div className="nebula nebula-blue"></div>
+        <div className="nebula nebula-pink"></div>
+        <div className="nebula nebula-teal"></div>
+        <div className="nebula nebula-gold"></div>
         
         {/* Main content */}
         <div className="relative z-10">
