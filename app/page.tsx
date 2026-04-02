@@ -308,6 +308,81 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Staking Pool Details */}
+      <section className="py-16 px-4 bg-card/30">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">APE Staking Pool #35</h2>
+            <p className="text-muted-foreground">Real-time staking statistics and rewards information</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Images */}
+            <div className="flex flex-col gap-4">
+              <div className="rounded-xl overflow-hidden border border-border">
+                <img
+                  src="/staking-pool-1.jpg"
+                  alt="APE Staking Pool Overview"
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="rounded-xl overflow-hidden border border-border">
+                <img
+                  src="/staking-pool-2.jpg"
+                  alt="APE Staking Pool Stats"
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
+            
+            {/* Stats */}
+            <div className="space-y-4">
+              <div className="rounded-xl border border-border bg-card p-6">
+                <p className="text-muted-foreground text-sm mb-1">Total Staked</p>
+                <p className="text-3xl font-bold text-accent">3,498,250</p>
+                <p className="text-sm text-muted-foreground">APE Tokens</p>
+              </div>
+              
+              <div className="rounded-xl border border-border bg-card p-6">
+                <p className="text-muted-foreground text-sm mb-1">Total Stakers</p>
+                <p className="text-3xl font-bold text-accent">1,673</p>
+                <p className="text-sm text-muted-foreground">Active participants</p>
+              </div>
+              
+              <div className="rounded-xl border border-border bg-card p-6">
+                <p className="text-muted-foreground text-sm mb-1">Total Value Locked (TVL)</p>
+                <p className="text-3xl font-bold text-accent">$18,047,892.54</p>
+                <p className="text-sm text-muted-foreground">USD equivalent</p>
+              </div>
+              
+              <div className="rounded-xl border border-border bg-card p-6">
+                <p className="text-muted-foreground text-sm mb-1">Total Distribution</p>
+                <p className="text-3xl font-bold text-accent">11,500,000</p>
+                <p className="text-sm text-muted-foreground">APE rewards pool</p>
+              </div>
+              
+              <div className="rounded-xl border border-border bg-card p-6">
+                <p className="text-muted-foreground text-sm mb-1">Reward Reserve</p>
+                <p className="text-3xl font-bold text-accent">10,311,804.27</p>
+                <p className="text-sm text-muted-foreground">APE remaining</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <a
+              href="https://worldcoin.org/mini-app?app_id=app_4593f73390a9843503ec096086b43612&app_mode=mini-app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                Start Staking Now
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Top Fans Preview */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
