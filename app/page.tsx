@@ -19,7 +19,7 @@ import {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen">
       {/* Header */}
       <header className="border-b border-border/40 backdrop-blur-md sticky top-0 z-50 bg-background/80">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
