@@ -10,13 +10,13 @@
   --card-foreground: oklch(0.97 0 0);
   --popover: oklch(0.10 0.04 270 / 0.80);
   --popover-foreground: oklch(0.97 0 0);
-  --primary: oklch(0.72 0.22 145);
+  --primary: oklch(0.75 0.18 60);
   --primary-foreground: oklch(0.10 0.02 260);
-  --secondary: oklch(0.16 0.03 280);
-  --secondary-foreground: oklch(0.97 0 0);
+  --secondary: oklch(0.92 0.05 280);
+  --secondary-foreground: oklch(0.10 0.02 260);
   --muted: oklch(0.14 0.02 280);
   --muted-foreground: oklch(0.62 0.03 280);
-  --accent: oklch(0.80 0.18 80);
+  --accent: oklch(0.88 0.08 65);
   --accent-foreground: oklch(0.10 0.02 260);
   --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.97 0 0);
@@ -347,8 +347,21 @@ html {
 /* ===================== SELECTION ===================== */
 
 ::selection {
-  background: rgba(130, 40, 255, 0.35);
+  background: rgba(255, 200, 70, 0.35);
   color: #fff;
+}
+
+/* ===================== 3D GOLD TEXT EFFECT ===================== */
+
+.gold-text {
+  background: linear-gradient(135deg, #ffd700, #ffed4e, #daa520, #d4af37, #b8860b);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+  filter: drop-shadow(1px 1px 2px rgba(212, 175, 55, 0.6));
+  font-weight: 900;
 }
 
 /* ===================== GLASS CARDS ===================== */
