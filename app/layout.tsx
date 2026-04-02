@@ -39,7 +39,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable}`}>
-        <Suspense fallback={null}>{children}</Suspense>
+        {/* Animated space background */}
+        <div className="stars-container">
+          <div className="stars"></div>
+          <div className="stars"></div>
+          <div className="stars"></div>
+          <div className="shooting-star"></div>
+          <div className="shooting-star"></div>
+          <div className="shooting-star"></div>
+        </div>
+        
+        {/* Nebula glow effects */}
+        <div className="nebula nebula-1"></div>
+        <div className="nebula nebula-2"></div>
+        <div className="nebula nebula-3"></div>
+        
+        {/* Main content */}
+        <div className="relative z-10">
+          <Suspense fallback={null}>{children}</Suspense>
+        </div>
       </body>
     </html>
   )
