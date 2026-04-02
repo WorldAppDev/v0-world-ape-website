@@ -26,7 +26,7 @@ export default function HomePage() {
               height={36}
               className="rounded-full"
             />
-            <span className="font-bold text-lg text-foreground">World Ape</span>
+            <span className="font-bold text-lg text-foreground">WORLD APE</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/roadmap" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
@@ -72,13 +72,13 @@ export default function HomePage() {
             />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3 text-balance">
-            World Ape
+            WORLD APE
           </h1>
           <p className="text-lg text-primary font-medium mb-4">
-            The #1 Gaming Platform on World Chain
+            THE #1 GAMING PLATFORM ON WORLD CHAIN
           </p>
           <p className="text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
-            Play free games, earn APE tokens, and compete for 20 WLD in weekly prizes.
+            PLAY FREE GAMES, EARN APE TOKENS, AND COMPETE FOR 20 WLD IN WEEKLY PRIZES.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
@@ -246,7 +246,7 @@ export default function HomePage() {
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Staking Rewards</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">STAKING REWARDS</h2>
             <p className="text-muted-foreground">Earn passive income by staking APE tokens in ANI Wallet</p>
           </div>
           
@@ -312,7 +312,7 @@ export default function HomePage() {
       <section className="py-16 px-4 bg-card/30">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">APE Staking Pool #35</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">APE STAKING POOL #35</h2>
             <p className="text-muted-foreground">Real-time staking statistics and rewards information</p>
           </div>
           
@@ -387,7 +387,7 @@ export default function HomePage() {
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Play on Worldchain</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">PLAY ON WORLDCHAIN</h2>
             <p className="text-muted-foreground">World Ape is officially available as a mini-app on Worldchain</p>
           </div>
           
@@ -463,7 +463,7 @@ export default function HomePage() {
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Tokenomics</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">TOKENOMICS</h2>
             <p className="text-muted-foreground">Total Supply: 100,000,000 APE</p>
           </div>
           
@@ -530,8 +530,8 @@ export default function HomePage() {
       {/* Live Chart */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Live Price Chart</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">LIVE PRICE CHART</h2>
             <p className="text-muted-foreground">APE/WLD on World Chain</p>
           </div>
           <div className="rounded-xl overflow-hidden border border-border bg-card">
@@ -558,7 +558,7 @@ export default function HomePage() {
       {/* Contract */}
       <section className="py-16 px-4 bg-card/20">
         <div className="container mx-auto max-w-xl text-center">
-          <p className="text-sm text-muted-foreground mb-2">Contract Address</p>
+          <p className="text-sm text-muted-foreground mb-2">CONTRACT ADDRESS</p>
           <code className="text-xs md:text-sm font-mono text-foreground break-all bg-card px-4 py-3 rounded-lg border border-border block">
             0x13e20981D9bd3dC45e99802f06488C5AD7c28360
           </code>
