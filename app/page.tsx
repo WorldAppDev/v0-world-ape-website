@@ -73,7 +73,6 @@ export default function HomePage() {
     { label: "DISTRIBUTION", value: "11.5M", sub: "APE Pool", icon: Gift },
     { label: "REWARD RESERVE", value: "10.3M", sub: "Remaining", icon: Sparkles },
   ]
-
   return (
     <main className="min-h-screen">
 
