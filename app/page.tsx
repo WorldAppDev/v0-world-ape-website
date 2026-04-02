@@ -59,10 +59,10 @@ export default function HomePage() {
   ]
 
   const tokenomics = [
-    { label: "LOCKED", percent: "50%", sub: "PUF Wallet", icon: Lock, color: "text-green-400", bg: "bg-green-500/10 border-green-500/20" },
-    { label: "CIRCULATION", percent: "32.27%", sub: "Trading", icon: Coins, color: "text-yellow-400", bg: "bg-yellow-500/10 border-yellow-500/20" },
-    { label: "DEV HOLDING", percent: "10%", sub: "Team", icon: Users, color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/20" },
-    { label: "BURNT", percent: "7.73%", sub: "Burned forever", icon: Flame, color: "text-red-400", bg: "bg-red-500/10 border-red-500/20" },
+    { label: "LOCKED", percent: "50%", sub: "PUF Wallet", icon: Lock, color: "text-primary", bg: "bg-primary/10 border-primary/20" },
+    { label: "CIRCULATION", percent: "32.27%", sub: "Trading", icon: Coins, color: "text-amber-300", bg: "bg-amber-500/10 border-amber-500/20" },
+    { label: "DEV HOLDING", percent: "10%", sub: "Team", icon: Users, color: "text-blue-300", bg: "bg-blue-500/10 border-blue-500/20" },
+    { label: "BURNT", percent: "7.73%", sub: "Burned forever", icon: Flame, color: "text-red-300", bg: "bg-red-500/10 border-red-500/20" },
   ]
 
   const poolStats = [
