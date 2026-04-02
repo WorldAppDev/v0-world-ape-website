@@ -56,6 +56,9 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
   /* Deep milky way base */
   background-color: #04020f;
   background-image:
@@ -92,6 +95,8 @@ html {
     @apply text-foreground antialiased;
     background: transparent !important;
     min-height: 100vh;
+    overflow-x: hidden;
+    width: 100%;
   }
 
   /* Make sure nothing overrides the cosmic background */

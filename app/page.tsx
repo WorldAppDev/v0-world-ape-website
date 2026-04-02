@@ -141,7 +141,214 @@ export default function HomePage() {
       </div>
 
       {/* ─── MAIN CONTENT GRID ─── */}
-      <div className="container mx-auto max-w-7xl px-4 py-12 space-y-10">
+      <div className="container mx-auto w-full max-w-7xl px-3 md:px-4 py-8 md:py-12 space-y-6 md:space-y-10">
+
+        {/* ── GAMES ── */}
+        <section>
+          <h2 className="text-xl md:text-3xl font-black text-white mb-4 md:mb-6 tracking-tight">FEATURED GAMES</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
+            {games.map((game, i) => (
+              <div
+                key={i}
+                className={`group relative rounded-lg md:rounded-2xl border border-white/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl bg-gradient-to-b ${game.color} ${game.border}`}
+                onClick={() => setActiveGame(i)}
+              >
+                <div className="aspect-[3/4] relative overflow-hidden">
+                  <Image src={game.img} alt={game.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  <span className="absolute top-1 left-1 md:top-2 md:left-2 text-[8px] md:text-[10px] font-black bg-primary text-black px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">{game.badge}</span>
+                  <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3">
+                    <p className="text-[9px] md:text-xs font-black text-white tracking-wide">{game.title}</p>
+                    <p className="text-[7px] md:text-[10px] text-white/60 mt-0.5 leading-tight line-clamp-2">{game.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── EARN + REWARDS bento row ── */}
+        <div className="grid md:grid-cols-3 gap-3 md:gap-4">
+
+          {/* How to Earn */}
+          <div className="md:col-span-1 rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
+            <h2 className="text-base md:text-lg font-black text-white mb-3 md:mb-5 tracking-tight">HOW TO EARN</h2>
+            <div className="space-y-2 md:space-y-3">
+              {[
+                { icon: Gift, title: "DAILY CLAIM", desc: "5 APE every 24h", color: "text-green-400", bg: "bg-green-500/10" },
+                { icon: Sparkles, title: "PARTY GAME", desc: "Free to play", color: "text-purple-400", bg: "bg-purple-500/10" },
+                { icon: Gamepad2, title: "SPACE APE", desc: "Free to play", color: "text-blue-400", bg: "bg-blue-500/10" },
+                { icon: Trophy, title: "LUCKY WHEEL", desc: "Win 1–10 WLD", color: "text-yellow-400", bg: "bg-yellow-500/10" },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg md:rounded-xl border border-white/5 hover:border-white/15 transition-colors group cursor-default">
+                  <div className={`w-7 h-7 md:w-9 md:h-9 rounded-lg md:rounded-xl ${item.bg} flex items-center justify-center flex-shrink-0`}>
+                    <item.icon className={`h-3 w-3 md:h-4 md:w-4 ${item.color}`} />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[11px] md:text-xs font-bold text-white truncate">{item.title}</p>
+                    <p className="text-[9px] md:text-[11px] text-white/50 truncate">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Weekly Rewards */}
+          <div className="md:col-span-2 rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
+            <h2 className="text-base md:text-lg font-black text-white mb-3 md:mb-5 tracking-tight">WEEKLY REWARDS</h2>
+            <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
+              {[
+                { title: "PARTY RHYTHM GAME", prize: "10 WLD", desc: "Top scorer each week", color: "border-purple-500/30 hover:border-purple-500/60 from-purple-500/10" },
+                { title: "SPACE APE GAME", prize: "10 WLD", desc: "Top scorer each week", color: "border-blue-500/30 hover:border-blue-500/60 from-blue-500/10" },
+              ].map((r, i) => (
+                <div key={i} className={`rounded-lg md:rounded-xl border bg-gradient-to-br ${r.color} to-transparent p-4 md:p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-[1.02]`}>
+                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-yellow-500/10 flex items-center justify-center mb-2 md:mb-3">
+                    <Trophy className="h-5 w-5 md:h-7 md:w-7 text-yellow-400" />
+                  </div>
+                  <p className="text-2xl md:text-4xl font-black text-primary mb-0.5 md:mb-1">{r.prize}</p>
+                  <p className="text-[10px] md:text-xs font-bold text-white tracking-wide">{r.title}</p>
+                  <p className="text-[8px] md:text-[11px] text-white/40 mt-0.5 md:mt-1">{r.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── STAKING bento row ── */}
+        <div className="grid lg:grid-cols-5 gap-3 md:gap-4">
+
+          {/* APY Card */}
+          <div className="lg:col-span-2 rounded-lg md:rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 to-black/30 backdrop-blur-sm p-4 md:p-6 flex flex-col items-center justify-center text-center">
+            <Shield className="h-7 w-7 md:h-10 md:w-10 text-primary mb-2 md:mb-3" />
+            <p className="text-5xl md:text-7xl font-black text-primary leading-none">49.5%</p>
+            <p className="text-lg md:text-xl font-bold text-white mt-0.5 md:mt-1">APY</p>
+            <p className="text-[9px] md:text-xs text-white/50 mt-1 md:mt-2">60 DAYS LOCKUP</p>
+            <div className="mt-4 md:mt-6 w-full space-y-1.5 md:space-y-2 text-left">
+              {["Stake APE in ANI", "Lock 60 days", "Earn rewards"].map((s, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <span className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-primary/20 text-primary text-[8px] md:text-[10px] font-black flex items-center justify-center flex-shrink-0">{i + 1}</span>
+                  <span className="text-[9px] md:text-xs text-white/60">{s}</span>
+                </div>
+              ))}
+            </div>
+            <a href="https://worldcoin.org/mini-app?app_id=app_4593f73390a9843503ec096086b43612&app_mode=mini-app" target="_blank" rel="noopener noreferrer" className="w-full mt-4 md:mt-6">
+              <Button className="w-full bg-primary text-black hover:bg-primary/90 font-black text-xs md:text-sm py-2 md:py-3">
+                OPEN ANI <ExternalLink className="ml-1 h-3 w-3" />
+              </Button>
+            </a>
+          </div>
+
+          {/* Pool Stats */}
+          <div className="lg:col-span-3 rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
+            <div className="flex items-center justify-between mb-3 md:mb-5">
+              <h2 className="text-base md:text-lg font-black text-white tracking-tight">APE STAKING POOL #35</h2>
+              <span className="text-[8px] md:text-[10px] font-bold bg-primary/20 text-primary px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">LIVE</span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 mb-3 md:mb-5">
+              {poolStats.map((stat, i) => (
+                <div key={i} className="rounded-lg md:rounded-xl border border-white/8 bg-white/5 p-2 md:p-4 hover:bg-white/10 transition-colors">
+                  <stat.icon className="h-3 w-3 md:h-4 md:w-4 text-primary mb-1 md:mb-2" />
+                  <p className="text-sm md:text-lg font-black text-primary">{stat.value}</p>
+                  <p className="text-[8px] md:text-[10px] text-white/50 font-semibold">{stat.label}</p>
+                  <p className="text-[8px] text-white/30">{stat.sub}</p>
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 gap-2 md:gap-3">
+              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 h-20 md:h-28">
+                <img src="/staking-pool-1.jpg" alt="Staking Pool" className="w-full h-full object-cover object-top" />
+              </div>
+              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 h-20 md:h-28">
+                <img src="/staking-pool-2.jpg" alt="Staking Stats" className="w-full h-full object-cover object-top" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── TOKENOMICS + PUF WALLET ── */}
+        <div className="grid lg:grid-cols-5 gap-3 md:gap-4">
+          <div className="lg:col-span-3 rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
+            <div className="flex items-center justify-between mb-3 md:mb-5">
+              <div>
+                <h2 className="text-base md:text-lg font-black text-white">TOKENOMICS</h2>
+                <p className="text-[8px] md:text-xs text-white/40">Total: 100M APE</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 md:gap-3 mb-3 md:mb-5">
+              {tokenomics.map((item, i) => (
+                <div key={i} className={`rounded-lg md:rounded-xl border ${item.bg} p-3 md:p-4 hover:scale-[1.02] transition-transform cursor-default`}>
+                  <item.icon className={`h-4 w-4 md:h-5 md:w-5 ${item.color} mb-1 md:mb-2`} />
+                  <p className={`text-2xl md:text-3xl font-black ${item.color}`}>{item.percent}</p>
+                  <p className="text-[10px] md:text-xs font-bold text-white mt-0.5 md:mt-1">{item.label}</p>
+                  <p className="text-[8px] text-white/40">{item.sub}</p>
+                </div>
+              ))}
+            </div>
+            <div className="rounded-lg md:rounded-xl border border-green-500/20 bg-green-500/5 p-3 md:p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-[10px] md:text-xs font-bold text-white">TOKENS LOCKED IN PUF</p>
+                <p className="text-[8px] md:text-[11px] text-white/40 mt-0.5">50% secured for transparency</p>
+              </div>
+              <a href="https://worldcoin.org/mini-app?app_id=app_e5ba7c3061400e361f98ce44d8b1b9c4&app_mode=mini-app" target="_blank" rel="noopener noreferrer" className="flex-shrink-0">
+                <Button size="sm" className="bg-green-500 hover:bg-green-400 text-black font-black text-[9px] md:text-xs py-1 md:py-2 px-2 md:px-3 whitespace-nowrap">VIEW <ExternalLink className="ml-0.5 md:ml-1 h-2.5 w-2.5 md:h-3 md:w-3" /></Button>
+              </a>
+            </div>
+          </div>
+
+          <div className="lg:col-span-2 rounded-lg md:rounded-2xl overflow-hidden border border-white/10 relative group h-32 md:h-auto">
+            <img src="/puf-wallet.jpg" alt="PUF Wallet" className="w-full h-full object-cover object-top" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+            <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4 right-2 md:right-4">
+              <p className="text-[8px] md:text-xs font-black text-white tracking-widest mb-1 md:mb-2">PUF WALLET</p>
+              <a href="https://worldcoin.org/mini-app?app_id=app_e5ba7c3061400e361f98ce44d8b1b9c4&app_mode=mini-app" target="_blank" rel="noopener noreferrer">
+                <Button size="sm" className="w-full bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30 font-bold text-[9px] md:text-xs py-1 md:py-2">
+                  OPEN <ExternalLink className="ml-0.5 md:ml-1 h-2.5 w-2.5 md:h-3 md:w-3" />
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* ── WORLDCHAIN MINI-APP + TOP FANS ── */}
+        <div className="grid md:grid-cols-2 gap-3 md:gap-4">
+          <div className="rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
+            <h2 className="text-base md:text-lg font-black text-white mb-2 md:mb-4 tracking-tight">PLAY ON WORLDCHAIN</h2>
+            <p className="text-[9px] md:text-xs text-white/50 mb-3 md:mb-4">Available on Worldchain ecosystem</p>
+            <div className="grid grid-cols-2 gap-2 md:gap-3 mb-3 md:mb-5">
+              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 hover:border-primary/40 transition-colors">
+                <img src="/worldapp-card-1.jpg" alt="World Ape Mini-App" className="w-full h-20 md:h-full object-cover" />
+              </div>
+              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 hover:border-primary/40 transition-colors">
+                <img src="/worldapp-card-2.jpg" alt="Space Apes on Worldchain" className="w-full h-20 md:h-full object-cover" />
+              </div>
+            </div>
+            <a href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c" target="_blank" rel="noopener noreferrer">
+              <Button className="w-full bg-primary text-black hover:bg-primary/90 font-black text-xs md:text-sm py-2 md:py-3">
+                <Sparkles className="mr-1.5 md:mr-2 h-3.5 w-3.5 md:h-4 md:w-4" />OPEN
+              </Button>
+            </a>
+          </div>
+
+          <div className="rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
+            <h2 className="text-base md:text-lg font-black text-white mb-2 md:mb-4 tracking-tight">TOP APE FANS</h2>
+            <div className="space-y-2 md:space-y-3">
+              <p className="text-[9px] md:text-xs text-white/50 leading-relaxed">Join the leaderboard. Compete with the community for top spots.</p>
+              {[
+                { icon: Users, text: "Custom avatars" },
+                { icon: Trophy, text: "Live rankings" },
+                { icon: Shield, text: "World ID verified" },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 md:gap-3">
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <item.icon className="h-3 w-3 md:h-4 md:w-4 text-primary" />
+                  </div>
+                  <p className="text-[9px] md:text-xs text-white/70">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
         {/* ── GAMES ── */}
         <section>
