@@ -460,25 +460,69 @@ export default function HomePage() {
       </section>
 
       {/* Tokenomics */}
-      <section className="py-16 px-4 bg-card/20">
-        <div className="container mx-auto max-w-2xl">
-          <div className="text-center mb-10">
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Tokenomics</h2>
             <p className="text-muted-foreground">Total Supply: 100,000,000 APE</p>
           </div>
-          <div className="space-y-3">
-            {[
-              { label: "Community & Liquidity", percent: "66%" },
-              { label: "Marketing", percent: "10%" },
-              { label: "Game Rewards Pool", percent: "10%" },
-              { label: "Developer Wallet", percent: "10%" },
-              { label: "Rewards & Airdrops", percent: "4%" },
-            ].map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-card rounded-lg border border-border">
-                <span className="text-sm text-foreground">{item.label}</span>
-                <span className="text-sm font-semibold text-foreground">{item.percent}</span>
+          
+          <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
+            {/* Tokenomics Info */}
+            <div className="space-y-3">
+              {[
+                { label: "Locked (PUF Wallet)", percent: "50%", color: "text-green-400" },
+                { label: "In Circulation", percent: "32.27%", color: "text-accent" },
+                { label: "Developer Holding", percent: "10%", color: "text-blue-400" },
+                { label: "Burnt", percent: "7.73%", color: "text-red-400" },
+              ].map((item, index) => (
+                <div key={index} className="flex items-center justify-between p-4 bg-card rounded-lg border border-border">
+                  <span className="text-sm text-foreground">{item.label}</span>
+                  <span className={`text-sm font-semibold ${item.color}`}>{item.percent}</span>
+                </div>
+              ))}
+            </div>
+            
+            {/* PUF Wallet Image */}
+            <div className="rounded-2xl overflow-hidden border border-border">
+              <img
+                src="/puf-wallet.jpg"
+                alt="PUF Wallet - APE Tokens Locked"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+          
+          {/* PUF Wallet Info Card */}
+          <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+            <div className="flex items-start gap-4">
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-foreground mb-2">Tokens Locked in PUF Wallet</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  50% of all APE tokens are securely locked in the PUF Wallet on Worldchain, ensuring transparency and security for the community.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href="https://worldcoin.org/mini-app?app_id=app_e5ba7c3061400e361f98ce44d8b1b9c4&app_mode=mini-app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent/80 transition-colors font-medium"
+                  >
+                    Open PUF Wallet
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="https://worldcoin.org/mini-app?app_id=app_e5ba7c3061400e361f98ce44d8b1b9c4&app_mode=mini-app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    View Lock Details
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
