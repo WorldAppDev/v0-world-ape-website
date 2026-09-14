@@ -1,647 +1,110 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
-import {
-  Gamepad2,
-  ExternalLink,
-  Trophy,
-  Gift,
-  Sparkles,
-  Users,
-  Shield,
-  TrendingUp,
-  Flame,
-  Lock,
-  Coins,
-  ChevronRight,
-} from "lucide-react"
+import { ArrowRight, Crosshair, ExternalLink, Gem, Hammer, Shield, Swords, Target, Trophy, Users, Zap } from "lucide-react"
+
+const WORLD_APP_URL = "https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c"
+const MINI_APP_URL = "https://worldcoin.org/mini-app?app_id=app_4593f73390a9843503ec096086b43612&app_mode=mini-app"
+const CONTRACT = "0x77a26739f06d9abcf8465aa11ff2f772eb045540"
+const DEX_URL = `https://dexscreener.com/worldchain/${CONTRACT}`
+const GECKO_URL = `https://www.geckoterminal.com/world-chain/pools/${CONTRACT}`
+
+const features = [
+  [Hammer, "Fortress upgrades", "Build a base that can withstand the next attack."],
+  [Swords, "Attack & Defence", "Tune your stats and choose how you want to play."],
+  [Shield, "Equipment loadout", "Buy and equip gear to shape your battle strategy."],
+  [Crosshair, "PvP battle arena", "Fight connected World Ape players in direct combat."],
+  [Target, "Scout reports", "Spend Plasma to scout opponents before you commit."],
+  [Gem, "Titanite loot", "Win battles, claim Titanite, and invest it back into your base."],
+  [Trophy, "Battle Points", "Every fight moves you up the competitive ladder."],
+  [Users, "World Ape Club", "Check in daily, complete missions, and stay in the fight."],
+] as const
+
+const featureRules = {
+  "Fortress upgrades": { title: "How Fortress Upgrades Work", badges: ["SERVER CALCULATED"], sections: [["What changes", ["Base level, base Attack, base Defence, and fortress appearance can improve.", "Durability or protection changes only apply where supported."]], ["Rule", ["The server controls the real upgrade result. The page should not show a stronger level or image until the upgrade is successfully saved."]]] },
+  "Attack & Defence": { title: "Attack & Defence Explained", badges: ["SERVER CALCULATED"], sections: [["Core stats", ["Attack determines offensive strength.", "Defence reduces incoming damage and protects the fortress."]], ["Effective power", ["Effective Attack = Base Attack + active Attack equipment bonuses.", "Effective Defence = Base Defence + active Defence equipment bonuses.", "Final combat values are calculated by the server."]]] },
+  "Equipment loadout": { title: "Equipment Loadout Rules", badges: ["SERVER CALCULATED"], sections: [["Manage your gear", ["Collect, equip, repair, and manage Attack and Defence items.", "Items may have a name, category, image, stat bonus, durability, and equipped or reserve status."]], ["Active versus reserve", ["Active equipment affects battles. Reserve equipment does not until equipped.", "Broken equipment stays visible but provides no combat bonus until repaired."]]] },
+  "PvP battle arena": { title: "How PvP Battles Work", badges: ["SERVER CALCULATED"], sections: [["Battle flow", ["Review an opponent, optionally scout, select a target, and start a battle.", "Successful attacks can earn Battle Points and Titanite plunder."]], ["The server decides", ["Winner, damage, Battle Points, Titanite plunder, and durability changes are server-recorded.", "Players cannot choose or edit the battle result."]]] },
+  "Scout reports": { title: "Scout Reports", badges: ["1 PLASMA"], image: "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/scout.png", sections: [["Before you attack", ["Scouting is optional; you can attack without scouting.", "Always show the 1 Plasma cost before confirmation."]], ["A report may show", ["Opponent base level, Attack, Defence, total power, wins and losses, Titanite estimate, and estimated win probability."]]] },
+  "Titanite loot": { title: "Titanite Economy and Loot", badges: ["SERVER CALCULATED"], sections: [["How Titanite moves", ["Titanite may come from passive production, Club rewards, purchases, successful attacks, and approved rewards.", "PvP plunder is limited by the defender balance and attacker storage capacity."]], ["Important", ["A full attacker storage can result in 0 Titanite. The server calculates every plunder amount."]]] },
+  "Battle Points": { title: "Battle Points and Leaderboards", badges: ["200 BP REQUIRED", "SERVER CALCULATED"], sections: [["Earn and compete", ["Battle Points come from completed, server-recorded PvP battles.", "Results depend on the battle result, opponent strength, Attack, Defence, and authoritative combat calculations.", "Battle Points reset when a new season starts and affect rank and reward share."]], ["Leaderboard", ["Positions, wins, losses, shortened wallet, Battle Points, and estimated share can change before the season ends.", "Players cannot manually edit Battle Points."]]] },
+  "World Ape Club": { title: "World Ape Club and Check-ins", badges: ["5 CHECK-INS REQUIRED"], sections: [["Club systems", ["Daily check-ins, streaks, missions, daily rewards, a check-in leaderboard, and seasonal progress are part of the Club.", "Daily Club rewards are separate from the seasonal APE pool unless explicitly stated otherwise."]], ["Season requirement", ["A 10-day season requires at least 5 check-ins for reward eligibility. A perfect streak is not required."]]] },
+  "Tower Defence": { title: "Tower Defence — Coming Soon", badges: ["COMING SOON"], sections: [["Status", ["Tower Defence is not live yet.", "Details will be published when the mode is ready. No live rewards or rules are implied here."]]] },
+} as const
+
+const seasonRules = { title: "10-Day Season Rewards", badges: ["10-DAY SEASON", "10,000 APE STARTING POOL", "5 CHECK-INS REQUIRED", "200 BP REQUIRED", "ESTIMATED REWARD"], sections: [["Season timeline", ["World Ape seasons last 10 days. Upgrade, equip, scout, fight, earn Battle Points, collect Titanite, and check in during the season.", "At Day 10, Battle Points, the leaderboard, and the reward pool freeze. Eligibility is checked, final rewards are calculated, and the result is recorded."]], ["Reward pool", ["Every season starts with 10,000 APE.", "1,000 Titanite costs 500 APE in the current configuration. Every verified successful purchase adds its APE payment to the pool.", "Example: 100 purchases add 50,000 APE, creating a 60,000 APE pool with the initial amount. Failed, duplicate, test, or unverified payments do not count."]], ["Eligibility", ["Players need both at least 5 of 10 check-ins and at least 200 Battle Points. Four check-ins with 250 BP is not enough; five check-ins with 250 BP is eligible."]], ["Reward formula", ["Player reward = distributable reward pool × player Battle Points ÷ total eligible Battle Points.", "Example: 100,000 APE pool × 1,000 BP ÷ 100,000 eligible BP = 1,000 APE, or 1%.", "During the season, call this an Estimated reward. It can change as the pool grows, players earn BP, or eligibility changes."]], ["Live information", ["The game can display the pool, your BP, total eligible BP, current percentage, estimated APE, check-in progress, and eligibility status."]]] }
+
+const steps = [
+  ["01", "Build your fortress", "Upgrade the systems that protect your territory."],
+  ["02", "Equip your gear", "Create a loadout that fits your attack plan."],
+  ["03", "Scout or select", "Read the field, then choose a connected player."],
+  ["04", "Attack and defend", "Battle for Titanite and improve your base."],
+]
+
+const assetHost = "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev"
+const asset = (file: string) => `${assetHost}/${file}`
+
+const attackItems = [
+  ["Banana Bomb", "ATK", "world-ape-attack-banana-bomb.png"], ["Banana Launcher", "ATK", "space-ape-attack-banana-launcher.png"], ["Banana Rockets", "ATK", "world-ape-attack-banana-rockets.png"], ["Rocket Punch", "ATK", "world-ape-attack-rocket-punch.png"], ["Plasma Slingshot", "ATK", "world-ape-attack-plasma-slingshot.png"], ["Plasma Cannon", "ATK", "space-ape-attack-plasma-cannon.png"], ["Comet Cannon", "ATK", "world-ape-attack-comet-cannon.png"], ["Orbital Railgun", "ATK", "space-ape-attack-orbital-railgun.png"], ["Marine Ape", "ATK", "space-ape-attack-marine-ape.png"], ["Strike Drone", "ATK", "space-ape-attack-strike-drone.png"], ["Space Gorilla Mech", "ATK", "world-ape-attack-space-gorilla-mech.png"], ["Meteor Hammer", "ATK", "world-ape-attack-meteor-hammer.png"],
+]
+const defenceItems = [
+  ["Energy Shield", "DEF", "world-ape-defence-energy-shield.png"], ["Repair Engineer", "DEF", "space-ape-defence-repair-engineer.png"], ["Radar Array", "DEF", "space-ape-defence-radar-array.png"], ["Cryo Trap", "DEF", "space-ape-defence-cryo-trap.png"], ["Blast Gate", "DEF", "space-ape-defence-blast-gate.png"], ["Anti-Air Pod", "DEF", "space-ape-defence-antiair-pod.png"], ["Banana Mine", "DEF", "world-ape-defence-banana-mine.png"], ["Laser Fence", "DEF", "world-ape-defence-laser-fence.png"], ["Rocket Turret", "DEF", "world-ape-defence-rocket-turret.png"], ["Guard Bot", "DEF", "world-ape-defence-guard-bot.png"], ["Meteor Barrier", "DEF", "world-ape-defence-meteor-barrier.png"], ["Reinforced Wall", "DEF", "world-ape-defence-reinforced-wall.png"],
+]
+const baseItems = Array.from({ length: 26 }, (_, index) => { const level = index + 1; return [`Base Level ${level}`, `TIER ${String(level).padStart(2, "0")}`, `world-ape-base-level-${level}.png`] as const })
+
+const loadoutGroups = [
+  { label: "ATTACK GEAR", accent: "text-fuchsia-300", items: attackItems },
+  { label: "DEFENCE GEAR", accent: "text-cyan-300", items: defenceItems },
+  { label: "FORTRESS BASES", accent: "text-amber-300", items: baseItems },
+  { label: "RESOURCES", accent: "text-lime-300", items: [["Titanite", "LOOT", "titanite.png"], ["Plasma", "FUEL", "plasma.png"]] as const },
+] as const
+
+type LoadoutItem = readonly [string, string, string]
 
 export default function HomePage() {
-  const [activeGame, setActiveGame] = useState(0)
-  const [activeStaking, setActiveStaking] = useState(false)
+  const [selectedItem, setSelectedItem] = useState<LoadoutItem | null>(null)
+  const [selectedFeature, setSelectedFeature] = useState<keyof typeof featureRules | "season" | null>(null)
 
-  const games = [
-    {
-      title: "DIAMOND HUNT",
-      desc: "Flip cards to find diamonds. 1 Diamond = 1 WLD reward.",
-      img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-01%20at%2018.15.27-34zrH5rr5xKLcEFVEsCUUXLpWWmGhG.jpeg",
-      badge: "1 WLD / Diamond",
-      color: "from-yellow-500/20 to-yellow-900/5",
-      border: "group-hover:border-yellow-500/50",
-    },
-    {
-      title: "PARTY RHYTHM",
-      desc: "Free to play rhythm game. Tap the beat and climb the weekly leaderboard.",
-      img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-01%20at%2018.15.28-Edw6SNRSf6LvARdyPMTUh7DMpJaYXH.jpeg",
-      badge: "Free to Play",
-      color: "from-purple-500/20 to-purple-900/5",
-      border: "group-hover:border-purple-500/50",
-    },
-    {
-      title: "SPACE APE",
-      desc: "Dodge asteroids, collect coins and compete for 10 WLD weekly.",
-      img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-01%20at%2018.15.27%20%281%29-XzIbhKukqvXZgkOBbaJ9lkoyLvr7pV.jpeg",
-      badge: "10 WLD Weekly",
-      color: "from-blue-500/20 to-blue-900/5",
-      border: "group-hover:border-blue-500/50",
-    },
-    {
-      title: "LUCKY WHEEL",
-      desc: "Spin the wheel and win up to 10 WLD instantly.",
-      img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-01%20at%2018.15.26-1E3EeJFriTuYHaVphh3iaxVPIgqmV0.jpeg",
-      badge: "Win 1–10 WLD",
-      color: "from-green-500/20 to-green-900/5",
-      border: "group-hover:border-green-500/50",
-    },
-  ]
+  useEffect(() => {
+    const open = Boolean(selectedFeature)
+    document.body.style.overflow = open ? "hidden" : ""
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setSelectedFeature(null) }
+    if (open) window.addEventListener("keydown", onKeyDown)
+    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", onKeyDown) }
+  }, [selectedFeature])
 
-  const tokenomics = [
-    { label: "LOCKED", percent: "50%", sub: "PUF Wallet", icon: Lock, color: "text-primary", bg: "bg-primary/10 border-primary/20" },
-    { label: "CIRCULATION", percent: "32.27%", sub: "Trading", icon: Coins, color: "text-amber-300", bg: "bg-amber-500/10 border-amber-500/20" },
-    { label: "DEV HOLDING", percent: "10%", sub: "Team", icon: Users, color: "text-blue-300", bg: "bg-blue-500/10 border-blue-500/20" },
-    { label: "BURNT", percent: "7.73%", sub: "Burned forever", icon: Flame, color: "text-red-300", bg: "bg-red-500/10 border-red-500/20" },
-  ]
-
-  const poolStats = [
-    { label: "TOTAL STAKED", value: "3,498,250", sub: "APE", icon: Coins },
-    { label: "STAKERS", value: "1,673", sub: "Active", icon: Users },
-    { label: "TVL", value: "$18.04M", sub: "Locked", icon: TrendingUp },
-    { label: "APY RATE", value: "49.5%", sub: "Annual", icon: Shield },
-    { label: "DISTRIBUTION", value: "11.5M", sub: "APE Pool", icon: Gift },
-    { label: "REWARD RESERVE", value: "10.3M", sub: "Remaining", icon: Sparkles },
-  ]
   return (
-    <main className="min-h-screen">
-
-      {/* ─── HEADER ─── */}
-      <header className="border-b border-white/10 backdrop-blur-md sticky top-0 z-50 bg-black/30">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image src="/images/world-ape-hero.png" alt="World Ape" width={38} height={38} className="rounded-full ring-2 ring-primary/30" />
-            <span className="font-black text-xl tracking-tight text-white">WORLD APE</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="/roadmap" className="text-sm font-semibold text-white/60 hover:text-white transition-colors">ROADMAP</Link>
-            <Link href="/chart" className="text-sm font-semibold text-white/60 hover:text-white transition-colors">CHART</Link>
-            <a href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c" target="_blank" rel="noopener noreferrer">
-              <Button className="bg-primary text-black hover:bg-primary/90 font-black px-6">PLAY NOW</Button>
-            </a>
-          </nav>
-          <a href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c" target="_blank" rel="noopener noreferrer" className="md:hidden">
-            <Button size="sm" className="bg-primary text-black font-black">PLAY</Button>
-          </a>
-        </div>
+    <main className="overflow-hidden">
+      <header className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
+        <Link href="/" className="flex items-center gap-3" aria-label="World Ape home"><Image src="/images/world-ape-hero.png" alt="World Ape" width={42} height={42} className="rounded-xl ring-1 ring-cyan-300/40" priority /><span className="font-mono text-sm font-bold tracking-[0.25em] text-white">WORLD APE</span></Link>
+        <nav className="hidden items-center gap-8 text-xs font-bold tracking-[0.2em] text-slate-400 md:flex"><a href="#game" className="transition hover:text-cyan-300">THE GAME</a><a href="#features" className="transition hover:text-cyan-300">FEATURES</a><Link href="/roadmap" className="transition hover:text-cyan-300">ROADMAP</Link><Link href="/chart" className="transition hover:text-cyan-300">CHART</Link></nav>
+        <a href={WORLD_APP_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-cyan-300/50 bg-cyan-300 px-4 py-2 text-xs font-black tracking-widest text-slate-950 transition hover:bg-white">PLAY NOW</a>
       </header>
 
-      {/* ─── HERO ─── */}
-      <section className="relative py-20 md:py-28 px-4 text-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent" />
-        <div className="container mx-auto max-w-4xl relative">
-          <div className="mb-6 flex justify-center">
-            <div className="relative">
-              <div className="absolute inset-0 blur-3xl bg-primary/30 rounded-full scale-150 animate-pulse" />
-              <Image src="/images/world-ape-hero.png" alt="World Ape" width={130} height={130} className="rounded-3xl relative ring-4 ring-primary/30 shadow-2xl shadow-primary/20" priority />
-            </div>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-3 tracking-tight drop-shadow-lg">WORLD APE</h1>
-          <p className="text-lg md:text-xl text-primary font-bold mb-4 tracking-widest">THE #1 GAMING PLATFORM ON WORLD CHAIN</p>
-          <p className="text-white/60 max-w-xl mx-auto mb-8 leading-relaxed">Play free games, earn APE tokens, and compete for 20 WLD in weekly prizes.</p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-primary text-black hover:bg-primary/90 w-full sm:w-auto text-base px-8 font-black">
-                <Gamepad2 className="mr-2 h-5 w-5" />PLAY NOW
-              </Button>
-            </a>
-            <Link href="/roadmap">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto text-base px-8 font-bold border-white/20 text-white hover:bg-white/10">VIEW ROADMAP</Button>
-            </Link>
-          </div>
-        </div>
+      <section className="relative mx-auto grid min-h-[680px] max-w-7xl items-center gap-12 px-5 pb-20 pt-12 sm:px-8 lg:grid-cols-[1.05fr_.95fr] lg:pb-28 lg:pt-16">
+        <div className="relative z-10"><div className="mb-7 inline-flex items-center gap-2 rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-3 py-2 font-mono text-[10px] font-bold tracking-[0.22em] text-fuchsia-200"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-300" /> WORLD CHAIN // ONLINE ARENA</div><h1 className="max-w-3xl text-5xl font-black leading-[.94] tracking-[-.06em] text-white sm:text-7xl lg:text-8xl">BUILD YOUR<br /><span className="text-cyan-300">FORTRESS.</span><br />BREAK THE <span className="text-fuchsia-400">META.</span></h1><p className="mt-7 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">World Ape is a competitive strategy game for players who build, gear up, scout connected opponents, and fight for control of the arena.</p><div className="mt-9 flex flex-col gap-3 sm:flex-row"><a href={WORLD_APP_URL} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-center gap-3 rounded-xl bg-cyan-300 px-6 py-4 text-sm font-black tracking-widest text-slate-950 transition hover:bg-white">PLAY WORLD APE <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></a><Link href="/chart" className="flex items-center justify-center gap-3 rounded-xl border border-white/20 bg-white/5 px-6 py-4 text-sm font-black tracking-widest text-white transition hover:border-cyan-300/60 hover:bg-white/10">VIEW TOKEN / CHART</Link></div><p className="mt-5 font-mono text-[10px] tracking-[0.18em] text-slate-500">A PUBLIC MINI-APP BUILT FOR THE WORLD APP ECOSYSTEM</p></div>
+        <div className="relative mx-auto w-full max-w-[510px]"><div className="absolute inset-10 rounded-full bg-fuchsia-500/20 blur-[100px]" /><div className="relative rounded-[2rem] border border-cyan-300/30 bg-slate-950/50 p-3 shadow-2xl shadow-fuchsia-950/40 backdrop-blur-sm"><div className="rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-indigo-950 via-slate-950 to-fuchsia-950/60 p-8 sm:p-12"><div className="mb-8 flex items-center justify-between font-mono text-[10px] tracking-[0.2em] text-cyan-300"><span>SECTOR 07</span><span className="text-fuchsia-300">LIVE // PVP</span></div><Image src="/images/world-ape-hero.png" alt="World Ape space ape commander" width={340} height={340} className="mx-auto w-full max-w-[340px] rounded-3xl object-cover shadow-[0_0_70px_rgba(34,211,238,.2)]" priority /><div className="mt-8 grid grid-cols-3 gap-2 font-mono text-[10px] text-slate-400"><div className="rounded-lg border border-white/10 p-3"><span className="block text-cyan-300">ATK</span> 084</div><div className="rounded-lg border border-white/10 p-3"><span className="block text-fuchsia-300">DEF</span> 071</div><div className="rounded-lg border border-white/10 p-3"><span className="block text-amber-300">BP</span> 2480</div></div></div></div></div>
       </section>
 
-      {/* ─── STATS BAR ─── */}
-      <div className="border-y border-white/10 backdrop-blur-sm bg-black/20 py-5 px-4">
-        <div className="container mx-auto max-w-4xl grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          {[
-            { val: "20 WLD", label: "Weekly Rewards" },
-            { val: "49.5%", label: "Staking APY" },
-            { val: "1,673", label: "Active Stakers" },
-            { val: "4", label: "Games Available" },
-          ].map((s, i) => (
-            <div key={i}>
-              <p className="text-2xl md:text-3xl font-black text-primary">{s.val}</p>
-              <p className="text-xs text-white/50 mt-0.5">{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <section id="game" className="border-y border-white/10 bg-black/20 px-5 py-20 sm:px-8 lg:py-28"><div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-end"><div><p className="font-mono text-xs font-bold tracking-[.3em] text-cyan-300">01 // THE MISSION</p><h2 className="mt-4 max-w-lg text-4xl font-black tracking-[-.04em] text-white sm:text-6xl">A STRATEGY GAME<br /><span className="text-fuchsia-400">IN ORBIT.</span></h2></div><p className="max-w-2xl text-lg leading-8 text-slate-300">The arena is connected. Build a fortress, improve Attack and Defence, buy the right equipment, then take your shot. Every decision changes your next battle.</p><button type="button" onClick={() => setSelectedFeature("season")} className="mt-6 rounded-xl border border-fuchsia-300/30 bg-fuchsia-300/10 px-4 py-3 font-mono text-[10px] font-bold tracking-widest text-fuchsia-200 transition hover:border-fuchsia-300 hover:bg-fuchsia-300/20">READ 10-DAY SEASON RULES →</button></div><div className="mx-auto mt-14 grid max-w-7xl gap-4 sm:grid-cols-3"><div className="rounded-2xl border border-white/10 bg-white/[.04] p-6"><Zap className="h-6 w-6 text-cyan-300" /><h3 className="mt-8 font-bold text-white">PLASMA</h3><p className="mt-2 text-sm leading-6 text-slate-400">Fuel for battles and optional scouting.</p></div><div className="rounded-2xl border border-white/10 bg-white/[.04] p-6"><Gem className="h-6 w-6 text-amber-300" /><h3 className="mt-8 font-bold text-white">TITANITE</h3><p className="mt-2 text-sm leading-6 text-slate-400">Loot from victories. Invest it into your fortress.</p></div><div className="rounded-2xl border border-white/10 bg-white/[.04] p-6"><Trophy className="h-6 w-6 text-fuchsia-300" /><h3 className="mt-8 font-bold text-white">BATTLE POINTS</h3><p className="mt-2 text-sm leading-6 text-slate-400">A record of your progress in the arena.</p></div></div></section>
 
-      {/* ─── MAIN CONTENT GRID ─── */}
-      <div className="container mx-auto w-full max-w-7xl px-3 md:px-4 py-8 md:py-12 space-y-6 md:space-y-10">
+      <section id="features" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28"><div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="font-mono text-xs font-bold tracking-[.3em] text-fuchsia-300">02 // LOADOUT</p><h2 className="mt-4 text-4xl font-black tracking-[-.04em] text-white sm:text-6xl">PLAY YOUR<br /><span className="text-cyan-300">ANGLE.</span></h2></div><p className="max-w-md text-sm leading-6 text-slate-400">Nine systems. Infinite ways to become the player nobody wants to face.</p></div><div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{features.map(([Icon, title, copy]) => <button key={title} type="button" onClick={() => setSelectedFeature(title as keyof typeof featureRules)} className="group rounded-2xl border border-white/10 bg-white/[.03] p-5 text-left transition hover:-translate-y-1 hover:border-cyan-300/50 hover:bg-cyan-300/[.06]"><Icon className="h-5 w-5 text-cyan-300 transition group-hover:text-fuchsia-300" /><h3 className="mt-8 text-sm font-bold text-white">{title}</h3><p className="mt-2 text-xs leading-5 text-slate-400">{copy}</p><span className="mt-5 block font-mono text-[9px] font-bold tracking-[.2em] text-cyan-300/70">VIEW RULES →</span></button>)}</div><button type="button" onClick={() => setSelectedFeature("Tower Defence")} className="mt-4 w-full rounded-2xl border border-dashed border-fuchsia-400/30 bg-fuchsia-400/[.04] p-5 text-left transition hover:border-fuchsia-300/70"><p className="font-mono text-xs font-bold tracking-widest text-fuchsia-300">INCOMING // TOWER DEFENCE</p><p className="mt-2 text-sm text-slate-400">A new way to defend your territory is coming soon.</p><span className="mt-4 block font-mono text-[9px] font-bold tracking-[.2em] text-fuchsia-300/70">VIEW STATUS →</span></button></section>
 
-        {/* ── GAMES ── */}
-        <section>
-          <h2 className="text-xl md:text-3xl font-black text-white mb-4 md:mb-6 tracking-tight">FEATURED GAMES</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
-            {games.map((game, i) => (
-              <div
-                key={i}
-                className={`group relative rounded-lg md:rounded-2xl border border-white/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl bg-gradient-to-b ${game.color} ${game.border}`}
-                onClick={() => setActiveGame(i)}
-              >
-                <div className="aspect-[3/4] relative overflow-hidden">
-                  <Image src={game.img} alt={game.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                  <span className="absolute top-1 left-1 md:top-2 md:left-2 text-[8px] md:text-[10px] font-black bg-primary text-black px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">{game.badge}</span>
-                  <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3">
-                    <p className="text-[9px] md:text-xs font-black text-white tracking-wide">{game.title}</p>
-                    <p className="text-[7px] md:text-[10px] text-white/60 mt-0.5 leading-tight line-clamp-2">{game.desc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+      <section id="loadout" className="border-y border-white/10 bg-[radial-gradient(circle_at_top,rgba(88,28,135,.24),transparent_55%)] px-5 py-20 sm:px-8 lg:py-28"><div className="mx-auto max-w-7xl"><div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="font-mono text-xs font-bold tracking-[.3em] text-fuchsia-300">02 // WORLD APE LOADOUT</p><h2 className="mt-4 text-4xl font-black tracking-[-.04em] text-white sm:text-6xl">SEE YOUR<br /><span className="text-cyan-300">ARSENAL.</span></h2></div><p className="max-w-md text-sm leading-6 text-slate-400">Real equipment, real resources, and real fortress tiers. Build a loadout that fits your battle plan.</p></div><div className="mt-12 flex flex-col gap-12">{loadoutGroups.map((group) => <div key={group.label}><div className="mb-4 flex items-center gap-3"><span className={`font-mono text-xs font-bold tracking-[.25em] ${group.accent}`}>{group.label}</span><span className="h-px flex-1 bg-white/10" /><span className="hidden font-mono text-[9px] tracking-[.18em] text-slate-500 sm:inline">SWIPE TO SCROLL</span></div><div className="overflow-x-auto overscroll-x-contain rounded-2xl pb-4 [scrollbar-color:rgba(103,232,249,.55)_rgba(255,255,255,.08)] [scrollbar-width:thin]"><div className="grid min-w-[780px] auto-cols-[minmax(240px,1fr)] grid-flow-col grid-rows-1 gap-4">{group.items.map(([name, stat, image]) => <button key={name} type="button" onClick={() => setSelectedItem([name, stat, image])} className="group overflow-hidden rounded-2xl text-left border border-white/10 bg-slate-950/70 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/50 hover:shadow-[0_18px_50px_rgba(34,211,238,.12)]"><div className="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-950/80 via-slate-950 to-fuchsia-950/40 p-5"><div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.04)_1px,transparent_1px)] bg-[size:22px_22px]" /><img src={asset(image)} alt={name} loading="lazy" className="relative h-full w-full object-contain transition duration-500 group-hover:scale-110" /></div><div className="p-5"><div className="flex items-start justify-between gap-3"><h3 className="text-sm font-bold text-white">{name}</h3><span className="shrink-0 rounded-full border border-white/15 px-2 py-1 font-mono text-[9px] font-bold tracking-widest text-cyan-200">{stat}</span></div><p className="mt-3 text-xs leading-5 text-slate-400">Click to view the full-size asset.</p></div></button>)}</div></div></div>)}</div></div></section>
 
-        {/* ── EARN + REWARDS bento row ── */}
-        <div className="grid md:grid-cols-3 gap-3 md:gap-4">
+      <section className="border-y border-white/10 bg-indigo-950/20 px-5 py-20 sm:px-8 lg:py-28"><div className="mx-auto max-w-7xl"><p className="font-mono text-xs font-bold tracking-[.3em] text-cyan-300">03 // THE LOOP</p><h2 className="mt-4 text-4xl font-black tracking-[-.04em] text-white sm:text-6xl">MAKE A MOVE.<br /><span className="text-fuchsia-400">MAKE IT COUNT.</span></h2><div className="mt-14 grid gap-4 md:grid-cols-4">{steps.map(([number, title, copy]) => <div key={number} className="relative border-l border-cyan-300/30 pl-5"><span className="font-mono text-xs text-cyan-300">{number}</span><h3 className="mt-8 font-bold text-white">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-400">{copy}</p></div>)}</div></div></section>
 
-          {/* How to Earn */}
-          <div className="md:col-span-1 rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
-            <h2 className="text-base md:text-lg font-black text-white mb-3 md:mb-5 tracking-tight">HOW TO EARN</h2>
-            <div className="space-y-2 md:space-y-3">
-              {[
-                { icon: Gift, title: "DAILY CLAIM", desc: "5 APE every 24h", color: "text-green-400", bg: "bg-green-500/10" },
-                { icon: Sparkles, title: "PARTY GAME", desc: "Free to play", color: "text-purple-400", bg: "bg-purple-500/10" },
-                { icon: Gamepad2, title: "SPACE APE", desc: "Free to play", color: "text-blue-400", bg: "bg-blue-500/10" },
-                { icon: Trophy, title: "LUCKY WHEEL", desc: "Win 1–10 WLD", color: "text-yellow-400", bg: "bg-yellow-500/10" },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg md:rounded-xl border border-white/5 hover:border-white/15 transition-colors group cursor-default">
-                  <div className={`w-7 h-7 md:w-9 md:h-9 rounded-lg md:rounded-xl ${item.bg} flex items-center justify-center flex-shrink-0`}>
-                    <item.icon className={`h-3 w-3 md:h-4 md:w-4 ${item.color}`} />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-[11px] md:text-xs font-bold text-white truncate">{item.title}</p>
-                    <p className="text-[9px] md:text-[11px] text-white/50 truncate">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+      <section id="token" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28"><div className="grid gap-10 lg:grid-cols-[.75fr_1.25fr] lg:items-center"><div><p className="font-mono text-xs font-bold tracking-[.3em] text-amber-300">04 // TOKEN INTEL</p><h2 className="mt-4 text-4xl font-black tracking-[-.04em] text-white sm:text-6xl">CHECK THE<br /><span className="text-amber-300">SIGNAL.</span></h2><p className="mt-6 max-w-md text-sm leading-7 text-slate-400">Review the live market information and token details through the existing public tools.</p><div className="mt-8 flex flex-wrap gap-3"><a href={DEX_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg border border-amber-300/40 px-4 py-3 text-xs font-bold tracking-widest text-amber-200 transition hover:bg-amber-300/10">DEX SCREENER <ExternalLink className="h-3 w-3" /></a><a href={GECKO_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-4 py-3 text-xs font-bold tracking-widest text-slate-300 transition hover:bg-white/10">GECKOTERMINAL <ExternalLink className="h-3 w-3" /></a></div><p className="mt-6 break-all font-mono text-[10px] leading-5 text-slate-500">CONTRACT<br />{CONTRACT}</p></div><div className="overflow-hidden rounded-2xl border border-white/10 bg-black/30"><div className="flex items-center justify-between border-b border-white/10 px-5 py-4"><span className="font-mono text-xs tracking-widest text-white">LIVE MARKET VIEW</span><span className="h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_12px_#67e8f9]" /></div><iframe src={`${DEX_URL}?embed=1&theme=dark&info=0`} className="h-[420px] w-full" title="World Ape DEX Screener chart" /></div></div></section>
 
-          {/* Weekly Rewards */}
-          <div className="md:col-span-2 rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
-            <h2 className="text-base md:text-lg font-black text-white mb-3 md:mb-5 tracking-tight">WEEKLY REWARDS</h2>
-            <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
-              {[
-                { title: "PARTY RHYTHM GAME", prize: "10 WLD", desc: "Top scorer each week", color: "border-purple-500/30 hover:border-purple-500/60 from-purple-500/10" },
-                { title: "SPACE APE GAME", prize: "10 WLD", desc: "Top scorer each week", color: "border-blue-500/30 hover:border-blue-500/60 from-blue-500/10" },
-              ].map((r, i) => (
-                <div key={i} className={`rounded-lg md:rounded-xl border bg-gradient-to-br ${r.color} to-transparent p-4 md:p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-[1.02]`}>
-                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-yellow-500/10 flex items-center justify-center mb-2 md:mb-3">
-                    <Trophy className="h-5 w-5 md:h-7 md:w-7 text-yellow-400" />
-                  </div>
-                  <p className="text-2xl md:text-4xl font-black text-primary mb-0.5 md:mb-1">{r.prize}</p>
-                  <p className="text-[10px] md:text-xs font-bold text-white tracking-wide">{r.title}</p>
-                  <p className="text-[8px] md:text-[11px] text-white/40 mt-0.5 md:mt-1">{r.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+      <section className="px-5 pb-24 pt-8 text-center sm:px-8 lg:pb-32"><div className="mx-auto max-w-4xl rounded-[2rem] border border-fuchsia-400/30 bg-gradient-to-br from-fuchsia-500/10 via-indigo-950/40 to-cyan-300/10 px-6 py-16 sm:px-12"><p className="font-mono text-xs font-bold tracking-[.3em] text-cyan-300">05 // ENTER THE ARENA</p><h2 className="mt-5 text-4xl font-black tracking-[-.05em] text-white sm:text-7xl">YOUR FORTRESS<br /><span className="text-fuchsia-400">IS WAITING.</span></h2><p className="mx-auto mt-6 max-w-lg text-slate-300">Open World Ape in World App and make your first move.</p><a href={WORLD_APP_URL} target="_blank" rel="noopener noreferrer" className="mt-9 inline-flex items-center gap-3 rounded-xl bg-cyan-300 px-7 py-4 text-sm font-black tracking-widest text-slate-950 transition hover:bg-white">PLAY WORLD APE <ArrowRight className="h-4 w-4" /></a><a href={MINI_APP_URL} target="_blank" rel="noopener noreferrer" className="mt-4 block text-xs font-bold tracking-widest text-slate-500 underline decoration-slate-700 underline-offset-4 transition hover:text-white">OPEN MINI-APP DIRECTLY</a></div></section>
 
-        {/* ── STAKING bento row ── */}
-        <div className="grid lg:grid-cols-5 gap-3 md:gap-4">
+      <footer className="border-t border-white/10 px-5 py-8 sm:px-8"><div className="mx-auto flex max-w-7xl flex-col gap-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between"><div className="flex items-center gap-3"><Image src="/images/world-ape-hero.png" alt="World Ape" width={28} height={28} className="rounded-lg" /><span className="font-mono font-bold tracking-widest text-slate-300">WORLD APE</span></div><div className="flex flex-wrap gap-5 font-bold tracking-widest"><Link href="/roadmap" className="hover:text-white">ROADMAP</Link><Link href="/chart" className="hover:text-white">CHART</Link><a href={GECKO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white">GECKOTERMINAL</a><a href="https://x.com/hellowldcoin" target="_blank" rel="noopener noreferrer" className="hover:text-white">X</a><a href="https://t.me/WLD_APE" target="_blank" rel="noopener noreferrer" className="hover:text-white">TELEGRAM</a></div><p>© 2026 WORLD APE // BUILT FOR THE ARENA</p></div></footer>
 
-          {/* APY Card */}
-          <div className="lg:col-span-2 rounded-lg md:rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 to-black/30 backdrop-blur-sm p-4 md:p-6 flex flex-col items-center justify-center text-center">
-            <Shield className="h-7 w-7 md:h-10 md:w-10 text-primary mb-2 md:mb-3" />
-            <p className="text-5xl md:text-7xl font-black text-primary leading-none">49.5%</p>
-            <p className="text-lg md:text-xl font-bold text-white mt-0.5 md:mt-1">APY</p>
-            <p className="text-[9px] md:text-xs text-white/50 mt-1 md:mt-2">60 DAYS LOCKUP</p>
-            <div className="mt-4 md:mt-6 w-full space-y-1.5 md:space-y-2 text-left">
-              {["Stake APE in ANI", "Lock 60 days", "Earn rewards"].map((s, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <span className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-primary/20 text-primary text-[8px] md:text-[10px] font-black flex items-center justify-center flex-shrink-0">{i + 1}</span>
-                  <span className="text-[9px] md:text-xs text-white/60">{s}</span>
-                </div>
-              ))}
-            </div>
-            <a href="https://worldcoin.org/mini-app?app_id=app_4593f73390a9843503ec096086b43612&app_mode=mini-app" target="_blank" rel="noopener noreferrer" className="w-full mt-4 md:mt-6">
-              <Button className="w-full bg-primary text-black hover:bg-primary/90 font-black text-xs md:text-sm py-2 md:py-3">
-                OPEN ANI <ExternalLink className="ml-1 h-3 w-3" />
-              </Button>
-            </a>
-          </div>
+      {selectedFeature && (() => { const rule = selectedFeature === "season" ? seasonRules : featureRules[selectedFeature]; return <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 p-4 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="feature-modal-title" onClick={() => setSelectedFeature(null)}><div className="relative max-h-[min(820px,calc(100vh-2rem))] w-full max-w-2xl overflow-y-auto rounded-3xl border border-cyan-300/30 bg-[#09051c] shadow-[0_0_90px_rgba(34,211,238,.16)]" onClick={(event) => event.stopPropagation()}><button type="button" onClick={() => setSelectedFeature(null)} className="absolute right-4 top-4 z-10 inline-flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/[.06] text-xl text-slate-300 transition hover:border-cyan-300 hover:text-white" aria-label="Close feature rules">×</button><div className="border-b border-white/10 bg-gradient-to-r from-cyan-300/10 via-fuchsia-400/10 to-transparent px-6 pb-6 pt-8 sm:px-8"><p className="font-mono text-[10px] font-bold tracking-[.28em] text-cyan-300">WORLD APE // GAME RULES</p><h2 id="feature-modal-title" className="mt-3 max-w-xl pr-12 text-2xl font-black tracking-tight text-white sm:text-4xl">{rule.title}</h2><div className="mt-5 flex flex-wrap gap-2">{rule.badges.map((badge) => <span key={badge} className="rounded-full border border-fuchsia-300/30 bg-fuchsia-300/10 px-3 py-1.5 font-mono text-[9px] font-bold tracking-widest text-fuchsia-200">{badge}</span>)}</div></div>{"image" in rule && rule.image && <div className="border-b border-white/10 bg-black/20 p-5"><img src={rule.image} alt="Scout report preview" className="mx-auto max-h-44 rounded-xl object-contain" /></div>}<div className="flex flex-col gap-6 px-6 py-6 sm:px-8">{rule.sections.map(([heading, bullets]) => <section key={heading}><h3 className="font-mono text-xs font-bold tracking-[.2em] text-cyan-300">{heading.toUpperCase()}</h3><ul className="mt-3 flex flex-col gap-2">{bullets.map((bullet) => <li key={bullet} className="flex gap-3 text-sm leading-6 text-slate-300"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-fuchsia-300" />{bullet}</li>)}</ul></section>)}<div className="rounded-2xl border border-amber-300/20 bg-amber-300/[.06] p-4 text-xs leading-5 text-amber-100/80">All live values, payments, combat results, eligibility, and rewards are server-recorded. Estimates can change until the season is finalized.</div></div></div></div> })()}
 
-          {/* Pool Stats */}
-          <div className="lg:col-span-3 rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
-            <div className="flex items-center justify-between mb-3 md:mb-5">
-              <h2 className="text-base md:text-lg font-black text-white tracking-tight">APE STAKING POOL #35</h2>
-              <span className="text-[8px] md:text-[10px] font-bold bg-primary/20 text-primary px-1.5 md:px-2 py-0.5 md:py-1 rounded-full">LIVE</span>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 mb-3 md:mb-5">
-              {poolStats.map((stat, i) => (
-                <div key={i} className="rounded-lg md:rounded-xl border border-white/8 bg-white/5 p-2 md:p-4 hover:bg-white/10 transition-colors">
-                  <stat.icon className="h-3 w-3 md:h-4 md:w-4 text-primary mb-1 md:mb-2" />
-                  <p className="text-sm md:text-lg font-black text-primary">{stat.value}</p>
-                  <p className="text-[8px] md:text-[10px] text-white/50 font-semibold">{stat.label}</p>
-                  <p className="text-[8px] text-white/30">{stat.sub}</p>
-                </div>
-              ))}
-            </div>
-            <div className="grid grid-cols-2 gap-2 md:gap-3">
-              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 h-20 md:h-28">
-                <img src="/staking-pool-1.jpg" alt="Staking Pool" className="w-full h-full object-cover object-top" />
-              </div>
-              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 h-20 md:h-28">
-                <img src="/staking-pool-2.jpg" alt="Staking Stats" className="w-full h-full object-cover object-top" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── TOKENOMICS + PUF WALLET ── */}
-        <div className="grid lg:grid-cols-5 gap-3 md:gap-4">
-          <div className="lg:col-span-3 rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4 md:p-6">
-            <div className="flex items-center justify-between mb-3 md:mb-5">
-              <div>
-                <h2 className="text-base md:text-lg font-black text-white">TOKENOMICS</h2>
-                <p className="text-[8px] md:text-xs text-white/40">Total: 100M APE</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-2 md:gap-3 mb-3 md:mb-5">
-              {tokenomics.map((item, i) => (
-                <div key={i} className={`rounded-lg md:rounded-xl border ${item.bg} p-3 md:p-4 hover:scale-[1.02] transition-transform cursor-default`}>
-                  <item.icon className={`h-4 w-4 md:h-5 md:w-5 ${item.color} mb-1 md:mb-2`} />
-                  <p className={`text-2xl md:text-3xl font-black ${item.color}`}>{item.percent}</p>
-                  <p className="text-[10px] md:text-xs font-bold text-white mt-0.5 md:mt-1">{item.label}</p>
-                  <p className="text-[8px] text-white/40">{item.sub}</p>
-                </div>
-              ))}
-            </div>
-            <div className="rounded-lg md:rounded-xl border border-green-500/20 bg-green-500/5 p-3 md:p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-              <div className="min-w-0">
-                <p className="text-[10px] md:text-xs font-bold text-white">TOKENS LOCKED IN PUF</p>
-                <p className="text-[8px] md:text-[11px] text-white/40 mt-0.5">50% secured for transparency</p>
-              </div>
-              <a href="https://worldcoin.org/mini-app?app_id=app_e5ba7c3061400e361f98ce44d8b1b9c4&app_mode=mini-app" target="_blank" rel="noopener noreferrer" className="flex-shrink-0">
-                <Button size="sm" className="bg-green-500 hover:bg-green-400 text-black font-black text-[9px] md:text-xs py-1 md:py-2 px-2 md:px-3 whitespace-nowrap">VIEW <ExternalLink className="ml-0.5 md:ml-1 h-2.5 w-2.5 md:h-3 md:w-3" /></Button>
-              </a>
-            </div>
-          </div>
-
-          <div className="lg:col-span-2 rounded-lg md:rounded-2xl overflow-hidden border border-white/10 relative group h-32 md:h-auto">
-            <img src="/puf-wallet.jpg" alt="PUF Wallet" className="w-full h-full object-cover object-top" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-            <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4 right-2 md:right-4">
-              <p className="text-[8px] md:text-xs font-black text-white tracking-widest mb-1 md:mb-2">PUF WALLET</p>
-              <a href="https://worldcoin.org/mini-app?app_id=app_e5ba7c3061400e361f98ce44d8b1b9c4&app_mode=mini-app" target="_blank" rel="noopener noreferrer">
-                <Button size="sm" className="w-full bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30 font-bold text-[9px] md:text-xs py-1 md:py-2">
-                  OPEN <ExternalLink className="ml-0.5 md:ml-1 h-2.5 w-2.5 md:h-3 md:w-3" />
-                </Button>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* ── WORLDCHAIN MINI-APP + TOP FANS ── */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 overflow-x-hidden">
-          <div className="rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-3 md:p-6 min-w-0 overflow-hidden">
-            <h2 className="text-sm md:text-lg font-black text-white mb-2 md:mb-4 tracking-tight truncate">PLAY ON WORLDCHAIN</h2>
-            <p className="text-[8px] md:text-xs text-white/50 mb-3 md:mb-4 line-clamp-2">Available on Worldchain</p>
-            <div className="grid grid-cols-1 gap-2 md:gap-3 mb-3 md:mb-5 w-full overflow-hidden">
-              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 hover:border-primary/40 transition-colors w-full max-w-full">
-                <img src="/worldapp-card-1.jpg" alt="World Ape" className="w-full h-auto max-h-20 object-cover" />
-              </div>
-              <div className="rounded-lg md:rounded-xl overflow-hidden border border-white/10 hover:border-primary/40 transition-colors w-full max-w-full">
-                <img src="/worldapp-card-2.jpg" alt="Space Apes" className="w-full h-auto max-h-20 object-cover" />
-              </div>
-            </div>
-            <a href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c" target="_blank" rel="noopener noreferrer" className="w-full block">
-              <Button className="w-full bg-primary text-black hover:bg-primary/90 font-black text-xs md:text-sm py-2 md:py-3">
-                OPEN APP
-              </Button>
-            </a>
-          </div>
-
-          <div className="rounded-lg md:rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-3 md:p-6 min-w-0 overflow-hidden">
-            <h2 className="text-sm md:text-lg font-black text-white mb-2 md:mb-4 tracking-tight truncate">TOP APE FANS</h2>
-            <div className="space-y-2 md:space-y-3">
-              <p className="text-[8px] md:text-xs text-white/50 line-clamp-2">Join the leaderboard</p>
-              {[
-                { icon: Users, text: "Custom avatars" },
-                { icon: Trophy, text: "Live rankings" },
-                { icon: Shield, text: "World ID verified" },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-2 md:gap-3 min-w-0">
-                  <div className="w-5 h-5 md:w-8 md:h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <item.icon className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-                  </div>
-                  <p className="text-[8px] md:text-xs text-white/70 truncate">{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-        {/* ── GAMES ── */}
-        <section>
-          <h2 className="text-2xl md:text-3xl font-black text-white mb-6 tracking-tight">FEATURED GAMES</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {games.map((game, i) => (
-              <div
-                key={i}
-                className={`group relative rounded-2xl border border-white/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl bg-gradient-to-b ${game.color} ${game.border}`}
-                onClick={() => setActiveGame(i)}
-              >
-                <div className="aspect-[3/4] relative overflow-hidden">
-                  <Image src={game.img} alt={game.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                  <span className="absolute top-2 left-2 text-[10px] font-black bg-primary text-black px-2 py-1 rounded-full">{game.badge}</span>
-                  <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <p className="text-xs font-black text-white tracking-wide">{game.title}</p>
-                    <p className="text-[10px] text-white/60 mt-0.5 leading-tight">{game.desc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── EARN + REWARDS bento row ── */}
-        <div className="grid md:grid-cols-3 gap-4">
-
-          {/* How to Earn */}
-          <div className="md:col-span-1 rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-6">
-            <h2 className="text-lg font-black text-white mb-5 tracking-tight">HOW TO EARN</h2>
-            <div className="space-y-3">
-              {[
-                { icon: Gift, title: "DAILY CLAIM", desc: "5 APE every 24h", color: "text-green-400", bg: "bg-green-500/10" },
-                { icon: Sparkles, title: "PARTY GAME", desc: "Free to play", color: "text-purple-400", bg: "bg-purple-500/10" },
-                { icon: Gamepad2, title: "SPACE APE", desc: "Free to play", color: "text-blue-400", bg: "bg-blue-500/10" },
-                { icon: Trophy, title: "LUCKY WHEEL", desc: "Win 1–10 WLD", color: "text-yellow-400", bg: "bg-yellow-500/10" },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-white/15 transition-colors group cursor-default">
-                  <div className={`w-9 h-9 rounded-xl ${item.bg} flex items-center justify-center`}>
-                    <item.icon className={`h-4 w-4 ${item.color}`} />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-white">{item.title}</p>
-                    <p className="text-[11px] text-white/50">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Weekly Rewards */}
-          <div className="md:col-span-2 rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-6">
-            <h2 className="text-lg font-black text-white mb-5 tracking-tight">WEEKLY REWARDS</h2>
-            <div className="grid sm:grid-cols-2 gap-4 h-[calc(100%-3rem)]">
-              {[
-                { title: "PARTY RHYTHM GAME", prize: "10 WLD", desc: "Top scorer each week", color: "border-purple-500/30 hover:border-purple-500/60 from-purple-500/10" },
-                { title: "SPACE APE GAME", prize: "10 WLD", desc: "Top scorer each week", color: "border-blue-500/30 hover:border-blue-500/60 from-blue-500/10" },
-              ].map((r, i) => (
-                <div key={i} className={`rounded-xl border bg-gradient-to-br ${r.color} to-transparent p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-[1.02]`}>
-                  <div className="w-14 h-14 rounded-full bg-yellow-500/10 flex items-center justify-center mb-3">
-                    <Trophy className="h-7 w-7 text-yellow-400" />
-                  </div>
-                  <p className="text-4xl font-black text-primary mb-1">{r.prize}</p>
-                  <p className="text-xs font-bold text-white tracking-wide">{r.title}</p>
-                  <p className="text-[11px] text-white/40 mt-1">{r.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ── STAKING bento row ── */}
-        <div className="grid lg:grid-cols-5 gap-4">
-
-          {/* APY Card */}
-          <div className="lg:col-span-2 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 to-black/30 backdrop-blur-sm p-6 flex flex-col items-center justify-center text-center">
-            <Shield className="h-10 w-10 text-primary mb-3" />
-            <p className="text-7xl font-black text-primary leading-none">49.5%</p>
-            <p className="text-xl font-bold text-white mt-1">APY</p>
-            <p className="text-xs text-white/50 mt-2">60 DAYS LOCKUP PERIOD</p>
-            <div className="mt-6 w-full space-y-2 text-left">
-              {["Stake APE in ANI Wallet", "Lock for 60 days", "Earn rewards automatically"].map((s, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <span className="w-5 h-5 rounded-full bg-primary/20 text-primary text-[10px] font-black flex items-center justify-center">{i + 1}</span>
-                  <span className="text-xs text-white/60">{s}</span>
-                </div>
-              ))}
-            </div>
-            <a href="https://worldcoin.org/mini-app?app_id=app_4593f73390a9843503ec096086b43612&app_mode=mini-app" target="_blank" rel="noopener noreferrer" className="w-full mt-6">
-              <Button className="w-full bg-primary text-black hover:bg-primary/90 font-black text-sm">
-                OPEN ANI WALLET <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </a>
-          </div>
-
-          {/* Pool Stats */}
-          <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-6">
-            <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-black text-white tracking-tight">APE STAKING POOL #35</h2>
-              <span className="text-[10px] font-bold bg-primary/20 text-primary px-2 py-1 rounded-full">LIVE</span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-5">
-              {poolStats.map((stat, i) => (
-                <div key={i} className="rounded-xl border border-white/8 bg-white/5 p-4 hover:bg-white/10 transition-colors">
-                  <stat.icon className="h-4 w-4 text-primary mb-2" />
-                  <p className="text-lg font-black text-primary">{stat.value}</p>
-                  <p className="text-[10px] text-white/50 font-semibold">{stat.label}</p>
-                  <p className="text-[10px] text-white/30">{stat.sub}</p>
-                </div>
-              ))}
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-xl overflow-hidden border border-white/10">
-                <img src="/staking-pool-1.jpg" alt="Staking Pool" className="w-full h-28 object-cover object-top" />
-              </div>
-              <div className="rounded-xl overflow-hidden border border-white/10">
-                <img src="/staking-pool-2.jpg" alt="Staking Stats" className="w-full h-28 object-cover object-top" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── TOKENOMICS + PUF WALLET ── */}
-        <div className="grid lg:grid-cols-5 gap-4">
-          <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-6">
-            <div className="flex items-center justify-between mb-5">
-              <div>
-                <h2 className="text-lg font-black text-white">TOKENOMICS</h2>
-                <p className="text-xs text-white/40">Total Supply: 100,000,000 APE</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3 mb-5">
-              {tokenomics.map((item, i) => (
-                <div key={i} className={`rounded-xl border ${item.bg} p-4 hover:scale-[1.02] transition-transform cursor-default`}>
-                  <item.icon className={`h-5 w-5 ${item.color} mb-2`} />
-                  <p className={`text-3xl font-black ${item.color}`}>{item.percent}</p>
-                  <p className="text-xs font-bold text-white mt-1">{item.label}</p>
-                  <p className="text-[10px] text-white/40">{item.sub}</p>
-                </div>
-              ))}
-            </div>
-            <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-4 flex items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-bold text-white">TOKENS LOCKED IN PUF WALLET</p>
-                <p className="text-[11px] text-white/40 mt-0.5">50% securely locked on Worldchain for transparency</p>
-              </div>
-              <a href="https://worldcoin.org/mini-app?app_id=app_e5ba7c3061400e361f98ce44d8b1b9c4&app_mode=mini-app" target="_blank" rel="noopener noreferrer" className="shrink-0">
-                <Button size="sm" className="bg-green-500 hover:bg-green-400 text-black font-black text-xs">VIEW LOCK <ExternalLink className="ml-1 h-3 w-3" /></Button>
-              </a>
-            </div>
-          </div>
-
-          <div className="lg:col-span-2 rounded-2xl overflow-hidden border border-white/10 relative group">
-            <img src="/puf-wallet.jpg" alt="PUF Wallet" className="w-full h-full object-cover object-top" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4">
-              <p className="text-xs font-black text-white tracking-widest mb-2">PUF WALLET</p>
-              <a href="https://worldcoin.org/mini-app?app_id=app_e5ba7c3061400e361f98ce44d8b1b9c4&app_mode=mini-app" target="_blank" rel="noopener noreferrer">
-                <Button size="sm" className="w-full bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30 font-bold text-xs">
-                  OPEN PUF WALLET <ExternalLink className="ml-1 h-3 w-3" />
-                </Button>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* ── WORLDCHAIN MINI-APP + TOP FANS ── */}
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-6">
-            <h2 className="text-lg font-black text-white mb-4 tracking-tight">PLAY ON WORLDCHAIN</h2>
-            <p className="text-xs text-white/50 mb-4">World Ape is officially available as a mini-app on Worldchain</p>
-            <div className="grid grid-cols-2 gap-3 mb-5">
-              <div className="rounded-xl overflow-hidden border border-white/10 hover:border-primary/40 transition-colors">
-                <img src="/worldapp-card-1.jpg" alt="World Ape Mini-App" className="w-full h-full object-cover" />
-              </div>
-              <div className="rounded-xl overflow-hidden border border-white/10 hover:border-primary/40 transition-colors">
-                <img src="/worldapp-card-2.jpg" alt="Space Apes on Worldchain" className="w-full h-full object-cover" />
-              </div>
-            </div>
-            <a href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c" target="_blank" rel="noopener noreferrer">
-              <Button className="w-full bg-primary text-black hover:bg-primary/90 font-black">
-                <Sparkles className="mr-2 h-4 w-4" />OPEN ON WORLDCHAIN
-              </Button>
-            </a>
-          </div>
-
-          <div className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-6">
-            <h2 className="text-lg font-black text-white mb-4 tracking-tight">TOP APE FANS</h2>
-            <div className="flex gap-4">
-              <div className="flex-1 space-y-3">
-                <p className="text-xs text-white/50 leading-relaxed">Join the leaderboard and showcase your APE holdings. Compete with the community for top spots.</p>
-                {[
-                  { icon: Users, text: "Custom profile avatars" },
-                  { icon: Trophy, text: "Live rankings weekly" },
-                  { icon: Shield, text: "World ID verified" },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <item.icon className="h-4 w-4 text-primary" />
-                    </div>
-                    <span className="text-xs text-white/70 font-medium">{item.text}</span>
-                  </div>
-                ))}
-                <a href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c" target="_blank" rel="noopener noreferrer" className="block pt-2">
-                  <Button className="w-full bg-primary text-black hover:bg-primary/90 font-black text-sm">
-                    VIEW LEADERBOARD <ChevronRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </a>
-              </div>
-              <div className="w-36 rounded-xl overflow-hidden border border-white/10 shrink-0">
-                <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-01%20at%2018.15.28%20%281%29-IT7tnHmTRZmamisza7BNVPlhGd6AS6.jpeg"
-                  alt="Top Ape Fans"
-                  width={144}
-                  height={256}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── LIVE CHART ── */}
-        <section>
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className="text-lg font-black text-white">LIVE PRICE CHART</h2>
-              <p className="text-xs text-white/40">APE/WLD on World Chain</p>
-            </div>
-            <a href="https://dexscreener.com/worldchain/0x77a26739f06d9abcf8465aa11ff2f772eb045540" target="_blank" rel="noopener noreferrer" className="text-xs text-white/50 hover:text-white flex items-center gap-1 transition-colors">
-              DEX Screener <ExternalLink className="h-3 w-3" />
-            </a>
-          </div>
-          <div className="rounded-2xl overflow-hidden border border-white/10">
-            <iframe
-              src="https://dexscreener.com/worldchain/0x77a26739f06d9abcf8465aa11ff2f772eb045540?embed=1&theme=dark&info=0"
-              className="w-full h-[450px]"
-              title="DEX Screener Chart"
-            />
-          </div>
-        </section>
-
-        {/* ── CONTRACT ── */}
-        <div className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-5 text-center">
-          <p className="text-[10px] font-black text-white/40 tracking-widest mb-3">CONTRACT ADDRESS</p>
-          <code className="text-sm font-mono text-white/80 break-all">0x13e20981D9bd3dC45e99802f06488C5AD7c28360</code>
-        </div>
-
-      </div>
-
-      {/* ─── FINAL CTA ─── */}
-      <section className="py-20 px-4 bg-gradient-to-t from-primary/10 to-transparent">
-        <div className="container mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-3">START PLAYING TODAY</h2>
-          <p className="text-white/50 mb-8">Open World Ape in the World App and start earning APE tokens now.</p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="https://world.org/ecosystem/app_daa4586c54e6f7f1d16cd573d96ad83c" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-primary text-black hover:bg-primary/90 w-full sm:w-auto text-base px-8 font-black">
-                <Gamepad2 className="mr-2 h-5 w-5" />OPEN MINI APP
-              </Button>
-            </a>
-            <a href="https://world.org/download" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto text-base px-8 font-bold border-white/20 text-white hover:bg-white/10">
-                <ExternalLink className="mr-2 h-5 w-5" />GET WORLD APP
-              </Button>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── FOOTER ─── */}
-      <footer className="py-10 px-4 border-t border-white/10">
-        <div className="container mx-auto max-w-5xl flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <Image src="/images/world-ape-hero.png" alt="World Ape" width={32} height={32} className="rounded-full" />
-            <span className="font-black text-lg text-white">WORLD APE</span>
-          </div>
-          <div className="flex items-center gap-6">
-            <Link href="/roadmap" className="text-xs font-bold text-white/40 hover:text-white transition-colors">ROADMAP</Link>
-            <a href="https://www.geckoterminal.com/world-chain/pools/0x77a26739f06d9abcf8465aa11ff2f772eb045540" target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-white/40 hover:text-white transition-colors">GECKOTERMINAL</a>
-            <a href="https://x.com/hellowldcoin" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
-            </a>
-            <a href="https://t.me/WLD_APE" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" /></svg>
-            </a>
-          </div>
-        </div>
-        <div className="container mx-auto max-w-5xl mt-6 pt-6 border-t border-white/10 text-center">
-          <p className="text-[11px] text-white/30">2025 WORLD APE. This is a meme coin with no intrinsic value or expectation of financial return.</p>
-        </div>
-      </footer>
-
+      {selectedItem && <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 p-5 backdrop-blur-md" role="dialog" aria-modal="true" aria-label={`${selectedItem[0]} details`} onClick={() => setSelectedItem(null)}><div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-cyan-300/40 bg-slate-950 shadow-[0_0_80px_rgba(34,211,238,.2)]" onClick={(event) => event.stopPropagation()}><button type="button" onClick={() => setSelectedItem(null)} className="absolute right-4 top-4 z-10 rounded-full border border-white/20 bg-slate-950/80 px-3 py-2 font-mono text-xs font-bold tracking-widest text-white transition hover:border-cyan-300 hover:text-cyan-200" aria-label="Close item details">CLOSE</button><div className="relative flex h-72 items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-950 to-fuchsia-950/60 p-8"><div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.04)_1px,transparent_1px)] bg-[size:22px_22px]" /><Image src={asset(selectedItem[2])} alt={selectedItem[0]} width={420} height={280} className="relative h-full w-full object-contain" /></div><div className="p-6 sm:p-8"><div className="flex items-start justify-between gap-4"><div><p className="font-mono text-[10px] tracking-[.25em] text-cyan-300">WORLD APE ITEM</p><h2 className="mt-2 text-3xl font-black tracking-tight text-white">{selectedItem[0]}</h2></div><span className="rounded-full border border-fuchsia-300/40 bg-fuchsia-300/10 px-3 py-2 font-mono text-xs font-black tracking-widest text-fuchsia-200">{selectedItem[1]}</span></div><div className="mt-7 grid grid-cols-2 gap-3"><div className="rounded-xl border border-white/10 bg-white/[.04] p-4"><span className="block font-mono text-[10px] tracking-widest text-slate-500">STAT TYPE</span><strong className="mt-2 block text-lg text-cyan-200">{selectedItem[1] === "DEF" ? "DEFENCE" : selectedItem[1] === "ATK" ? "ATTACK" : selectedItem[1]}</strong></div><div className="rounded-xl border border-white/10 bg-white/[.04] p-4"><span className="block font-mono text-[10px] tracking-widest text-slate-500">ASSET</span><strong className="mt-2 block truncate text-sm text-white">PNG LOADED</strong></div></div><p className="mt-6 text-sm leading-6 text-slate-400">Review this loadout item before choosing your next move. Click outside the card or use CLOSE to return to the arsenal.</p></div></div></div>}
     </main>
   )
 }
