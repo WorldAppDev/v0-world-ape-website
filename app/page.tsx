@@ -26,6 +26,44 @@ const steps = [
   ["04", "Attack and defend", "Battle for Titanite and improve your base."],
 ]
 
+const loadoutGroups = [
+  {
+    label: "ATTACK GEAR",
+    accent: "text-fuchsia-300",
+    items: [
+      ["Banana Bomb", "ATK 18", "A compact blast for opening a breach.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/world-ape-attack-banana-bomb.png"],
+      ["Plasma Cannon", "ATK 42", "Focused plasma for fortified targets.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/space-ape-attack-plasma-cannon.png"],
+      ["Space Gorilla Mech", "ATK 88", "Heavy impact when subtlety is not the plan.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/world-ape-attack-space-gorilla-mech.png"],
+    ],
+  },
+  {
+    label: "DEFENCE GEAR",
+    accent: "text-cyan-300",
+    items: [
+      ["Energy Shield", "DEF 24", "Absorb the first strike and hold the line.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/world-ape-defence-energy-shield.png"],
+      ["Rocket Turret", "DEF 51", "Automated firepower for incoming attackers.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/world-ape-defence-rocket-turret.png"],
+      ["Meteor Barrier", "DEF 76", "A last line of defence for serious threats.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/world-ape-defence-meteor-barrier.png"],
+    ],
+  },
+  {
+    label: "FORTRESS BASES",
+    accent: "text-amber-300",
+    items: [
+      ["Base Level 1", "TIER 01", "Start small, scout the arena, and build up.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/world-ape-base-level-1.png"],
+      ["Base Level 8", "TIER 08", "A growing fortress with room for stronger gear.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/world-ape-base-level-8.png"],
+      ["Base Level 26", "TIER 26", "The endgame stronghold built to be challenged.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/world-ape-base-level-26.png"],
+    ],
+  },
+  {
+    label: "RESOURCES",
+    accent: "text-lime-300",
+    items: [
+      ["Titanite", "LOOT", "Claimed from victories and invested into your base.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/titanite.png"],
+      ["Plasma", "FUEL", "Power battles, scouting, and your next move.", "https://pub-1c4eed914ff74398b885854987ee78fa.r2.dev/plasma.png"],
+    ],
+  },
+] as const
+
 export default function HomePage() {
   return (
     <main className="overflow-hidden">
@@ -43,6 +81,8 @@ export default function HomePage() {
       <section id="game" className="border-y border-white/10 bg-black/20 px-5 py-20 sm:px-8 lg:py-28"><div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-end"><div><p className="font-mono text-xs font-bold tracking-[.3em] text-cyan-300">01 // THE MISSION</p><h2 className="mt-4 max-w-lg text-4xl font-black tracking-[-.04em] text-white sm:text-6xl">A STRATEGY GAME<br /><span className="text-fuchsia-400">IN ORBIT.</span></h2></div><p className="max-w-2xl text-lg leading-8 text-slate-300">The arena is connected. Build a fortress, improve Attack and Defence, buy the right equipment, then take your shot. Every decision changes your next battle.</p></div><div className="mx-auto mt-14 grid max-w-7xl gap-4 sm:grid-cols-3"><div className="rounded-2xl border border-white/10 bg-white/[.04] p-6"><Zap className="h-6 w-6 text-cyan-300" /><h3 className="mt-8 font-bold text-white">PLASMA</h3><p className="mt-2 text-sm leading-6 text-slate-400">Fuel for battles and optional scouting.</p></div><div className="rounded-2xl border border-white/10 bg-white/[.04] p-6"><Gem className="h-6 w-6 text-amber-300" /><h3 className="mt-8 font-bold text-white">TITANITE</h3><p className="mt-2 text-sm leading-6 text-slate-400">Loot from victories. Invest it into your fortress.</p></div><div className="rounded-2xl border border-white/10 bg-white/[.04] p-6"><Trophy className="h-6 w-6 text-fuchsia-300" /><h3 className="mt-8 font-bold text-white">BATTLE POINTS</h3><p className="mt-2 text-sm leading-6 text-slate-400">A record of your progress in the arena.</p></div></div></section>
 
       <section id="features" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28"><div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="font-mono text-xs font-bold tracking-[.3em] text-fuchsia-300">02 // LOADOUT</p><h2 className="mt-4 text-4xl font-black tracking-[-.04em] text-white sm:text-6xl">PLAY YOUR<br /><span className="text-cyan-300">ANGLE.</span></h2></div><p className="max-w-md text-sm leading-6 text-slate-400">Nine systems. Infinite ways to become the player nobody wants to face.</p></div><div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{features.map(([Icon, title, copy]) => <article key={title} className="group rounded-2xl border border-white/10 bg-white/[.03] p-5 transition hover:-translate-y-1 hover:border-cyan-300/50 hover:bg-cyan-300/[.06]"><Icon className="h-5 w-5 text-cyan-300 transition group-hover:text-fuchsia-300" /><h3 className="mt-8 text-sm font-bold text-white">{title}</h3><p className="mt-2 text-xs leading-5 text-slate-400">{copy}</p></article>)}</div><div className="mt-4 rounded-2xl border border-dashed border-fuchsia-400/30 bg-fuchsia-400/[.04] p-5"><p className="font-mono text-xs font-bold tracking-widest text-fuchsia-300">INCOMING // TOWER DEFENCE</p><p className="mt-2 text-sm text-slate-400">A new way to defend your territory is coming soon.</p></div></section>
+
+      <section id="loadout" className="border-y border-white/10 bg-[radial-gradient(circle_at_top,rgba(88,28,135,.24),transparent_55%)] px-5 py-20 sm:px-8 lg:py-28"><div className="mx-auto max-w-7xl"><div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="font-mono text-xs font-bold tracking-[.3em] text-fuchsia-300">02 // WORLD APE LOADOUT</p><h2 className="mt-4 text-4xl font-black tracking-[-.04em] text-white sm:text-6xl">SEE YOUR<br /><span className="text-cyan-300">ARSENAL.</span></h2></div><p className="max-w-md text-sm leading-6 text-slate-400">Real equipment, real resources, and real fortress tiers. Build a loadout that fits your battle plan.</p></div><div className="mt-12 space-y-12">{loadoutGroups.map((group) => <div key={group.label}><div className="mb-4 flex items-center gap-3"><span className={`font-mono text-xs font-bold tracking-[.25em] ${group.accent}`}>{group.label}</span><span className="h-px flex-1 bg-white/10" /></div><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{group.items.map(([name, stat, description, image]) => <article key={name} className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/50 hover:shadow-[0_18px_50px_rgba(34,211,238,.12)]"><div className="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-950/80 via-slate-950 to-fuchsia-950/40 p-5"><div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.04)_1px,transparent_1px)] bg-[size:22px_22px]" /><img src={image} alt={name} loading="lazy" className="relative h-full w-full object-contain transition duration-500 group-hover:scale-110" /></div><div className="p-5"><div className="flex items-start justify-between gap-3"><h3 className="text-sm font-bold text-white">{name}</h3><span className="shrink-0 rounded-full border border-white/15 px-2 py-1 font-mono text-[9px] font-bold tracking-widest text-cyan-200">{stat}</span></div><p className="mt-3 text-xs leading-5 text-slate-400">{description}</p></div></article>)}</div></div>)}</div></div></section>
 
       <section className="border-y border-white/10 bg-indigo-950/20 px-5 py-20 sm:px-8 lg:py-28"><div className="mx-auto max-w-7xl"><p className="font-mono text-xs font-bold tracking-[.3em] text-cyan-300">03 // THE LOOP</p><h2 className="mt-4 text-4xl font-black tracking-[-.04em] text-white sm:text-6xl">MAKE A MOVE.<br /><span className="text-fuchsia-400">MAKE IT COUNT.</span></h2><div className="mt-14 grid gap-4 md:grid-cols-4">{steps.map(([number, title, copy]) => <div key={number} className="relative border-l border-cyan-300/30 pl-5"><span className="font-mono text-xs text-cyan-300">{number}</span><h3 className="mt-8 font-bold text-white">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-400">{copy}</p></div>)}</div></div></section>
 
